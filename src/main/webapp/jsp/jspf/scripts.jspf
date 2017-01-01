@@ -1,0 +1,16 @@
+<script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+<script>
+    $(function() {
+        $( "#datepicker,#datepicker1" ).datepicker();
+    });
+</script>
+<!-- search-scripts -->
+<script src="${pageContext.request.contextPath}/resources/js/classie.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/uisearch.js"></script>
+<script>
+    new UISearch( document.getElementById( 'sb-search' ) );
+</script>
+<!-- //search-scripts -->
