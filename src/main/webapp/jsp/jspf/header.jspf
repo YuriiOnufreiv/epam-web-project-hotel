@@ -3,6 +3,12 @@
         <div class="logo">
             <h1><a href="/jsp/main_client.jsp">Hotel</a></h1>
         </div>
+        <div class="locale-border">
+            <ul id="locale-list">
+                <li><a href="rooms.html">EN</a></li>
+                <li><a href="rooms.html">UA</a></li>
+            </ul>
+        </div>
         <nav class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -18,11 +24,11 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/jsp/main_client.jsp">Home</a></li>
                     <li><a href="rooms.html">Rooms</a></li>
-                    <li><a href="offers.html">Reservations</a></li>
+                    <li><a href="/jsp/reservation.jsp">Reservations</a></li>
                     <!--<li><a href="shortcodes.html">Short Codes</a></li>-->
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
-                            <li><a href="hotel?command=logout">Sign Out</a></li>
+                            <li><a href="/hotel?command=logout">Sign Out</a></li>
                             <li><a href="">${sessionScope.user.name} ${sessionScope.user.surname}</a></li>
                         </c:when>
                         <c:otherwise>

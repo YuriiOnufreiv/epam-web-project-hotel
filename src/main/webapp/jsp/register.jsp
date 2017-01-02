@@ -14,12 +14,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <%@ include file="jspf/scripts.jspf" %>
 </head>
 <body>
-<!-- banner -->
-<!--<div class="banner1">-->
-    <%@ include file="jspf/header.jspf" %>
-<!--</div>-->
-<!-- banner -->
-<!-- registration -->
+<%@ include file="jspf/header.jspf" %>
 <div class="main-1">
     <div class="container">
         <div class="register">
@@ -29,19 +24,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <h3>PERSONAL INFORMATION</h3>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span>First Name<label>*</label></span>
-                        <input input name="first_name" required="required" type="text" value="${requestScope.first_name}" placeholder="Taras">
+                        <input input name="first_name" required="required" type="text"
+                               value="${requestScope.first_name}" placeholder="Taras">
                     </div>
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
                         <span>Last Name<label>*</label></span>
-                        <input name="last_name" required="required" type="text" value="${requestScope.last_name}" placeholder="Shevchenko" />
+                        <input name="last_name" required="required" type="text" value="${requestScope.last_name}"
+                               placeholder="Shevchenko"/>
                     </div>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span>Email Address<label>*</label></span>
-                        <input name="email" required="required" type="email" value="${requestScope.email}" placeholder="shevchenko@mail.com"/>
+                        <input name="email" required="required" type="email" value="${requestScope.email}"
+                               placeholder="shevchenko@mail.com"/>
                     </div>
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
                         <span>Phone Number<label>*</label></span>
-                        <input name="telephone" required="required" type="tel" value="${requestScope.telephone}" maxlength="12" placeholder="eg. 380977767760"/>
+                        <input name="telephone" required="required" type="tel" value="${requestScope.telephone}"
+                               maxlength="12" placeholder="eg. 380977767760"/>
                     </div>
                 </div>
                 <div class="register-bottom-grid">
@@ -52,14 +51,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <c:if test="${not empty requestScope.emailError}">
-                    <label class="error">User with such email already exists</label><br/>
-                </c:if>
-                <c:if test="${not empty requestScope.phoneError}">
-                    <label class="error">Invalid phone number</label><br/>
-                </c:if>
-                <c:if test="${not empty requestScope.passwordError}">
-                    <label class="error">Password doesn't meet requirements</label><br/>
+                <c:if test="${not empty requestScope.emailError or not empty requestScope.phoneError
+                                or not empty requestScope.passwordError}">
+                    <div class="grid_3 grid_5">
+                        <div class="alert alert-danger" role="alert">
+                            <ul style="padding-left: 25px;">
+                            <c:if test="${not empty requestScope.emailError}">
+                                <li><strong>User with such email already exists</strong></li>
+                            </c:if>
+                            <c:if test="${not empty requestScope.phoneError}">
+                                <li><strong>Invalid phone number</strong></li>
+                            </c:if>
+                            <c:if test="${not empty requestScope.passwordError}">
+                                <li><strong>Password doesn't meet requirements</strong></li>
+                            </c:if>
+                            </ul>
+                        </div>
+                    </div>
                 </c:if>
                 <div class="register-but">
                     <form>
@@ -71,7 +79,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </div>
 </div>
-<!-- registration -->
 <!-- footer -->
 <%@ include file="jspf/footer.jspf" %>
 <!-- footer -->

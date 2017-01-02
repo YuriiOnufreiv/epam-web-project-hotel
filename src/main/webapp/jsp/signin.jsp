@@ -42,19 +42,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <span>Password<label>*</label></span>
                         <input name="password" required="required" type="password">
                     </div>
-                    <c:if test="${not empty requestScope.errorMessage}">
-                        <label class="error">Invalid username or password</label><br/>
-                    </c:if>
                     <!--<a class="forgot" href="#">Forgot Your Password?</a>-->
                     <input type="submit" value="Login">
                 </form>
+                <c:if test="${not empty requestScope.errorMessage}">
+                    <div class="grid_3 grid_5">
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Oh snap!</strong> Invalid username or password
+                        </div>
+                    </div>
+                </c:if>
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
 </div>
 <!-- footer -->
-<%@ include file="jspf/footer.jspf"%>
+<%@ include file="jspf/footer.jspf" %>
 <!-- footer -->
 </body>
 </html>
