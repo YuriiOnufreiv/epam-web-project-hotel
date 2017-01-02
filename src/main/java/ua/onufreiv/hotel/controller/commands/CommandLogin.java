@@ -27,10 +27,6 @@ public class CommandLogin implements ICommand {
         User user = authService.authenticate(login, pass);
         HttpSession session = request.getSession(false);
         if (user != null && session != null) {
-//            session.setAttribute("usr_name", user.getName());
-//            session.setAttribute("usr_surname", user.getSurname());
-//            session.setAttribute("usr_email", user.getEmail());
-//            session.setAttribute("usr_tel", user.getTelephone());
             session.setAttribute("user", user);
             page = PathConfig.getInstance().getProperty(PathConfig.MAIN_PAGE_PATH);
         } else {

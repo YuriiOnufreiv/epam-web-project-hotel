@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.service.impl;
+package ua.onufreiv.hotel.service;
 
 import ua.onufreiv.hotel.entities.PasswordHash;
 import ua.onufreiv.hotel.entities.User;

@@ -19,6 +19,7 @@ public class ControllerHelper {
         commands.put("login", new CommandLogin());
         commands.put("logout", new CommandLogout());
         commands.put("register", new CommandRegister());
+        commands.put("reservation", new CommandReservation());
     }
 
     public static ControllerHelper getInstance() {

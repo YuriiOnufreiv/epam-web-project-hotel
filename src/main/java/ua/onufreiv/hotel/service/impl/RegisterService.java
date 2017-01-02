@@ -1,11 +1,11 @@
-package ua.onufreiv.hotel.controller.commands;
+package ua.onufreiv.hotel.service.impl;
 
 import ua.onufreiv.hotel.dao.DaoFactory;
 import ua.onufreiv.hotel.dao.IPasswordDao;
 import ua.onufreiv.hotel.dao.IUserDao;
 import ua.onufreiv.hotel.entities.PasswordHash;
 import ua.onufreiv.hotel.entities.User;
-import ua.onufreiv.hotel.service.impl.IRegisterService;
+import ua.onufreiv.hotel.service.IRegisterService;
 
 /**
  * Created by yurii on 1/1/17.

@@ -12,6 +12,7 @@ public class PathConfig {
     public static final String LOGIN_PAGE_PATH = "LOGIN_PAGE_PATH";
     public static final String MAIN_PAGE_PATH = "MAIN_PAGE_PATH";
     public static final String REGISTER_PAGE_PATH = "REGISTER_PAGE_PATH";
+    public static final String RESERVATION_PAGE_PATH = "RESERVATION_PAGE_PATH";
     private static final String BUNDLE_NAME = "paths";
 
     private static PathConfig instance;

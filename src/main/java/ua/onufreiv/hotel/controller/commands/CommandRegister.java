@@ -3,15 +3,14 @@ package ua.onufreiv.hotel.controller.commands;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entities.PasswordHash;
 import ua.onufreiv.hotel.entities.User;
-import ua.onufreiv.hotel.service.impl.IRegisterService;
+import ua.onufreiv.hotel.service.IRegisterService;
+import ua.onufreiv.hotel.service.impl.RegisterService;
 import ua.onufreiv.hotel.util.PasswordEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by yurii on 12/29/16.
