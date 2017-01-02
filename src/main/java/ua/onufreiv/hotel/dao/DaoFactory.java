@@ -7,6 +7,7 @@ import ua.onufreiv.hotel.dao.mysql.MySqlDaoFactory;
  */
 public abstract class DaoFactory {
 
+
     // List of DAO types supported by the factory
     public enum FactoryType {
         MYSQL_DB;
@@ -17,8 +18,8 @@ public abstract class DaoFactory {
     // implement these methods.
     public abstract IUserDao getUserDAO();
     public abstract IPasswordDao getPasswordDAO();
+    public abstract IFormDao getFormDao();
 //    public abstract IUserRoleDAO getUserRoleDAO();
-//    public abstract IFormDAO getFormDAO();
 //    public abstract IBillDAO getBillDAO();
 //    public abstract IRoomTypeDAO getRoomTypeDAO();
 //    public abstract IRoomDAO getRoomDAO();

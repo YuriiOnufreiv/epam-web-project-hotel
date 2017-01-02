@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.dao.mysql;
 
+import ua.onufreiv.hotel.dao.IFormDao;
 import ua.onufreiv.hotel.jdbc.JdbcDatabase;
 import ua.onufreiv.hotel.dao.DaoFactory;
 import ua.onufreiv.hotel.dao.IPasswordDao;
@@ -23,5 +24,10 @@ public class MySqlDaoFactory extends DaoFactory {
     @Override
     public IPasswordDao getPasswordDAO() {
         return new MySqlPasswordDao(jdbcDatabase);
+    }
+
+    @Override
+    public IFormDao getFormDao() {
+        return new MySqlFormDao(jdbcDatabase);
     }
 }
