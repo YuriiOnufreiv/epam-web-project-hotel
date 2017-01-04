@@ -29,7 +29,7 @@ public class CommandReservation implements ICommand {
         IClientService reservationService = new ClientService();
 
         Integer totalPersons = Integer.valueOf(request.getParameter(PARAM_NAME_TOTAL_PERSONS));
-        String roomType = request.getParameter(PARAM_NAME_ROOM_TYPE);
+        Integer roomType = Integer.valueOf(request.getParameter(PARAM_NAME_ROOM_TYPE));
         String checkInDateString = request.getParameter(PARAM_NAME_CHECK_IN_DATE);
         String checkOutDateString = request.getParameter(PARAM_NAME_CHECK_OUT_DATE);
         User user = (User) request.getSession(false).getAttribute("user");
@@ -41,6 +41,7 @@ public class CommandReservation implements ICommand {
             checkOutDate = df.parse(checkOutDateString);
             if(checkInDate.compareTo(checkOutDate) > 0) {
                 request.setAttribute("invalidDates", "true");
+                request.setAttribute(PARAM_NAME_ROOM_TYPE, roomType.toString());
                 request.setAttribute(PARAM_NAME_TOTAL_PERSONS, totalPersons);
                 return PathConfig.getInstance().getProperty(PathConfig.NEW_BOOK_REQUEST_PAGE_PATH);
             }
@@ -48,7 +49,7 @@ public class CommandReservation implements ICommand {
             e.printStackTrace();
         }
 
-        BookRequest form = new BookRequest(0, user.getId(), totalPersons, 1, checkInDate, checkOutDate, false);
+        BookRequest form = new BookRequest(0, user.getId(), totalPersons, roomType, checkInDate, checkOutDate, false);
         reservationService.makeNewReservation(form);
 
         request.setAttribute("successfulReserve", "true");

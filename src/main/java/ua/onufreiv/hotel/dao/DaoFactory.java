@@ -8,22 +8,6 @@ import ua.onufreiv.hotel.dao.mysql.MySqlDaoFactory;
 public abstract class DaoFactory {
 
 
-    // List of DAO types supported by the factory
-    public enum FactoryType {
-        MYSQL_DB;
-    }
-
-    // There will be a method for each DAO that can be
-    // created. The concrete factories will have to
-    // implement these methods.
-    public abstract IUserDao getUserDAO();
-    public abstract IPasswordDao getPasswordDAO();
-    public abstract IBookRequestDao getBookRequestDao();
-//    public abstract IUserRoleDAO getUserRoleDAO();
-//    public abstract IBillDAO getBillDAO();
-//    public abstract IRoomTypeDAO getRoomTypeDAO();
-//    public abstract IRoomDAO getRoomDAO();
-
     public static DaoFactory getDAOFactory(FactoryType whichFactory) {
         switch (whichFactory) {
             case MYSQL_DB:
@@ -31,5 +15,25 @@ public abstract class DaoFactory {
             default:
                 return null;
         }
+    }
+
+    // There will be a method for each DAO that can be
+    // created. The concrete factories will have to
+    // implement these methods.
+    public abstract IUserDao getUserDAO();
+
+    public abstract IPasswordDao getPasswordDAO();
+
+    public abstract IBookRequestDao getBookRequestDao();
+
+    public abstract IRoomTypeDao getRoomTypeDAO();
+
+//    public abstract IUserRoleDAO getUserRoleDAO();
+//    public abstract IBillDAO getBillDAO();
+//    public abstract IRoomDAO getRoomDAO();
+
+    // List of DAO types supported by the factory
+    public enum FactoryType {
+        MYSQL_DB;
     }
 }
