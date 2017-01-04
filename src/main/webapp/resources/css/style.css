@@ -285,8 +285,16 @@ nav.navbar.navbar-default {
 }
 
 .details-1 {
-    padding: 2em 0 1em;
+    padding: 1em 0 1em;
     background-color: rgb(42, 43, 42);
+}
+
+.top-right {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    margin-top: 100px;
+    padding: 15px 15px;
 }
 
 .input-group {
@@ -325,7 +333,7 @@ nav.navbar.navbar-default {
     border: none;
     width: 100%;
     background: #553a99;
-    padding: 9px 0px;
+    /*padding: 9px 0px;*/
     outline: none;
 }
 
@@ -395,7 +403,7 @@ input#datepicker, input#datepicker1 {
 }
 
 span {
-    color: #6cbc35;
+    color: white;
 }
 
 .special {
@@ -1449,7 +1457,7 @@ h3.title {
 
 .grid_5 h3, .grid_5 h2, .grid_5 h1, .grid_5 h4, .grid_5 h5, h3.hdg, h3.bars {
     margin-bottom: 1em;
-    color: #D5D5D5;
+    /*color: #D5D5D5;*/
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -1511,7 +1519,7 @@ section#tables p {
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     font-size: 0.9em;
-    color: #999;
+    /*color: #D5D5D5;*/
     border-top: none !important;
 }
 
