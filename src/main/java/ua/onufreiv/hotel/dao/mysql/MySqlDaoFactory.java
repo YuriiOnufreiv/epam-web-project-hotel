@@ -7,10 +7,18 @@ import ua.onufreiv.hotel.jdbc.JdbcDatabase;
  * Created by yurii on 12/23/16.
  */
 public class MySqlDaoFactory extends DaoFactory {
+    private static MySqlDaoFactory instance;
     private JdbcDatabase jdbcDatabase;
 
-    public MySqlDaoFactory() {
+    private MySqlDaoFactory() {
         jdbcDatabase = new JdbcDatabase("jdbc:mysql://localhost:3306/hotel", "root", "root");
+    }
+
+    public static synchronized MySqlDaoFactory getInstance() {
+        if (instance == null) {
+            instance = new MySqlDaoFactory();
+        }
+        return instance;
     }
 
     @Override

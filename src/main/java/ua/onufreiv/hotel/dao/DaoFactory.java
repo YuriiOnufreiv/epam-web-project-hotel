@@ -11,7 +11,7 @@ public abstract class DaoFactory {
     public static DaoFactory getDAOFactory(FactoryType whichFactory) {
         switch (whichFactory) {
             case MYSQL_DB:
-                return new MySqlDaoFactory();
+                return MySqlDaoFactory.getInstance();
             default:
                 return null;
         }
