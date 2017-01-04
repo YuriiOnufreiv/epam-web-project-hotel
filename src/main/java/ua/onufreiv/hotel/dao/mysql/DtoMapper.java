@@ -2,8 +2,10 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.entities.BookRequest;
 import ua.onufreiv.hotel.entities.PasswordHash;
+import ua.onufreiv.hotel.entities.RoomType;
 import ua.onufreiv.hotel.entities.User;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -40,6 +42,16 @@ public class DtoMapper {
             bookRequest.setEndDate(rs.getDate("checkOut"));
             bookRequest.setProcessed(rs.getBoolean("processed"));
             return bookRequest;
+        }
+
+        public static RoomType toRoomType(java.sql.ResultSet rs) throws SQLException {
+            RoomType roomType = new RoomType();
+            roomType.setId(rs.getInt("idRoomType"));
+            roomType.setType(rs.getString("type"));
+            roomType.setDescription(rs.getString("descr"));
+            roomType.setPrice(rs.getInt("price"));
+            roomType.setMaxPerson(rs.getInt("maxPerson"));
+            return roomType;
         }
     }
 }
