@@ -16,6 +16,7 @@ public class PathConfig {
     public static final String CREATE_ACCOUNT_PAGE_PATH = "CREATE_ACCOUNT_PAGE_PATH";
     public static final String NEW_BOOK_REQUEST_PAGE_PATH = "NEW_BOOK_REQUEST_PAGE_PATH";
     public static final String SHOW_ALL_REQUESTS_PAGE_PATH = "SHOW_ALL_REQUESTS_PAGE_PATH";
+    public static final String NOT_SIGNED_IN_ERROR_PAGE_PATH = "NOT_SIGNED_IN_ERROR_PAGE_PATH";
 
     private static PathConfig instance;
 

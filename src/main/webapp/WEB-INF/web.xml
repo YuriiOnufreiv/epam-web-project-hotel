@@ -22,9 +22,19 @@
         </init-param>
     </filter>
 
+    <filter>
+        <filter-name>signedInFilter</filter-name>
+        <filter-class>ua.onufreiv.hotel.controller.filters.SignedInFilter</filter-class>
+    </filter>
+
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/hotel/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>signedInFilter</filter-name>
+        <url-pattern>/jsp/makeNewBookRequest.jsp</url-pattern>
     </filter-mapping>
 
     <servlet>
