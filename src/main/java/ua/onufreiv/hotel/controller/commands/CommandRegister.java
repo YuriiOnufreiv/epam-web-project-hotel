@@ -19,8 +19,13 @@ public class CommandRegister implements ICommand {
     private static final String PARAM_NAME_FIRST_NAME = "first_name";
     private static final String PARAM_NAME_LAST_NAME = "last_name";
     private static final String PARAM_NAME_EMAIL = "email";
-    private static final String PARAM_NAME_TELEPHONE = "telephone";
+    private static final String PARAM_NAME_TELEPHONE = "phoneNum";
     private static final String PARAM_NAME_PASSWORD = "password";
+
+    private static final String EMAIL_EXISTS_ERROR_KEY = "errors.email_exists";
+    private static final String INVALID_NUMBER_ERROR_KEY = "errors.invalid.number";
+    private static final String INVALID_PASSWORD_ERROR_KEY = "errors.invalid.password";
+    private static final String ERRORS_DELIMITER = "|";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,30 +46,33 @@ public class CommandRegister implements ICommand {
             request.setAttribute(PARAM_NAME_FIRST_NAME, firstName);
             request.setAttribute(PARAM_NAME_LAST_NAME, lastName);
 
+            StringBuilder errorsBuilder = new StringBuilder();
+
             if (validEmail) {
                 request.setAttribute(PARAM_NAME_EMAIL, email);
             } else {
-                request.setAttribute("emailError", "User with such email already exists");
+                errorsBuilder.append(EMAIL_EXISTS_ERROR_KEY).append(ERRORS_DELIMITER);
             }
 
             if (validPhoneNumber) {
-                request.setAttribute(PARAM_NAME_EMAIL, telephone);
+                request.setAttribute(PARAM_NAME_TELEPHONE, telephone);
             } else {
-                request.setAttribute("phoneError", "Invalid phone number");
+                errorsBuilder.append(INVALID_NUMBER_ERROR_KEY).append(ERRORS_DELIMITER);
             }
 
             if (!validPassword) {
-                request.setAttribute("passwordError", "Invalid password");
+                errorsBuilder.append(INVALID_PASSWORD_ERROR_KEY).append(ERRORS_DELIMITER);
             }
+            request.setAttribute("errors", errorsBuilder.toString());
 
-            return PathConfig.getInstance().getProperty(PathConfig.REGISTER_PAGE_PATH);
+            return PathConfig.getInstance().getProperty(PathConfig.CREATE_ACCOUNT_PAGE_PATH);
         }
 
         User user = new User();
         user.setName(firstName);
         user.setSurname(lastName);
         user.setEmail(email);
-        user.setTelephone(telephone);
+        user.setPhoneNum(telephone);
 
         String page;
         String passwordHashString = PasswordEncoder.encode(password);

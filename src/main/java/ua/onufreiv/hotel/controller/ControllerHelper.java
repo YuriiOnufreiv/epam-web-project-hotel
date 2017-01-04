@@ -20,6 +20,7 @@ public class ControllerHelper {
         commands.put("logout", new CommandLogout());
         commands.put("register", new CommandRegister());
         commands.put("reservation", new CommandReservation());
+        commands.put("clientRequests", new CommandClientRequests());
     }
 
     public static ControllerHelper getInstance() {

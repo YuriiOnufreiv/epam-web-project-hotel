@@ -33,14 +33,10 @@ public class Controller extends HttpServlet {
             page = command.execute(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", MessageConfig.getInstance()
-                    .getProperty(MessageConfig.SERVLET_EXCEPTION_ERROR_MESSAGE));
             page = PathConfig.getInstance()
                     .getProperty(PathConfig.ERROR_PAGE_PATH);
         } catch (IOException e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage",
-                    MessageConfig.getInstance().getProperty(MessageConfig.IO_EXCEPTION_ERROR_MESSAGE));
             page = PathConfig.getInstance()
                     .getProperty(PathConfig.ERROR_PAGE_PATH);
         }
