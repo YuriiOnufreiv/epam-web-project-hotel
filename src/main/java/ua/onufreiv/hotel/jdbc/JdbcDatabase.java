@@ -1,5 +1,8 @@
 package ua.onufreiv.hotel.jdbc;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.*;
 
 /**
@@ -39,7 +42,17 @@ public class JdbcDatabase {
     }
 
     public Connection connect() throws SQLException {
-        return this.connection = DriverManager.getConnection(url, login, password);
+        InitialContext initContext;
+        try {
+            initContext = new InitialContext();
+            DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/hotel");
+            connection = ds.getConnection();
+        } catch (NamingException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return this.connection;
     }
 
     public PreparedStatement prepareStatement(String sql, boolean returnId) throws SQLException {
