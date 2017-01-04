@@ -72,8 +72,9 @@
                         <span><fmt:message key="bookRequest.room_type"/></span>
                         <select name="room_type" onchange="change_country(this.value)"
                                 class="frm-field required">
-                            <option value="first">First</option>
-                            <option value="second">Second</option>
+                                <c:forEach items="${sessionScope.idTypeTitlesMap}" var="entry">
+                                <option value="${entry.key}" ${entry.key == requestScope.room_type ? 'selected' : ''}><c:out value="${entry.value}"/></option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">

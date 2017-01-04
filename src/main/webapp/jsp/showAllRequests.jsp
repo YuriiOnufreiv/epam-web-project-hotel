@@ -34,7 +34,7 @@
                     <td><c:out value="${bookRequest.id}"/></td>
                     <td><fmt:formatDate value="${bookRequest.checkIn}"/></td>
                     <td><c:out value="${bookRequest.endDate}"/></td>
-                    <td><c:out value="${bookRequest.roomTypeId}"/></td>
+                    <td><c:out value="${sessionScope.idTypeTitlesMap[bookRequest.roomTypeId]}"/></td>
                     <td><c:out value="${bookRequest.persons}"/></td>
                     <td><c:out value="${bookRequest.processed}"/></td>
                 </tr>
