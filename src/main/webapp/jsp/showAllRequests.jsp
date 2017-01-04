@@ -1,0 +1,48 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: yurii
+  Date: 1/1/17
+  Time: 3:29 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
+<head>
+    <%@ include file="/WEB-INF/jspf/head.jspf" %>
+    <title><fmt:message key="header.bookRequests"/></title>
+</head>
+<body>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<div class="main-1">
+    <div class="container big-padding">
+        <h3 class="hdg"><fmt:message key="bookRequests.your_requests"/></h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th><fmt:message key="bookRequest.checkin"/></th>
+                <th><fmt:message key="bookRequest.checkout"/></th>
+                <th><fmt:message key="bookRequest.room_type"/></th>
+                <th><fmt:message key="bookRequest.total_persons"/></th>
+                <th><fmt:message key="bookRequest.bill"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="bookRequest" items="${requestScope.bookRequests}">
+                <tr>
+                    <td><c:out value="${bookRequest.id}"/></td>
+                    <td><fmt:formatDate value="${bookRequest.checkIn}"/></td>
+                    <td><c:out value="${bookRequest.endDate}"/></td>
+                    <td><c:out value="${bookRequest.roomTypeId}"/></td>
+                    <td><c:out value="${bookRequest.persons}"/></td>
+                    <td><c:out value="${bookRequest.processed}"/></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+</body>
+</html>
