@@ -70,10 +70,10 @@
                     </div>
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
                         <span><fmt:message key="bookRequest.room_type"/></span>
-                        <select name="room_type" onchange="change_country(this.value)"
-                                class="frm-field required">
-                                <c:forEach items="${sessionScope.idTypeTitlesMap}" var="entry">
-                                <option value="${entry.key}" ${entry.key == requestScope.room_type ? 'selected' : ''}><c:out value="${entry.value}"/></option>
+                        <select name="room_type" class="frm-field required">
+                            <c:forEach items="${sessionScope.idTypeTitlesMap}" var="entry">
+                                <option value="${entry.key}" ${entry.key == requestScope.room_type ? 'selected' : ''}>
+                                    <c:out value="${entry.value}"/></option>
                             </c:forEach>
                         </select>
                     </div>
