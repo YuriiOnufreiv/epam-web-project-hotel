@@ -1,10 +1,9 @@
 package ua.onufreiv.hotel.dao.mysql;
 
-import ua.onufreiv.hotel.entities.Form;
+import ua.onufreiv.hotel.entities.BookRequest;
 import ua.onufreiv.hotel.entities.PasswordHash;
 import ua.onufreiv.hotel.entities.User;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -18,7 +17,7 @@ public class DtoMapper {
             user.setName(rs.getString("name"));
             user.setSurname(rs.getString("surname"));
             user.setEmail(rs.getString("email"));
-            user.setTelephone(rs.getString("tel"));
+            user.setPhoneNum(rs.getString("phoneNum"));
             user.setUserRoleId(rs.getInt("roleFK"));
             user.setPwdHashId(rs.getInt("pwdFK"));
             return user;
@@ -31,16 +30,16 @@ public class DtoMapper {
             return passwordHash;
         }
 
-        public static Form toForm(java.sql.ResultSet rs) throws SQLException {
-            Form form = new Form();
-            form.setId(rs.getInt("idForm"));
-            form.setUserId(rs.getInt("userFK"));
-            form.setPersonAmount(rs.getInt("personAmount"));
-            form.setRoomTypeId(rs.getInt("roomTypeFK"));
-            form.setStartDate(rs.getDate("startDate"));
-            form.setEndDate(rs.getDate("endDate"));
-            form.setProcessed(rs.getBoolean("processed"));
-            return form;
+        public static BookRequest toForm(java.sql.ResultSet rs) throws SQLException {
+            BookRequest bookRequest = new BookRequest();
+            bookRequest.setId(rs.getInt("idBookRequest"));
+            bookRequest.setUserId(rs.getInt("userFK"));
+            bookRequest.setPersons(rs.getInt("persons"));
+            bookRequest.setRoomTypeId(rs.getInt("roomTypeFK"));
+            bookRequest.setCheckIn(rs.getDate("checkIn"));
+            bookRequest.setEndDate(rs.getDate("checkOut"));
+            bookRequest.setProcessed(rs.getBoolean("processed"));
+            return bookRequest;
         }
     }
 }

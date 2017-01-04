@@ -14,12 +14,12 @@ import java.util.List;
  * Created by yurii on 12/23/16.
  */
 public class MySqlUserDao implements IUserDao {
-    private static final String QUERY_INSERT = "INSERT INTO USER (name, surname, email, tel, roleFK, pwdFK) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String QUERY_INSERT = "INSERT INTO USER (name, surname, email, phoneNum, roleFK, pwdFK) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String QUERY_DELETE = "DELETE FROM USER WHERE idUser = ?";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM USER WHERE idUser = ?";
     private static final String QUERY_SELECT_BY_EMAIL = "SELECT * FROM USER WHERE email = ?";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM USER";
-    private static final String QUERY_UPDATE = "UPDATE USER SET name = ?, surname = ?, email = ?, tel = ?, roleFK = ?, pwdFK = ? WHERE idUser = ?";
+    private static final String QUERY_UPDATE = "UPDATE USER SET name = ?, surname = ?, email = ?, phoneNum = ?, roleFK = ?, pwdFK = ? WHERE idUser = ?";
 
     private final JdbcDatabase jdbcDatabase;
 
@@ -36,7 +36,7 @@ public class MySqlUserDao implements IUserDao {
                     user.getName(),
                     user.getSurname(),
                     user.getEmail(),
-                    user.getTelephone(),
+                    user.getPhoneNum(),
                     user.getUserRoleId(),
                     user.getPwdHashId());
         } catch (SQLException e) {
@@ -96,7 +96,7 @@ public class MySqlUserDao implements IUserDao {
                     user.getName(),
                     user.getSurname(),
                     user.getEmail(),
-                    user.getTelephone(),
+                    user.getPhoneNum(),
                     user.getUserRoleId(),
                     user.getPwdHashId(),
                     user.getId());

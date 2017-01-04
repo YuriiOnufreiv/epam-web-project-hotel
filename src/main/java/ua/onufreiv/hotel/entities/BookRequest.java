@@ -6,23 +6,23 @@ import java.util.Date;
 /**
  * Created by yurii on 12/21/16.
  */
-public class Form extends AbstractEntity implements Serializable {
+public class BookRequest extends AbstractEntity implements Serializable {
     private Integer userId;
-    private Integer personAmount;
+    private Integer persons;
     private Integer roomTypeId;
-    private Date startDate;
+    private Date checkIn;
     private Date endDate;
     private Boolean processed;
 
-    public Form() {
+    public BookRequest() {
     }
 
-    public Form(Integer id, Integer userId, Integer personAmount, Integer roomTypeId, Date startDate, Date endDate, Boolean processed) {
+    public BookRequest(Integer id, Integer userId, Integer persons, Integer roomTypeId, Date checkIn, Date endDate, Boolean processed) {
         super(id);
         this.userId = userId;
-        this.personAmount = personAmount;
+        this.persons = persons;
         this.roomTypeId = roomTypeId;
-        this.startDate = startDate;
+        this.checkIn = checkIn;
         this.endDate = endDate;
         this.processed = processed;
     }
@@ -35,12 +35,12 @@ public class Form extends AbstractEntity implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getPersonAmount() {
-        return personAmount;
+    public Integer getPersons() {
+        return persons;
     }
 
-    public void setPersonAmount(Integer personAmount) {
-        this.personAmount = personAmount;
+    public void setPersons(Integer persons) {
+        this.persons = persons;
     }
 
     public Integer getRoomTypeId() {
@@ -51,12 +51,12 @@ public class Form extends AbstractEntity implements Serializable {
         this.roomTypeId = roomTypeId;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getCheckIn() {
+        return checkIn;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
     }
 
     public Date getEndDate() {
@@ -77,11 +77,11 @@ public class Form extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Form{" +
+        return "BookRequest{" +
                 ", userId=" + userId +
-                ", personAmount=" + personAmount +
+                ", persons=" + persons +
                 ", roomTypeId=" + roomTypeId +
-                ", startDate=" + startDate +
+                ", checkIn=" + checkIn +
                 ", endDate=" + endDate +
                 ", processed=" + processed +
                 '}';

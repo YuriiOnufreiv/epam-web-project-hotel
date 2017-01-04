@@ -18,7 +18,7 @@ public abstract class DaoFactory {
     // implement these methods.
     public abstract IUserDao getUserDAO();
     public abstract IPasswordDao getPasswordDAO();
-    public abstract IFormDao getFormDao();
+    public abstract IBookRequestDao getBookRequestDao();
 //    public abstract IUserRoleDAO getUserRoleDAO();
 //    public abstract IBillDAO getBillDAO();
 //    public abstract IRoomTypeDAO getRoomTypeDAO();

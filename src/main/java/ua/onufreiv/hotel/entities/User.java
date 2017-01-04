@@ -7,19 +7,19 @@ public class User extends AbstractEntity {
     private String name;
     private String surname;
     private String email;
-    private String telephone;
+    private String phoneNum;
     private Integer userRoleId;
     private Integer pwdHashId;
 
     public User() {
     }
 
-    public User(Integer id, String name, String surname, String email, String telephone, Integer userRoleId, Integer pwdHashId) {
+    public User(Integer id, String name, String surname, String email, String phoneNum, Integer userRoleId, Integer pwdHashId) {
         super(id);
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.telephone = telephone;
+        this.phoneNum = phoneNum;
         this.userRoleId = userRoleId;
         this.pwdHashId = pwdHashId;
     }
@@ -48,12 +48,12 @@ public class User extends AbstractEntity {
         this.email = email;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public Integer getUserRoleId() {
@@ -78,7 +78,7 @@ public class User extends AbstractEntity {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", telephone='" + telephone + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
                 ", userRoleId=" + userRoleId +
                 ", pwdHashId=" + pwdHashId +
                 '}';
