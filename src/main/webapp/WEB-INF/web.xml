@@ -34,7 +34,7 @@
 
     <filter-mapping>
         <filter-name>signedInFilter</filter-name>
-        <url-pattern>/jsp/makeNewBookRequest.jsp</url-pattern>
+        <url-pattern>/hotel</url-pattern>
     </filter-mapping>
 
     <servlet>
