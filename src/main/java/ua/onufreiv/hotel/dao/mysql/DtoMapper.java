@@ -57,5 +57,14 @@ public class DtoMapper {
             room.setNumber(rs.getInt("number"));
             return room;
         }
+
+        public static ReservedRoom toReservedRoom(java.sql.ResultSet rs) throws SQLException {
+            ReservedRoom reservedRoom = new ReservedRoom();
+            reservedRoom.setId(rs.getInt("idReservedRoom"));
+            reservedRoom.setRoomId(rs.getInt("roomFK"));
+            reservedRoom.setCheckInDate(rs.getDate("checkIn"));
+            reservedRoom.setCheckOutDate(rs.getDate("checkOut"));
+            return reservedRoom;
+        }
     }
 }
