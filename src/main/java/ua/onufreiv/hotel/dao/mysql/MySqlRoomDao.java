@@ -96,4 +96,16 @@ public class MySqlRoomDao implements IRoomDao {
         }
         return false;
     }
+
+    @Override
+    public List<Room> findAllExcept(List<Integer> exceptRoomIds) {
+        List<Room> validRooms = new ArrayList<>();
+        List<Room> allRooms = findAll();
+        for (Room room : allRooms) {
+            if (!exceptRoomIds.contains(room.getId())) {
+                validRooms.add(room);
+            }
+        }
+        return validRooms;
+    }
 }
