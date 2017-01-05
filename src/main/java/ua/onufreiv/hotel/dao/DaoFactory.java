@@ -20,17 +20,20 @@ public abstract class DaoFactory {
     // There will be a method for each DAO that can be
     // created. The concrete factories will have to
     // implement these methods.
-    public abstract IUserDao getUserDAO();
+    public abstract IUserDao getUserDao();
 
-    public abstract IPasswordDao getPasswordDAO();
+    public abstract IPasswordDao getPasswordDao();
 
     public abstract IBookRequestDao getBookRequestDao();
 
-    public abstract IRoomTypeDao getRoomTypeDAO();
+    public abstract IRoomTypeDao getRoomTypeDao();
+
+    public abstract IRoomDao getRoomDao();
+
+    public abstract IReservedRoomDao getReservedRoomDao();
 
 //    public abstract IUserRoleDAO getUserRoleDAO();
 //    public abstract IBillDAO getBillDAO();
-//    public abstract IRoomDAO getRoomDAO();
 
     // List of DAO types supported by the factory
     public enum FactoryType {

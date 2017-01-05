@@ -22,12 +22,12 @@ public class MySqlDaoFactory extends DaoFactory {
     }
 
     @Override
-    public IUserDao getUserDAO() {
+    public IUserDao getUserDao() {
         return new MySqlUserDao(jdbcDatabase);
     }
 
     @Override
-    public IPasswordDao getPasswordDAO() {
+    public IPasswordDao getPasswordDao() {
         return new MySqlPasswordDao(jdbcDatabase);
     }
 
@@ -37,7 +37,17 @@ public class MySqlDaoFactory extends DaoFactory {
     }
 
     @Override
-    public IRoomTypeDao getRoomTypeDAO() {
+    public IRoomTypeDao getRoomTypeDao() {
         return new MySqlRoomTypeDao(jdbcDatabase);
+    }
+
+    @Override
+    public IRoomDao getRoomDao() {
+        return new MySqlRoomDao(jdbcDatabase);
+    }
+
+    @Override
+    public IReservedRoomDao getReservedRoomDao() {
+        return new MySqlReservedRoomDao(jdbcDatabase);
     }
 }

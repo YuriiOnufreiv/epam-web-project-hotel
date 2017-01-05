@@ -13,8 +13,8 @@ import ua.onufreiv.hotel.util.PasswordEncoder;
 public class AuthService implements IAuthService {
     @Override
     public User authenticate(String email, String password) {
-        IUserDao userDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDAO();
-        IPasswordDao passwordDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getPasswordDAO();
+        IUserDao userDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDao();
+        IPasswordDao passwordDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getPasswordDao();
 
         User user = userDao.find(email);
         if(user != null && passwordDao.find(user.getPwdHashId())

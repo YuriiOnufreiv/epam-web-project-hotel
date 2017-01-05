@@ -12,11 +12,11 @@ import java.util.Map;
 public class RoomTypeService implements IRoomTypeService {
     @Override
     public RoomType find(int id) {
-        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomTypeDAO().find(id);
+        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomTypeDao().find(id);
     }
 
     @Override
     public Map<Integer, String> getIdTypeTitleMap() {
-        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomTypeDAO().getIdTypeTitleMap();
+        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomTypeDao().getIdTypeTitleMap();
     }
 }

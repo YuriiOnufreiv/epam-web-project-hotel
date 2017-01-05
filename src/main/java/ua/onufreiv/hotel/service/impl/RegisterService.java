@@ -34,14 +34,14 @@ public class RegisterService implements IRegisterService {
 
     @Override
     public boolean isUniqueEmail(String email) {
-        IUserDao userDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDAO();
+        IUserDao userDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDao();
         return userDao.find(email) == null;
     }
 
     @Override
     public void registerNewUser(User user, PasswordHash passwordHash) {
-        IUserDao userDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDAO();
-        IPasswordDao passwordDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getPasswordDAO();
+        IUserDao userDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDao();
+        IPasswordDao passwordDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getPasswordDao();
 
         int id = passwordDao.insert(passwordHash);
 
