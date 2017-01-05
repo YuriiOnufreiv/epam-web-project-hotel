@@ -1,11 +1,7 @@
 package ua.onufreiv.hotel.dao.mysql;
 
-import ua.onufreiv.hotel.entities.BookRequest;
-import ua.onufreiv.hotel.entities.PasswordHash;
-import ua.onufreiv.hotel.entities.RoomType;
-import ua.onufreiv.hotel.entities.User;
+import ua.onufreiv.hotel.entities.*;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -52,6 +48,14 @@ public class DtoMapper {
             roomType.setPrice(rs.getInt("price"));
             roomType.setMaxPerson(rs.getInt("maxPerson"));
             return roomType;
+        }
+
+        public static Room toRoom(java.sql.ResultSet rs) throws SQLException {
+            Room room = new Room();
+            room.setId(rs.getInt("idRoom"));
+            room.setRoomTypeId(rs.getInt("typeFK"));
+            room.setNumber(rs.getInt("number"));
+            return room;
         }
     }
 }
