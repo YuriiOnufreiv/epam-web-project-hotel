@@ -28,6 +28,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <a class="acount-btn" href="/jsp/createAccount.jsp"><fmt:message key="login.create_account"/></a>
             </div>
             <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
+                <c:if test="${not empty requestScope.successfulSignUp}">
+                    <div class="grid_3 grid_5">
+                        <div class="alert alert-success" role="alert">
+                            <strong><fmt:message key="general.thank_you"/></strong> <fmt:message
+                                key="message.successful.sign_up"/>
+                        </div>
+                    </div>
+                </c:if>
                 <h3><fmt:message key="login.registered_customers"/></h3>
                 <p><fmt:message key="login.registered_customers.label"/></p>
                 <form name="loginForm" method="POST" action="/hotel/login" autocomplete="on">

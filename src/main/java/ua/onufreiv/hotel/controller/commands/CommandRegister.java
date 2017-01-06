@@ -81,6 +81,7 @@ public class CommandRegister implements ICommand {
             passwordHash.setPwdHash(passwordHashString);
 
             registerService.registerNewUser(user, passwordHash);
+            request.setAttribute("successfulSignUp", true);
             page = PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
         } else {
             page = PathConfig.getInstance().getProperty(PathConfig.ERROR_PAGE_PATH);
