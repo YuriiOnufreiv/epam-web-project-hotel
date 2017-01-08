@@ -9,11 +9,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <%@ include file="/WEB-INF/jspf/head.jspf" %>
+    <%@ include file="/WEB-INF/jspf/client/head.jspf" %>
     <title><fmt:message key="header.reservation"/></title>
 </head>
 <body>
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ include file="/WEB-INF/jspf/client/header.jspf" %>
 <div class="main-1">
     <div class="container">
         <div class="register">
@@ -104,6 +104,6 @@
         </div>
     </div>
 </div>
-<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+<%@ include file="/WEB-INF/jspf/client/footer.jspf" %>
 </body>
 </html>

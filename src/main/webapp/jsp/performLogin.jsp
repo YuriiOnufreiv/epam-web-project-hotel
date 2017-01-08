@@ -9,13 +9,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <%@ include file="/WEB-INF/jspf/head.jspf" %>
+    <%@ include file="/WEB-INF/jspf/client/head.jspf" %>
     <title><fmt:message key="general.sign.in"/></title>
 </head>
 <body>
 <!-- banner -->
 <!--<div class="banner1">-->
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ include file="/WEB-INF/jspf/client/header.jspf" %>
 <!--</div>-->
 <!-- banner -->
 
@@ -64,7 +64,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 <!-- footer -->
-<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+<%@ include file="/WEB-INF/jspf/client/footer.jspf" %>
 <!-- footer -->
 </body>
 </html>

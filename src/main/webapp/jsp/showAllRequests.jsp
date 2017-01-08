@@ -9,11 +9,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <%@ include file="/WEB-INF/jspf/head.jspf" %>
+    <%@ include file="/WEB-INF/jspf/client/head.jspf" %>
     <title><fmt:message key="header.bookRequests"/></title>
 </head>
 <body>
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<%@ include file="/WEB-INF/jspf/client/header.jspf" %>
 <div class="main-1">
     <div class="container big-padding">
         <h3 class="hdg"><fmt:message key="bookRequests.your_requests"/></h3>
@@ -33,7 +33,7 @@
                 <tr>
                     <td><c:out value="${bookRequest.id}"/></td>
                     <td><fmt:formatDate value="${bookRequest.checkIn}"/></td>
-                    <td><c:out value="${bookRequest.endDate}"/></td>
+                    <td><c:out value="${bookRequest.checkOut}"/></td>
                     <td><c:out value="${sessionScope.idTypeTitlesMap[bookRequest.roomTypeId]}"/></td>
                     <td><c:out value="${bookRequest.persons}"/></td>
                     <td><c:out value="${bookRequest.processed}"/></td>
@@ -43,6 +43,6 @@
         </table>
     </div>
 </div>
-<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+<%@ include file="/WEB-INF/jspf/client/footer.jspf" %>
 </body>
 </html>
