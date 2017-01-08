@@ -40,7 +40,7 @@
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li style="float: right;"><a href="/jsp/performLogin.jsp"><fmt:message
+                            <li style="float: right;"><a href="/jsp/client/performLogin.jsp"><fmt:message
                                     key="general.sign.in"/></a></li>
                         </c:otherwise>
                     </c:choose>

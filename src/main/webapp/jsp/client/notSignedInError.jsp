@@ -20,7 +20,7 @@
             <div class="col-md-6 login-left wow fadeInLeft big-padding" data-wow-delay="0.4s">
                 <h3><fmt:message key="reservation.oops"/></h3>
                 <p><fmt:message key="reservation.sign_in_message"/></p>
-                <a class="acount-btn" href="/jsp/performLogin.jsp"><fmt:message key="general.sign.in"/></a>
+                <a class="acount-btn" href="/jsp/client/performLogin.jsp"><fmt:message key="general.sign.in"/></a>
             </div>
             <div class="clearfix"></div>
         </div>

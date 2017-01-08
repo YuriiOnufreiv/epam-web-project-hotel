@@ -25,7 +25,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
                 <h3><fmt:message key="login.new_customer"/></h3>
                 <p><fmt:message key="login.new_customer.label"/></p>
-                <a class="acount-btn" href="/jsp/createAccount.jsp"><fmt:message key="login.create_account"/></a>
+                <a class="acount-btn" href="/jsp/client/createAccount.jsp"><fmt:message key="login.create_account"/></a>
             </div>
             <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
                 <c:if test="${not empty requestScope.successfulSignUp}">
