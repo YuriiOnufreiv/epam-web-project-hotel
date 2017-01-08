@@ -15,6 +15,8 @@ import java.util.List;
  * Created by yurii on 1/1/17.
  */
 public class MySqlBookRequestDao implements IBookRequestDao {
+    private static MySqlBookRequestDao instance;
+
     private static final String QUERY_INSERT = "INSERT INTO BOOK_REQUEST (userFK, persons, roomTypeFK, checkIn, checkOut, processed) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM BOOK_REQUEST";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BOOK_REQUEST WHERE idRequest = ?";
@@ -22,8 +24,14 @@ public class MySqlBookRequestDao implements IBookRequestDao {
     private static final String QUERY_DELETE = "DELETE FROM BOOK_REQUEST WHERE idRequest = ?";
     private static final String QUERY_SELECT_BY_USER_ID = "SELECT * FROM BOOK_REQUEST WHERE userFK = ?";
 
+    private MySqlBookRequestDao() {
+    }
 
-    public MySqlBookRequestDao() {
+    public static synchronized MySqlBookRequestDao getInstance() {
+        if (instance == null) {
+            instance = new MySqlBookRequestDao();
+        }
+        return instance;
     }
 
     @Override

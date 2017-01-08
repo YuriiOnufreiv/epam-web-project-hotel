@@ -14,10 +14,19 @@ import java.util.List;
  * Created by yurii on 12/23/16.
  */
 public class MySqlPasswordDao implements IPasswordDao {
+    private static MySqlPasswordDao instance;
+
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM PASSWORD WHERE idPassword = ?";
     private static final String QUERY_INSERT = "INSERT INTO PASSWORD (pwdhash) VALUES (?)";
 
-    public MySqlPasswordDao() {
+    private MySqlPasswordDao() {
+    }
+
+    public static synchronized MySqlPasswordDao getInstance() {
+        if (instance == null) {
+            instance = new MySqlPasswordDao();
+        }
+        return instance;
     }
 
     @Override

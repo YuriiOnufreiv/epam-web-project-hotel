@@ -19,36 +19,36 @@ public class MySqlDaoFactory extends DaoFactory {
 
     @Override
     public IUserDao getUserDao() {
-        return new MySqlUserDao();
+        return MySqlUserDao.getInstance();
     }
 
     @Override
     public IPasswordDao getPasswordDao() {
-        return new MySqlPasswordDao();
+        return MySqlPasswordDao.getInstance();
     }
 
     @Override
     public IBookRequestDao getBookRequestDao() {
-        return new MySqlBookRequestDao();
+        return MySqlBookRequestDao.getInstance();
     }
 
     @Override
     public IRoomTypeDao getRoomTypeDao() {
-        return new MySqlRoomTypeDao();
+        return MySqlRoomTypeDao.getInstance();
     }
 
     @Override
     public IRoomDao getRoomDao() {
-        return new MySqlRoomDao();
+        return MySqlRoomDao.getInstance();
     }
 
     @Override
     public IReservedRoomDao getReservedRoomDao() {
-        return new MySqlReservedRoomDao();
+        return MySqlReservedRoomDao.getInstance();
     }
 
     @Override
     public IUserRoleDao getUserRoleDao() {
-        return new MySqlUserRoleDao();
+        return MySqlUserRoleDao.getInstance();
     }
 }

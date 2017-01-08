@@ -17,13 +17,22 @@ import java.util.Map;
  * Created by yurii on 1/4/17.
  */
 public class MySqlRoomTypeDao implements IRoomTypeDao {
+    private static MySqlRoomTypeDao instance;
+
     private static final String QUERY_INSERT = "INSERT INTO ROOM_TYPE (type, descr, price, maxPerson) VALUES (?, ?, ?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM ROOM_TYPE";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM ROOM_TYPE WHERE idRoomType = ?";
     private static final String QUERY_UPDATE = "UPDATE ROOM_TYPE SET type = ?, descr = ?, price = ?, maxPerson = ? WHERE idRoomType = ?";
     private static final String QUERY_DELETE = "DELETE FROM ROOM_TYPE WHERE idRoomType = ?";
 
-    public MySqlRoomTypeDao() {
+    private MySqlRoomTypeDao() {
+    }
+
+    public static synchronized MySqlRoomTypeDao getInstance() {
+        if (instance == null) {
+            instance = new MySqlRoomTypeDao();
+        }
+        return instance;
     }
 
     @Override

@@ -15,13 +15,22 @@ import java.util.List;
  * Created by yurii on 1/5/17.
  */
 public class MySqlRoomDao implements IRoomDao {
+    private static MySqlRoomDao instance;
+
     private static final String QUERY_INSERT = "INSERT INTO ROOM (typeFK, number) VALUES (?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM ROOM";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM ROOM WHERE idRoom = ?";
     private static final String QUERY_UPDATE = "UPDATE ROOM SET typeFK = ?, number = ? WHERE idRoom = ?";
     private static final String QUERY_DELETE = "DELETE FROM ROOM WHERE idRoom = ?";
 
-    public MySqlRoomDao() {
+    private MySqlRoomDao() {
+    }
+
+    public static synchronized MySqlRoomDao getInstance() {
+        if (instance == null) {
+            instance = new MySqlRoomDao();
+        }
+        return instance;
     }
 
     @Override

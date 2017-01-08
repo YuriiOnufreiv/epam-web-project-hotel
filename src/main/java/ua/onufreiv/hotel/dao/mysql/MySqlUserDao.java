@@ -15,6 +15,8 @@ import java.util.List;
  * Created by yurii on 12/23/16.
  */
 public class MySqlUserDao implements IUserDao {
+    private static MySqlUserDao instance;
+
     private static final String QUERY_INSERT = "INSERT INTO USER (name, surname, email, phoneNum, roleFK, pwdFK) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String QUERY_DELETE = "DELETE FROM USER WHERE idUser = ?";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM USER WHERE idUser = ?";
@@ -22,7 +24,14 @@ public class MySqlUserDao implements IUserDao {
     private static final String QUERY_SELECT_ALL = "SELECT * FROM USER";
     private static final String QUERY_UPDATE = "UPDATE USER SET name = ?, surname = ?, email = ?, phoneNum = ?, roleFK = ?, pwdFK = ? WHERE idUser = ?";
 
-    public MySqlUserDao() {
+    private MySqlUserDao() {
+    }
+
+    public static synchronized MySqlUserDao getInstance() {
+        if (instance == null) {
+            instance = new MySqlUserDao();
+        }
+        return instance;
     }
 
     @Override

@@ -15,13 +15,22 @@ import java.util.List;
  * Created by yurii on 1/8/17.
  */
 public class MySqlUserRoleDao implements IUserRoleDao {
+    private static MySqlUserRoleDao instance;
+
     private static final String QUERY_INSERT = "INSERT INTO USER_ROLE (role) VALUES (?)";
     private static final String QUERY_DELETE = "DELETE FROM USER_ROLE WHERE idUserRole = ?";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM USER_ROLE WHERE idUserRole = ?";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM USER_ROLE";
     private static final String QUERY_UPDATE = "UPDATE USER_ROLE SET role = ? WHERE idUserRole = ?";
 
-    public MySqlUserRoleDao() {
+    private MySqlUserRoleDao() {
+    }
+
+    public static synchronized MySqlUserRoleDao getInstance() {
+        if (instance == null) {
+            instance = new MySqlUserRoleDao();
+        }
+        return instance;
     }
 
     @Override

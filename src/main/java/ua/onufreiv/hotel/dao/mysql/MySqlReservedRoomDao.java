@@ -16,6 +16,8 @@ import java.util.List;
  * Created by yurii on 1/5/17.
  */
 public class MySqlReservedRoomDao implements IReservedRoomDao {
+    private static MySqlReservedRoomDao instance;
+
     private static final String QUERY_INSERT = "INSERT INTO RESERVED_ROOM (roomFK, checkIn, checkOut) VALUES (?, ?, ?)";
     private static final String QUERY_DELETE = "DELETE FROM RESERVED_ROOM WHERE idReservedRoom = ?";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM RESERVED_ROOM WHERE idReservedRoom = ?";
@@ -23,9 +25,15 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
     private static final String QUERY_SELECT_ALL = "SELECT * FROM RESERVED_ROOM";
     private static final String QUERY_UPDATE = "UPDATE RESERVED_ROOM SET roomFK = ?, checkIn = ?, checkOut = ? WHERE idReservedRoom = ?";
 
-    public MySqlReservedRoomDao() {
+    private MySqlReservedRoomDao() {
     }
 
+    public static synchronized MySqlReservedRoomDao getInstance() {
+        if (instance == null) {
+            instance = new MySqlReservedRoomDao();
+        }
+        return instance;
+    }
 
     @Override
     public int insert(ReservedRoom reservedRoom) {
