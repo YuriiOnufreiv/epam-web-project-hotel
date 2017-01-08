@@ -50,4 +50,9 @@ public class MySqlDaoFactory extends DaoFactory {
     public IReservedRoomDao getReservedRoomDao() {
         return new MySqlReservedRoomDao(jdbcDatabase);
     }
+
+    @Override
+    public IUserRoleDao getUserRoleDao() {
+        return new MySqlUserRoleDao(jdbcDatabase);
+    }
 }

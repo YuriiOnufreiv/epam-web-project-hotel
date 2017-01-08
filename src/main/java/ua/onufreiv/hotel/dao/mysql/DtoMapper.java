@@ -35,7 +35,7 @@ public class DtoMapper {
             bookRequest.setPersons(rs.getInt("persons"));
             bookRequest.setRoomTypeId(rs.getInt("roomTypeFK"));
             bookRequest.setCheckIn(rs.getDate("checkIn"));
-            bookRequest.setEndDate(rs.getDate("checkOut"));
+            bookRequest.setCheckOut(rs.getDate("checkOut"));
             bookRequest.setProcessed(rs.getBoolean("processed"));
             return bookRequest;
         }
@@ -65,6 +65,13 @@ public class DtoMapper {
             reservedRoom.setCheckInDate(rs.getDate("checkIn"));
             reservedRoom.setCheckOutDate(rs.getDate("checkOut"));
             return reservedRoom;
+        }
+
+        public static UserRole toUserRole(java.sql.ResultSet rs) throws SQLException {
+            UserRole userRole = new UserRole();
+            userRole.setId(rs.getInt("idUserRole"));
+            userRole.setRole(rs.getString("role"));
+            return userRole;
         }
     }
 }

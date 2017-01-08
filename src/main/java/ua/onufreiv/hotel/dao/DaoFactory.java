@@ -32,7 +32,7 @@ public abstract class DaoFactory {
 
     public abstract IReservedRoomDao getReservedRoomDao();
 
-//    public abstract IUserRoleDAO getUserRoleDAO();
+    public abstract IUserRoleDao getUserRoleDao();
 //    public abstract IBillDAO getBillDAO();
 
     // List of DAO types supported by the factory
