@@ -1,18 +1,14 @@
 package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.*;
-import ua.onufreiv.hotel.jdbc.JdbcDatabase;
 
 /**
  * Created by yurii on 12/23/16.
  */
 public class MySqlDaoFactory extends DaoFactory {
     private static MySqlDaoFactory instance;
-    private JdbcDatabase jdbcDatabase;
 
-    private MySqlDaoFactory() {
-        jdbcDatabase = new JdbcDatabase("jdbc:mysql://localhost:3306/hotel", "root", "root");
-    }
+    private MySqlDaoFactory() {}
 
     public static synchronized MySqlDaoFactory getInstance() {
         if (instance == null) {
@@ -23,36 +19,36 @@ public class MySqlDaoFactory extends DaoFactory {
 
     @Override
     public IUserDao getUserDao() {
-        return new MySqlUserDao(jdbcDatabase);
+        return new MySqlUserDao();
     }
 
     @Override
     public IPasswordDao getPasswordDao() {
-        return new MySqlPasswordDao(jdbcDatabase);
+        return new MySqlPasswordDao();
     }
 
     @Override
     public IBookRequestDao getBookRequestDao() {
-        return new MySqlBookRequestDao(jdbcDatabase);
+        return new MySqlBookRequestDao();
     }
 
     @Override
     public IRoomTypeDao getRoomTypeDao() {
-        return new MySqlRoomTypeDao(jdbcDatabase);
+        return new MySqlRoomTypeDao();
     }
 
     @Override
     public IRoomDao getRoomDao() {
-        return new MySqlRoomDao(jdbcDatabase);
+        return new MySqlRoomDao();
     }
 
     @Override
     public IReservedRoomDao getReservedRoomDao() {
-        return new MySqlReservedRoomDao(jdbcDatabase);
+        return new MySqlReservedRoomDao();
     }
 
     @Override
     public IUserRoleDao getUserRoleDao() {
-        return new MySqlUserRoleDao(jdbcDatabase);
+        return new MySqlUserRoleDao();
     }
 }

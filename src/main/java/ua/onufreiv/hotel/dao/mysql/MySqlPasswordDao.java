@@ -2,9 +2,10 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IPasswordDao;
 import ua.onufreiv.hotel.entities.PasswordHash;
-import ua.onufreiv.hotel.jdbc.JdbcDatabase;
+import ua.onufreiv.hotel.jdbc.Database;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,23 +17,19 @@ public class MySqlPasswordDao implements IPasswordDao {
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM PASSWORD WHERE idPassword = ?";
     private static final String QUERY_INSERT = "INSERT INTO PASSWORD (pwdhash) VALUES (?)";
 
-    private final JdbcDatabase jdbcDatabase;
-
-    public MySqlPasswordDao(JdbcDatabase jdbcDatabase) {
-        this.jdbcDatabase = jdbcDatabase;
+    public MySqlPasswordDao() {
     }
 
     @Override
     public int insert(PasswordHash passwordHash) {
+        Connection connection = Database.getInstance().getConnection();
         int id = 0;
         try {
-            JdbcQuery jdbcQuery = new JdbcQuery(jdbcDatabase);
-            id = jdbcQuery.insert(QUERY_INSERT,
+            JdbcQuery jdbcQuery = new JdbcQuery();
+            id = jdbcQuery.insert(connection, QUERY_INSERT,
                     passwordHash.getPwdHash());
-        } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
-
+            Database.getInstance().closeConnection(connection);
         }
         return id;
     }
@@ -44,11 +41,14 @@ public class MySqlPasswordDao implements IPasswordDao {
 
     @Override
     public PasswordHash find(int id) {
+        Connection connection = Database.getInstance().getConnection();
         try {
-            JdbcQuery jdbcQuery = new JdbcQuery(jdbcDatabase);
-            ResultSet rs = jdbcQuery.select(QUERY_SELECT_BY_ID, id);
+            JdbcQuery jdbcQuery = new JdbcQuery();
+            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
-                return DtoMapper.ResultSet.toPasswordHash(rs);
+                PasswordHash passwordHash = DtoMapper.ResultSet.toPasswordHash(rs);
+                Database.getInstance().closeConnection(connection);
+                return passwordHash;
             }
         } catch (SQLException e) {
             e.printStackTrace();
