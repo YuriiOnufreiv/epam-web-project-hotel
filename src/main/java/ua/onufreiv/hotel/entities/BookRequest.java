@@ -11,19 +11,19 @@ public class BookRequest extends AbstractEntity implements Serializable {
     private Integer persons;
     private Integer roomTypeId;
     private Date checkIn;
-    private Date endDate;
+    private Date checkOut;
     private Boolean processed;
 
     public BookRequest() {
     }
 
-    public BookRequest(Integer id, Integer userId, Integer persons, Integer roomTypeId, Date checkIn, Date endDate, Boolean processed) {
+    public BookRequest(Integer id, Integer userId, Integer persons, Integer roomTypeId, Date checkIn, Date checkOut, Boolean processed) {
         super(id);
         this.userId = userId;
         this.persons = persons;
         this.roomTypeId = roomTypeId;
         this.checkIn = checkIn;
-        this.endDate = endDate;
+        this.checkOut = checkOut;
         this.processed = processed;
     }
 
@@ -59,12 +59,12 @@ public class BookRequest extends AbstractEntity implements Serializable {
         this.checkIn = checkIn;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getCheckOut() {
+        return checkOut;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
     }
 
     public Boolean getProcessed() {
@@ -82,7 +82,7 @@ public class BookRequest extends AbstractEntity implements Serializable {
                 ", persons=" + persons +
                 ", roomTypeId=" + roomTypeId +
                 ", checkIn=" + checkIn +
-                ", endDate=" + endDate +
+                ", checkOut=" + checkOut +
                 ", processed=" + processed +
                 '}';
     }
