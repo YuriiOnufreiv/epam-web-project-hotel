@@ -23,6 +23,7 @@
                 </form>
                 <ul class="nav navbar-nav">
                     <li><a href="/index.jsp"><fmt:message key="header.home"/></a></li>
+                    <li><a href="/hotel?command=showAdminDashboard">admin</a></li>
                     <li><a href="/hotel?command=showBookingPage"><fmt:message key="header.reservation"/></a></li>
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
