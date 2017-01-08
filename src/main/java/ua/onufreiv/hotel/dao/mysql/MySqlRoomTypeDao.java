@@ -117,4 +117,19 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         }
         return idTypeTitleMap;
     }
+
+    @Override
+    public Map<Integer, RoomType> getIdTypeMap() {
+        List<RoomType> roomTypes = findAll();
+
+        if(roomTypes == null) {
+            return null;
+        }
+
+        Map<Integer, RoomType> idTypeTitleMap = new HashMap<>(roomTypes.size());
+        for(RoomType roomType : roomTypes) {
+            idTypeTitleMap.put(roomType.getId(), roomType);
+        }
+        return idTypeTitleMap;
+    }
 }

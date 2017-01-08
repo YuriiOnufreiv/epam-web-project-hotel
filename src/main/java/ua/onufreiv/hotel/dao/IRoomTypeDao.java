@@ -9,4 +9,5 @@ import java.util.Map;
  */
 public interface IRoomTypeDao extends IDao<RoomType> {
     Map<Integer, String> getIdTypeTitleMap();
+    Map<Integer, RoomType> getIdTypeMap();
 }
