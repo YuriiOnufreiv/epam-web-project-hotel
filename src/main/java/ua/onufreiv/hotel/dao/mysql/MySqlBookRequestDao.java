@@ -37,7 +37,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
                     bookRequest.getPersons(),
                     bookRequest.getRoomTypeId(),
                     bookRequest.getCheckIn(),
-                    bookRequest.getEndDate(),
+                    bookRequest.getCheckOut(),
                     bookRequest.getProcessed());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
                     bookRequest.getPersons(),
                     bookRequest.getRoomTypeId(),
                     bookRequest.getCheckIn(),
-                    bookRequest.getEndDate(),
+                    bookRequest.getCheckOut(),
                     bookRequest.getProcessed(),
                     bookRequest.getId());
         } catch (SQLException e) {
