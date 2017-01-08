@@ -10,4 +10,5 @@ import java.util.Map;
 public interface IRoomTypeService {
     RoomType find(int id);
     Map<Integer, String> getIdTypeTitleMap();
+    Map<Integer, RoomType> getIdTypeMap();
 }

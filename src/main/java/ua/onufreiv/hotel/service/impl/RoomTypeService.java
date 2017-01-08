@@ -19,4 +19,9 @@ public class RoomTypeService implements IRoomTypeService {
     public Map<Integer, String> getIdTypeTitleMap() {
         return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomTypeDao().getIdTypeTitleMap();
     }
+
+    @Override
+    public Map<Integer, RoomType> getIdTypeMap() {
+        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomTypeDao().getIdTypeMap();
+    }
 }
