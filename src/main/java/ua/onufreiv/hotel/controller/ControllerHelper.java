@@ -19,9 +19,11 @@ public class ControllerHelper {
         commands.put("login", new CommandLogin());
         commands.put("logout", new CommandLogout());
         commands.put("register", new CommandRegister());
+        commands.put("redirect", new CommandRedirectToHome());
         commands.put("reservation", new CommandReservation());
         commands.put("clientRequests", new CommandClientRequests());
         commands.put("showBookingPage", new CommandShowBookingPage());
+        commands.put("showAdminDashboard", new CommandShowAdminDashboard());
     }
 
     public static ControllerHelper getInstance() {
@@ -37,7 +39,7 @@ public class ControllerHelper {
 
         if(command == null) {
             return (request.getSession(false) != null)
-                    ? new CommandRedirect() : new CommandEmpty();
+                    ? new CommandRedirectToHome() : new CommandEmpty();
         }
 
         return command;
