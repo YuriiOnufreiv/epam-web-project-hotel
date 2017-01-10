@@ -1416,7 +1416,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   font-size: 16px;
 }
 .navbar.fixed {
-  width: calc(100% - $sidebar-width);
+  /*width: calc(100% - $sidebar-width);*/
   right: 0;
   left: auto;
   border-radius: 0;
@@ -1988,7 +1988,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   line-height: 24px;
 }
 .card-user .content {
-  min-height: 240px;
+  min-height: 255px;
 }
 
 .card-user .footer,
