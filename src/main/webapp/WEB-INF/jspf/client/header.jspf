@@ -11,7 +11,7 @@
 <div class="header">
     <div class="container">
         <div class="logo">
-            <h1><a href="/index.jsp"><fmt:message key="general.name"/></a></h1>
+            <h1><a href="/jsp/client/clientMain.jsp"><fmt:message key="general.name"/></a></h1>
         </div>
         <nav class="navbar navbar-default" role="navigation">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -22,8 +22,7 @@
                     </select>
                 </form>
                 <ul class="nav navbar-nav">
-                    <li><a href="/index.jsp"><fmt:message key="header.home"/></a></li>
-                    <li><a href="/hotel?command=showAdminDashboard">admin</a></li>
+                    <li><a href="/jsp/client/clientMain.jsp"><fmt:message key="header.home"/></a></li>
                     <li><a href="/hotel?command=showBookingPage"><fmt:message key="header.reservation"/></a></li>
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
