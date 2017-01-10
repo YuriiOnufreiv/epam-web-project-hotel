@@ -28,9 +28,9 @@ public class DtoMapper {
             return passwordHash;
         }
 
-        public static BookRequest toForm(java.sql.ResultSet rs) throws SQLException {
+        public static BookRequest toBookRequest(java.sql.ResultSet rs) throws SQLException {
             BookRequest bookRequest = new BookRequest();
-            bookRequest.setId(rs.getInt("idBookRequest"));
+            bookRequest.setId(rs.getInt("idRequest"));
             bookRequest.setUserId(rs.getInt("userFK"));
             bookRequest.setPersons(rs.getInt("persons"));
             bookRequest.setRoomTypeId(rs.getInt("roomTypeFK"));
