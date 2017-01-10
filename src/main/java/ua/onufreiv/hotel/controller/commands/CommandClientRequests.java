@@ -3,7 +3,7 @@ package ua.onufreiv.hotel.controller.commands;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entities.BookRequest;
 import ua.onufreiv.hotel.entities.User;
-import ua.onufreiv.hotel.service.impl.ClientService;
+import ua.onufreiv.hotel.service.impl.BookRequestService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
 
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ public class CommandClientRequests implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
-        List<BookRequest> bookRequests = new ClientService().getUserForm(user.getId());
+        List<BookRequest> bookRequests = new BookRequestService().getRequestById(user.getId());
         if(session.getAttribute("idTypeTitlesMap") == null) {
             session.setAttribute("idTypeTitlesMap", new RoomTypeService().getIdTypeTitleMap());
         }

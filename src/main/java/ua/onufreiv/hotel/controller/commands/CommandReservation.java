@@ -3,8 +3,8 @@ package ua.onufreiv.hotel.controller.commands;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entities.BookRequest;
 import ua.onufreiv.hotel.entities.User;
-import ua.onufreiv.hotel.service.IClientService;
-import ua.onufreiv.hotel.service.impl.ClientService;
+import ua.onufreiv.hotel.service.IBookRequestService;
+import ua.onufreiv.hotel.service.impl.BookRequestService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ public class CommandReservation implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        IClientService reservationService = new ClientService();
+        IBookRequestService reservationService = new BookRequestService();
 
         Integer totalPersons = Integer.valueOf(request.getParameter(PARAM_NAME_TOTAL_PERSONS));
         Integer roomType = Integer.valueOf(request.getParameter(PARAM_NAME_ROOM_TYPE));
@@ -50,7 +50,7 @@ public class CommandReservation implements ICommand {
         }
 
         BookRequest form = new BookRequest(0, user.getId(), totalPersons, roomType, checkInDate, checkOutDate, false);
-        reservationService.makeNewReservation(form);
+        reservationService.makeNewRequest(form);
 
         request.setAttribute("successfulReserve", "true");
         return PathConfig.getInstance().getProperty(PathConfig.NEW_BOOK_REQUEST_PAGE_PATH);
