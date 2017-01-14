@@ -21,7 +21,7 @@ public class CommandClientRequests implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
-        List<BookRequest> bookRequests = new BookRequestService().getRequestById(user.getId());
+        List<BookRequest> bookRequests = new BookRequestService().getRequestsByUserId(user.getId());
         if(session.getAttribute("idTypeTitlesMap") == null) {
             session.setAttribute("idTypeTitlesMap", new RoomTypeService().getIdTypeTitleMap());
         }

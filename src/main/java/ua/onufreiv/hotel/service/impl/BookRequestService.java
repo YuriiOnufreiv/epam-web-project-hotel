@@ -17,13 +17,18 @@ public class BookRequestService implements IBookRequestService {
     }
 
     @Override
+    public BookRequest getById(int id) {
+        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getBookRequestDao().find(id);
+    }
+
+    @Override
     public void makeNewRequest(BookRequest bookRequest) {
         IBookRequestDao formDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getBookRequestDao();
         formDao.insert(bookRequest);
     }
 
     @Override
-    public List<BookRequest> getRequestById(int id) {
+    public List<BookRequest> getRequestsByUserId(int id) {
         IBookRequestDao formDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getBookRequestDao();
         return formDao.findByUserId(id);
     }
