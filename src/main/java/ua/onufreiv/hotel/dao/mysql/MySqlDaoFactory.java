@@ -51,4 +51,9 @@ public class MySqlDaoFactory extends DaoFactory {
     public IUserRoleDao getUserRoleDao() {
         return MySqlUserRoleDao.getInstance();
     }
+
+    @Override
+    public IBillDao getBillDao() {
+        return MySqlBillDao.getInstance();
+    }
 }

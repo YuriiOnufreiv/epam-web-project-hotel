@@ -33,7 +33,8 @@ public abstract class DaoFactory {
     public abstract IReservedRoomDao getReservedRoomDao();
 
     public abstract IUserRoleDao getUserRoleDao();
-//    public abstract IBillDAO getBillDAO();
+
+    public abstract IBillDao getBillDao();
 
     // List of DAO types supported by the factory
     public enum FactoryType {
