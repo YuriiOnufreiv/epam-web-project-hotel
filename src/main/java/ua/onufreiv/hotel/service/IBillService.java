@@ -7,4 +7,5 @@ import ua.onufreiv.hotel.entities.Bill;
  */
 public interface IBillService {
     boolean createNewBill(Bill bill);
+    Bill getByBookRequestId(int id);
 }

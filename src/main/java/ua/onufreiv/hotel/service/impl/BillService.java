@@ -21,4 +21,10 @@ public class BillService implements IBillService {
         daoFactory.getBookRequestDao().update(bookRequest);
         return true;
     }
+
+    @Override
+    public Bill getByBookRequestId(int id) {
+        DaoFactory daoFactory = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB);
+        return daoFactory.getBillDao().findByBookRequestId(id);
+    }
 }
