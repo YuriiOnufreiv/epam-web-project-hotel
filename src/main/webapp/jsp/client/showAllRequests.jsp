@@ -36,7 +36,16 @@
                     <td><c:out value="${bookRequest.checkOut}"/></td>
                     <td><c:out value="${sessionScope.idTypeTitlesMap[bookRequest.roomTypeId]}"/></td>
                     <td><c:out value="${bookRequest.persons}"/></td>
-                    <td><c:out value="${bookRequest.processed}"/></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${bookRequest.processed}">
+                                <a class="acount-btn" href="/hotel?command=showBillInfo&bookRequestId=${bookRequest.id}"><fmt:message key="general.see"/></a>
+                            </c:when>
+                            <c:otherwise>
+                                <fmt:message key="bookRequest.notProcessed"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
