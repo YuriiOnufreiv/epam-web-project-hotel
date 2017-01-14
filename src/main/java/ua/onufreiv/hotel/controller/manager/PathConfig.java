@@ -18,6 +18,8 @@ public class PathConfig {
     public static final String SHOW_ALL_REQUESTS_PAGE_PATH = "SHOW_ALL_REQUESTS_PAGE_PATH";
     public static final String NOT_SIGNED_IN_ERROR_PAGE_PATH = "NOT_SIGNED_IN_ERROR_PAGE_PATH";
     public static final String ADMIN_DASHBOARD_PAGE_PATH = "ADMIN_DASHBOARD_PAGE_PATH";
+    public static final String PROCESS_REQUEST_PAGE_PATH = "PROCESS_REQUEST_PAGE_PATH";
+    public static final String BILL_INFO_PAGE_PATH = "BILL_INFO_PAGE_PATH";
 
     private static PathConfig instance;
 
