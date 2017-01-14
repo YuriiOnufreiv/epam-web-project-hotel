@@ -38,36 +38,35 @@
                                         <%--<th><fmt:message key="bookRequest.checkin"/></th>--%>
                                         <%--<th><fmt:message key="bookRequest.checkout"/></th>--%>
                                         <th><fmt:message key="bookRequest.room_type"/></th>
-                                        <th><fmt:message key="bookRequest.total_persons"/></th>
+                                        <th>Process</th>
                                         <%--<th><fmt:message key="bookRequest.bill"/></th>--%>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="room" items="${requestScope.possibleRooms}">
+                                    <c:forEach var="bookRequest" items="${requestScope.newBookRequests}">
                                         <tr>
-                                            <td><c:out value="${room.id}"/></td>
+                                            <td><c:out value="${bookRequest.id}"/></td>
                                                 <%--<td><fmt:formatDate value="${bookRequest.checkIn}"/></td>--%>
                                                 <%--<td><c:out value="${bookRequest.checkOut}"/></td>--%>
-                                            <td><c:out value="${sessionScope.idTypeTitlesMap[room.roomTypeId]}"/></td>
-                                            <td><c:out value="${room.number}"/></td>
+                                                <%--<td><c:out value="${sessionScope.idTypeTitlesMap[room.roomTypeId]}"/></td>--%>
+                                            <td><c:out value="${bookRequest.processed}"/></td>
+                                            <td>
+                                                <a href="/hotel?command=processBookRequest&id=${bookRequest.id}"
+                                                   class="btn btn-info btn-fill">Process</a>
+                                            </td>
                                                 <%--<td><c:out value="${bookRequest.processed}"/></td>--%>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <%@ include file="/WEB-INF/jspf/admin/footer.jspf" %>
-
     </div>
 </div>
-
-
 </body>
 </html>
