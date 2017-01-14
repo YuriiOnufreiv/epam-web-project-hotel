@@ -28,6 +28,7 @@ public class ControllerHelper {
         commands.put("createBill", new CommandCreateBill());
         commands.put("showBillInfo", new CommandShowBillInfo());
         commands.put("addNewRoomType", new CommandAddNewRoomType());
+        commands.put("addNewRoom", new CommandAddNewRoom());
     }
 
     public static ControllerHelper getInstance() {
