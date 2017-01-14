@@ -24,6 +24,8 @@ public class ControllerHelper {
         commands.put("clientRequests", new CommandClientRequests());
         commands.put("showBookingPage", new CommandShowBookingPage());
         commands.put("showAdminDashboard", new CommandShowAdminDashboard());
+        commands.put("processBookRequest", new CommandProcessBookRequest());
+        commands.put("createBill", new CommandCreateBill());
     }
 
     public static ControllerHelper getInstance() {
