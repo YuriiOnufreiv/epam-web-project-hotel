@@ -12,6 +12,11 @@ import java.util.List;
 public class RoomService implements IRoomService {
     @Override
     public List<Room> findAllExcept(List<Integer> exceptRoomIds) {
-        return  DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomDao().findAllExcept(exceptRoomIds);
+        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomDao().findAllExcept(exceptRoomIds);
+    }
+
+    @Override
+    public Room getById(int id) {
+        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomDao().find(id);
     }
 }

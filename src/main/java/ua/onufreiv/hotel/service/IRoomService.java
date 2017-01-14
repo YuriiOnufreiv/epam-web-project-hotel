@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface IRoomService {
     List<Room> findAllExcept(List<Integer> exceptRoomIds);
+    Room getById(int id);
 }
