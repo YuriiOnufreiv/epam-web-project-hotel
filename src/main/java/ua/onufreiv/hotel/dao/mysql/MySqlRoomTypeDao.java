@@ -21,6 +21,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
 
     private static final String QUERY_INSERT = "INSERT INTO ROOM_TYPE (type, descr, price, maxPerson) VALUES (?, ?, ?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM ROOM_TYPE";
+    private static final String QUERY_SELECT_ALL_ROOM_TYPES = "SELECT type FROM ROOM_TYPE";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM ROOM_TYPE WHERE idRoomType = ?";
     private static final String QUERY_UPDATE = "UPDATE ROOM_TYPE SET type = ?, descr = ?, price = ?, maxPerson = ? WHERE idRoomType = ?";
     private static final String QUERY_DELETE = "DELETE FROM ROOM_TYPE WHERE idRoomType = ?";
@@ -109,6 +110,24 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         Database.getInstance().closeConnection(connection);
         return update;
 //        return false;
+    }
+
+    @Override
+    public List<String> getAllRoomTypes() {
+        Connection connection = Database.getInstance().getConnection();
+        try {
+            JdbcQuery jdbcQuery = new JdbcQuery();
+            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL_ROOM_TYPES);
+            List<String> types = new ArrayList<>();
+            while (rs.next()) {
+                types.add(rs.getString(1));
+            }
+            Database.getInstance().closeConnection(connection);
+            return types;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
