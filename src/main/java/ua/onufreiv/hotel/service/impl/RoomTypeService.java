@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public class RoomTypeService implements IRoomTypeService {
     @Override
-    public boolean addNewRoomType(RoomType roomType) {
-        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomTypeDao().insert(roomType) > 0;
+    public int addNewRoomType(RoomType roomType) {
+        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomTypeDao().insert(roomType);
     }
 
     @Override
