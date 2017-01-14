@@ -73,5 +73,14 @@ public class DtoMapper {
             userRole.setRole(rs.getString("role"));
             return userRole;
         }
+
+        public static Bill toBill(java.sql.ResultSet rs) throws SQLException {
+            Bill bill = new Bill();
+            bill.setId(rs.getInt("idBill"));
+            bill.setBookRequestId(rs.getInt("bookRequestFK"));
+            bill.setRoomId(rs.getInt("roomFK"));
+            bill.setTotalPrice(rs.getLong("price"));
+            return bill;
+        }
     }
 }
