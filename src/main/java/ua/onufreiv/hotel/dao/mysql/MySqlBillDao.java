@@ -18,6 +18,7 @@ public class MySqlBillDao implements IBillDao {
     private static final String QUERY_INSERT = "INSERT INTO BILL (bookRequestFK, roomFK, price) VALUES (?, ?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM BILL";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BILL WHERE idBill = ?";
+    private static final String QUERY_SELECT_BY_BOOK_REQUEST_ID = "SELECT * FROM BILL WHERE bookRequestFK = ?";
     private static final String QUERY_UPDATE = "UPDATE BILL SET bookRequestFK = ?, roomFK = ?, price = ? WHERE idBill = ?";
     private static final String QUERY_DELETE = "DELETE FROM BILL WHERE idBill = ?";
     private static MySqlBillDao instance;
@@ -99,5 +100,22 @@ public class MySqlBillDao implements IBillDao {
                 bill.getId());
         Database.getInstance().closeConnection(connection);
         return result;
+    }
+
+    @Override
+    public Bill findByBookRequestId(int id) {
+        Connection connection = Database.getInstance().getConnection();
+        try {
+            JdbcQuery jdbcQuery = new JdbcQuery();
+            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_BOOK_REQUEST_ID, id);
+            if (rs.next()) {
+                Bill bill = DtoMapper.ResultSet.toBill(rs);
+                Database.getInstance().closeConnection(connection);
+                return bill;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
