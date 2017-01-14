@@ -24,7 +24,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <h3><fmt:message key="register.personal_info"/></h3>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span><fmt:message key="general.first_name"/></span>
-                        <input input name="first_name" required="required" type="text"
+                        <input name="first_name" required="required" type="text"
                                value="${requestScope.first_name}" placeholder="Taras">
                     </div>
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
