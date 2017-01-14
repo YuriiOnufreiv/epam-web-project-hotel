@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface IRoomDao extends IDao<Room> {
     List<Room> findAllExcept(List<Integer> exceptRoomIds);
+
+    Room findByRoomNum(int number);
 }

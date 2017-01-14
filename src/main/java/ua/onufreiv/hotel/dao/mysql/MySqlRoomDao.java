@@ -20,6 +20,7 @@ public class MySqlRoomDao implements IRoomDao {
     private static final String QUERY_INSERT = "INSERT INTO ROOM (typeFK, number) VALUES (?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM ROOM";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM ROOM WHERE idRoom = ?";
+    private static final String QUERY_SELECT_BY_ROOM_NUM = "SELECT * FROM ROOM WHERE number = ?";
     private static final String QUERY_UPDATE = "UPDATE ROOM SET typeFK = ?, number = ? WHERE idRoom = ?";
     private static final String QUERY_DELETE = "DELETE FROM ROOM WHERE idRoom = ?";
 
@@ -116,5 +117,22 @@ public class MySqlRoomDao implements IRoomDao {
             }
         }
         return validRooms;
+    }
+
+    @Override
+    public Room findByRoomNum(int number) {
+        Connection connection = Database.getInstance().getConnection();
+        try {
+            JdbcQuery jdbcQuery = new JdbcQuery();
+            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ROOM_NUM, number);
+            if(rs.next()) {
+                Room room = DtoMapper.ResultSet.toRoom(rs);
+                Database.getInstance().closeConnection(connection);
+                return room;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
