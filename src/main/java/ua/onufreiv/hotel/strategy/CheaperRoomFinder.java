@@ -22,7 +22,7 @@ public class CheaperRoomFinder implements IRoomFinder {
         int priceOfSelectedType = types.get(neededTypeId).getPrice();
 
         for (Room room : rooms) {
-            if (types.get(room.getRoomTypeId()).getPrice() <= priceOfSelectedType
+            if (types.get(room.getRoomTypeId()).getPrice() < priceOfSelectedType
                     && types.get(room.getRoomTypeId()).getMaxPerson() >= neededPersonsAmount) {
                 suitableRooms.add(room);
             }
