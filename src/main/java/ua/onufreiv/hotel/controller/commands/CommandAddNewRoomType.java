@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by yurii on 1/14/17.
@@ -31,8 +32,9 @@ public class CommandAddNewRoomType implements ICommand {
             request.setAttribute("persons", persons);
             request.setAttribute("description", description);
         } else {
-            roomTypeService.addNewRoomType(roomType);
+            int id = roomTypeService.addNewRoomType(roomType);
             request.setAttribute("addRoomTypeSuccess", true);
+            ((Map<Integer, String>) request.getSession(false).getAttribute("idTypeTitlesMap")).put(id, type);
         }
 
         return PathConfig.getInstance().getProperty(PathConfig.ADD_NEW_ROOM_TYPE_PAGE_PATH);
