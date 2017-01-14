@@ -21,6 +21,7 @@ public class PathConfig {
     public static final String PROCESS_REQUEST_PAGE_PATH = "PROCESS_REQUEST_PAGE_PATH";
     public static final String ADMIN_BILL_INFO_PAGE_PATH = "ADMIN_BILL_INFO_PAGE_PATH";
     public static final String CLIENT_BILL_INFO_PAGE_PATH = "CLIENT_BILL_INFO_PAGE_PATH";
+    public static final String ADD_NEW_ROOM_TYPE_PAGE_PATH = "ADD_NEW_ROOM_TYPE_PAGE_PATH";
 
     private static PathConfig instance;
 
