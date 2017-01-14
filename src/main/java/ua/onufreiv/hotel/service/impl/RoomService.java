@@ -19,4 +19,14 @@ public class RoomService implements IRoomService {
     public Room getById(int id) {
         return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomDao().find(id);
     }
+
+    @Override
+    public Room getByRoomNumber(int number) {
+        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomDao().findByRoomNum(number);
+    }
+
+    @Override
+    public void addNewRoom(Room room) {
+        DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getRoomDao().insert(room);
+    }
 }
