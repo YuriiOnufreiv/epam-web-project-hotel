@@ -55,6 +55,6 @@ public class CommandCreateBill implements ICommand {
         request.setAttribute("checkOut", bookRequest.getCheckOut());
         request.setAttribute("totalPrice", price);
 
-        return PathConfig.getInstance().getProperty(PathConfig.BILL_INFO_PAGE_PATH);
+        return PathConfig.getInstance().getProperty(PathConfig.ADMIN_BILL_INFO_PAGE_PATH);
     }
 }
