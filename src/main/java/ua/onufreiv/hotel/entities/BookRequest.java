@@ -7,6 +7,7 @@ import java.util.Date;
  * Created by yurii on 12/21/16.
  */
 public class BookRequest extends AbstractEntity implements Serializable {
+    private Date creationDate;
     private Integer userId;
     private Integer persons;
     private Integer roomTypeId;
@@ -17,14 +18,23 @@ public class BookRequest extends AbstractEntity implements Serializable {
     public BookRequest() {
     }
 
-    public BookRequest(Integer id, Integer userId, Integer persons, Integer roomTypeId, Date checkIn, Date checkOut, Boolean processed) {
+    public BookRequest(Integer id, Date creationDate, Integer userId, Integer persons, Integer roomTypeId, Date checkIn, Date checkOut, Boolean processed) {
         super(id);
+        this.creationDate = creationDate;
         this.userId = userId;
         this.persons = persons;
         this.roomTypeId = roomTypeId;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.processed = processed;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public Integer getUserId() {
@@ -78,6 +88,7 @@ public class BookRequest extends AbstractEntity implements Serializable {
     @Override
     public String toString() {
         return "BookRequest{" +
+                ", creationDate=" + creationDate +
                 ", userId=" + userId +
                 ", persons=" + persons +
                 ", roomTypeId=" + roomTypeId +

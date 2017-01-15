@@ -49,7 +49,7 @@ public class CommandReservation implements ICommand {
             e.printStackTrace();
         }
 
-        BookRequest form = new BookRequest(0, user.getId(), totalPersons, roomType, checkInDate, checkOutDate, false);
+        BookRequest form = new BookRequest(0, new Date(), user.getId(), totalPersons, roomType, checkInDate, checkOutDate, false);
         reservationService.makeNewRequest(form);
 
         request.setAttribute("successfulReserve", "true");

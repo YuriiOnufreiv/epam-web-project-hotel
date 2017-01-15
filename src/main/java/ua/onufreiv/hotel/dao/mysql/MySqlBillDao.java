@@ -15,11 +15,11 @@ import java.util.List;
  * Created by yurii on 1/10/17.
  */
 public class MySqlBillDao implements IBillDao {
-    private static final String QUERY_INSERT = "INSERT INTO BILL (bookRequestFK, roomFK, price) VALUES (?, ?, ?)";
+    private static final String QUERY_INSERT = "INSERT INTO BILL (creationDateTime, bookRequestFK, roomFK, price) VALUES (?, ?, ?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM BILL";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BILL WHERE idBill = ?";
     private static final String QUERY_SELECT_BY_BOOK_REQUEST_ID = "SELECT * FROM BILL WHERE bookRequestFK = ?";
-    private static final String QUERY_UPDATE = "UPDATE BILL SET bookRequestFK = ?, roomFK = ?, price = ? WHERE idBill = ?";
+    private static final String QUERY_UPDATE = "UPDATE BILL SET creationDateTime = ?, bookRequestFK = ?, roomFK = ?, price = ? WHERE idBill = ?";
     private static final String QUERY_DELETE = "DELETE FROM BILL WHERE idBill = ?";
     private static MySqlBillDao instance;
 
@@ -38,6 +38,7 @@ public class MySqlBillDao implements IBillDao {
         Connection connection = Database.getInstance().getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         int id = jdbcQuery.insert(connection, QUERY_INSERT,
+                bill.getCreationDate(),
                 bill.getBookRequestId(),
                 bill.getRoomId(),
                 bill.getTotalPrice());
@@ -94,6 +95,7 @@ public class MySqlBillDao implements IBillDao {
         Connection connection = Database.getInstance().getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.update(connection, QUERY_UPDATE,
+                bill.getCreationDate(),
                 bill.getBookRequestId(),
                 bill.getRoomId(),
                 bill.getTotalPrice(),

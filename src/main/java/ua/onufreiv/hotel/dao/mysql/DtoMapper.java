@@ -30,6 +30,7 @@ public class DtoMapper {
 
         public static BookRequest toBookRequest(java.sql.ResultSet rs) throws SQLException {
             BookRequest bookRequest = new BookRequest();
+            bookRequest.setCreationDate(rs.getTimestamp("creationDateTime"));
             bookRequest.setId(rs.getInt("idRequest"));
             bookRequest.setUserId(rs.getInt("userFK"));
             bookRequest.setPersons(rs.getInt("persons"));
@@ -77,6 +78,7 @@ public class DtoMapper {
         public static Bill toBill(java.sql.ResultSet rs) throws SQLException {
             Bill bill = new Bill();
             bill.setId(rs.getInt("idBill"));
+            bill.setCreationDate(rs.getTimestamp("creationDateTime"));
             bill.setBookRequestId(rs.getInt("bookRequestFK"));
             bill.setRoomId(rs.getInt("roomFK"));
             bill.setTotalPrice(rs.getLong("price"));

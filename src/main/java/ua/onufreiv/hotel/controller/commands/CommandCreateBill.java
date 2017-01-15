@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,6 +40,7 @@ public class CommandCreateBill implements ICommand {
         long price = days * roomType.getPrice();
 
         Bill bill = new Bill();
+        bill.setCreationDate(new Date());
         bill.setBookRequestId(bookRequestId);
         bill.setRoomId(roomId);
         bill.setTotalPrice(price); ///////////////// hardcoded
@@ -49,6 +51,7 @@ public class CommandCreateBill implements ICommand {
         }
 
         request.setAttribute("bookRequestId", bookRequestId);
+        request.setAttribute("requestCreationDate", bookRequest.getCreationDate());
         request.setAttribute("persons", bookRequest.getPersons());
         request.setAttribute("type", roomType.getType());
         request.setAttribute("checkIn", bookRequest.getCheckIn());

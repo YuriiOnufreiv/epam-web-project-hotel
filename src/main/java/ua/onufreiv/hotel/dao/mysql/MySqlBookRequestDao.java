@@ -15,11 +15,11 @@ import java.util.List;
  * Created by yurii on 1/1/17.
  */
 public class MySqlBookRequestDao implements IBookRequestDao {
-    private static final String QUERY_INSERT = "INSERT INTO BOOK_REQUEST (userFK, persons, roomTypeFK, checkIn, checkOut, processed) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String QUERY_INSERT = "INSERT INTO BOOK_REQUEST (creationDateTime, userFK, persons, roomTypeFK, checkIn, checkOut, processed) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM BOOK_REQUEST";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BOOK_REQUEST WHERE idRequest = ?";
     private static final String QUERY_SELECT_BY_PROCESSED = "SELECT * FROM BOOK_REQUEST WHERE processed = ?";
-    private static final String QUERY_UPDATE = "UPDATE BOOK_REQUEST SET userFK = ?, persons = ?, roomTypeFK = ?, checkIn = ?, checkOut = ?, processed = ?  WHERE idRequest = ?";
+    private static final String QUERY_UPDATE = "UPDATE BOOK_REQUEST SET creationDateTime = ?, userFK = ?, persons = ?, roomTypeFK = ?, checkIn = ?, checkOut = ?, processed = ?  WHERE idRequest = ?";
     private static final String QUERY_DELETE = "DELETE FROM BOOK_REQUEST WHERE idRequest = ?";
     private static final String QUERY_SELECT_BY_USER_ID = "SELECT * FROM BOOK_REQUEST WHERE userFK = ?";
     private static MySqlBookRequestDao instance;
@@ -40,6 +40,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
         Connection connection = Database.getInstance().getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         id = jdbcQuery.insert(connection, QUERY_INSERT,
+                bookRequest.getCreationDate(),
                 bookRequest.getUserId(),
                 bookRequest.getPersons(),
                 bookRequest.getRoomTypeId(),
@@ -99,6 +100,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
         Connection connection = Database.getInstance().getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
+                bookRequest.getCreationDate(),
                 bookRequest.getUserId(),
                 bookRequest.getPersons(),
                 bookRequest.getRoomTypeId(),

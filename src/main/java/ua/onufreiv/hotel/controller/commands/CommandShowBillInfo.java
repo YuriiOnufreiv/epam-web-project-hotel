@@ -42,6 +42,7 @@ public class CommandShowBillInfo implements ICommand {
         request.setAttribute("roomPrice", roomType.getPrice());
         request.setAttribute("checkIn", bookRequest.getCheckIn());
         request.setAttribute("checkOut", bookRequest.getCheckOut());
+        request.setAttribute("billCreationDate", bill.getCreationDate());
         return PathConfig.getInstance().getProperty(PathConfig.CLIENT_BILL_INFO_PAGE_PATH);
     }
 }
