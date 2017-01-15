@@ -22,14 +22,15 @@
         <h3 class="hdg">Bill #1</h3>
         <div class="single-top">
             <div class="col-md-6 single-right">
-                <h4>Client Info</h4>
+                <p><fmt:formatDate pattern="MM/dd/yyyy hh:mm" value="${requestScope.billCreationDate}"/></p>
+                <br><h4>Client Info</h4>
                 <hr>
                 <p><strong>Name: </strong>${requestScope.user.name} ${requestScope.user.surname}</p>
                 <p><strong>Email: </strong>${requestScope.user.email}</p>
                 <p><strong>Phone: </strong>${requestScope.user.phoneNum}</p>
             </div>
             <div class="col-md-6 single-right">
-                <h4>Room Info</h4>
+                <br><br><h4>Room Info</h4>
                 <hr>
                 <p><strong>Room #: </strong>${requestScope.roomNo}</p>
                 <p><strong>Room type: </strong>${requestScope.roomType}</p>

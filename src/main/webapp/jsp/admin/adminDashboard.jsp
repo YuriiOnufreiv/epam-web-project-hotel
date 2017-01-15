@@ -24,7 +24,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Book Requests</h4>
@@ -35,26 +35,20 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <%--<th><fmt:message key="bookRequest.checkin"/></th>--%>
-                                        <%--<th><fmt:message key="bookRequest.checkout"/></th>--%>
-                                        <th><fmt:message key="bookRequest.room_type"/></th>
+                                        <th><fmt:message key="bookRequest.creationDate"/></th>
                                         <th>Process</th>
-                                        <%--<th><fmt:message key="bookRequest.bill"/></th>--%>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <c:forEach var="bookRequest" items="${requestScope.newBookRequests}">
                                         <tr>
                                             <td><c:out value="${bookRequest.id}"/></td>
-                                                <%--<td><fmt:formatDate value="${bookRequest.checkIn}"/></td>--%>
-                                                <%--<td><c:out value="${bookRequest.checkOut}"/></td>--%>
-                                                <%--<td><c:out value="${sessionScope.idTypeTitlesMap[room.roomTypeId]}"/></td>--%>
-                                            <td><c:out value="${bookRequest.processed}"/></td>
+                                            <td><fmt:formatDate pattern="MM/dd/yyyy hh:mm"
+                                                                value="${bookRequest.creationDate}"/></td>
                                             <td>
                                                 <a href="/hotel?command=processBookRequest&id=${bookRequest.id}"
                                                    class="btn btn-info btn-fill">Process</a>
                                             </td>
-                                                <%--<td><c:out value="${bookRequest.processed}"/></td>--%>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

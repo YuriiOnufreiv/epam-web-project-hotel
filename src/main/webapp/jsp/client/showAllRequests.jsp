@@ -21,6 +21,7 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th><fmt:message key="bookRequest.creationDate"/></th>
                 <th><fmt:message key="bookRequest.checkin"/></th>
                 <th><fmt:message key="bookRequest.checkout"/></th>
                 <th><fmt:message key="bookRequest.room_type"/></th>
@@ -32,6 +33,7 @@
             <c:forEach var="bookRequest" items="${requestScope.bookRequests}">
                 <tr>
                     <td><c:out value="${bookRequest.id}"/></td>
+                    <td><fmt:formatDate pattern="MM/dd/yyyy hh:mm" value="${bookRequest.creationDate}"/></td>
                     <td><fmt:formatDate value="${bookRequest.checkIn}"/></td>
                     <td><c:out value="${bookRequest.checkOut}"/></td>
                     <td><c:out value="${sessionScope.idTypeTitlesMap[bookRequest.roomTypeId]}"/></td>

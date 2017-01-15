@@ -32,7 +32,9 @@
                             </div>
                             <div class="content">
                                 <div class="typo-line">
-                                    <h5><p class="category">Request Date</p>01/04/2017 14:00</h5>
+                                    <h5><p class="category">Request Date</p><fmt:formatDate pattern="MM/dd/yyyy hh:mm"
+                                                                                            value="${requestScope.requestCreationDate}"/>
+                                    </h5>
                                 </div>
                                 <div class="typo-line">
                                     <h5><p class="category">Persons</p>${requestScope.persons}</h5>
