@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IRoomTypeDao;
 import ua.onufreiv.hotel.entities.RoomType;
-import ua.onufreiv.hotel.jdbc.Database;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 
 import java.sql.Connection;
@@ -38,7 +38,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
 
     @Override
     public int insert(RoomType roomType) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         int id = 0;
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
@@ -48,29 +48,29 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
                     roomType.getPrice(),
                     roomType.getMaxPerson());
         } finally {
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
         }
         return id;
     }
 
     @Override
     public boolean delete(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;//        return false;
     }
 
     @Override
     public RoomType find(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
                 RoomType roomType = DtoMapper.ResultSet.toRoomType(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return roomType;
             }
         } catch (SQLException e) {
@@ -81,7 +81,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
 
     @Override
     public List<RoomType> findAll() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
@@ -89,7 +89,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
             while (rs.next()) {
                 users.add(DtoMapper.ResultSet.toRoomType(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return users;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
 
     @Override
     public boolean update(RoomType roomType) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
                 roomType.getType(),
@@ -107,14 +107,14 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
                 roomType.getPrice(),
                 roomType.getMaxPerson(),
                 roomType.getId());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return update;
 //        return false;
     }
 
     @Override
     public List<String> getAllRoomTypes() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL_ROOM_TYPES);
@@ -122,7 +122,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
             while (rs.next()) {
                 types.add(rs.getString(1));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return types;
         } catch (SQLException e) {
             e.printStackTrace();

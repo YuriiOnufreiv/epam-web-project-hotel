@@ -13,6 +13,10 @@
         <res-auth>Container</res-auth>
     </resource-ref>
 
+    <listener>
+        <listener-class>ua.onufreiv.hotel.listener.ServletLifecycleListener</listener-class>
+    </listener>
+
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>ua.onufreiv.hotel.controller.filters.EncodingFilter</filter-class>

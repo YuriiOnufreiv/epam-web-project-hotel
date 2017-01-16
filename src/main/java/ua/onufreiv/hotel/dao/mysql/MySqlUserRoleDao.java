@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IUserRoleDao;
 import ua.onufreiv.hotel.entities.UserRole;
-import ua.onufreiv.hotel.jdbc.Database;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 
 import java.sql.Connection;
@@ -35,36 +35,36 @@ public class MySqlUserRoleDao implements IUserRoleDao {
 
     @Override
     public int insert(UserRole userRole) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         int id = 0;
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             id = jdbcQuery.insert(connection, QUERY_INSERT,
                     userRole.getRole());
         } finally {
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
         }
         return id;
     }
 
     @Override
     public boolean delete(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;//        return false;
     }
 
     @Override
     public UserRole find(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
                 UserRole userRole = DtoMapper.ResultSet.toUserRole(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return userRole;
             }
         } catch (SQLException e) {
@@ -75,7 +75,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
 
     @Override
     public List<UserRole> findAll() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
@@ -83,7 +83,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
             while (rs.next()) {
                 userRoles.add(DtoMapper.ResultSet.toUserRole(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return userRoles;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,25 +93,24 @@ public class MySqlUserRoleDao implements IUserRoleDao {
 
     @Override
     public boolean update(UserRole userRole) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
                 userRole.getRole(),
                 userRole.getId());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return update;
-//        return false;
     }
 
     @Override
     public boolean isAdmin(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
                 boolean b = rs.getString("role").equalsIgnoreCase("ADMIN");
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return b;
             }
         } catch (SQLException e) {
@@ -122,13 +121,13 @@ public class MySqlUserRoleDao implements IUserRoleDao {
 
     @Override
     public boolean isClient(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
                 boolean b = rs.getString("role").equalsIgnoreCase("CLIENT");
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return b;
             }
         } catch (SQLException e) {

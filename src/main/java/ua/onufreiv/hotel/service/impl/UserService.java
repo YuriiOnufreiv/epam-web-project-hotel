@@ -3,6 +3,7 @@ package ua.onufreiv.hotel.service.impl;
 import ua.onufreiv.hotel.dao.DaoFactory;
 import ua.onufreiv.hotel.entities.PasswordHash;
 import ua.onufreiv.hotel.entities.User;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.service.IUserService;
 
 /**
@@ -11,7 +12,7 @@ import ua.onufreiv.hotel.service.IUserService;
 public class UserService implements IUserService {
     @Override
     public User getById(int id) {
-        return DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDao().find(id);
+        return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserDao().find(id);
     }
 
     @Override

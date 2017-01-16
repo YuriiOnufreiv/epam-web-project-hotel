@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IBillDao;
 import ua.onufreiv.hotel.entities.Bill;
-import ua.onufreiv.hotel.jdbc.Database;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 
 import java.sql.Connection;
@@ -35,35 +35,35 @@ public class MySqlBillDao implements IBillDao {
 
     @Override
     public int insert(Bill bill) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         int id = jdbcQuery.insert(connection, QUERY_INSERT,
                 bill.getCreationDate(),
                 bill.getBookRequestId(),
                 bill.getRoomId(),
                 bill.getTotalPrice());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return id;
     }
 
     @Override
     public boolean delete(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;
     }
 
     @Override
     public Bill find(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if (rs.next()) {
                 Bill bill = DtoMapper.ResultSet.toBill(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return bill;
             }
         } catch (SQLException e) {
@@ -74,7 +74,7 @@ public class MySqlBillDao implements IBillDao {
 
     @Override
     public List<Bill> findAll() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
@@ -82,7 +82,7 @@ public class MySqlBillDao implements IBillDao {
             while (rs.next()) {
                 bills.add(DtoMapper.ResultSet.toBill(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return bills;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class MySqlBillDao implements IBillDao {
 
     @Override
     public boolean update(Bill bill) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.update(connection, QUERY_UPDATE,
                 bill.getCreationDate(),
@@ -100,19 +100,19 @@ public class MySqlBillDao implements IBillDao {
                 bill.getRoomId(),
                 bill.getTotalPrice(),
                 bill.getId());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;
     }
 
     @Override
     public Bill findByBookRequestId(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_BOOK_REQUEST_ID, id);
             if (rs.next()) {
                 Bill bill = DtoMapper.ResultSet.toBill(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return bill;
             }
         } catch (SQLException e) {

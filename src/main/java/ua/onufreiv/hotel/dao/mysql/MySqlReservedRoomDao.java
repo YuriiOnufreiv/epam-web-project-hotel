@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IReservedRoomDao;
 import ua.onufreiv.hotel.entities.ReservedRoom;
-import ua.onufreiv.hotel.jdbc.Database;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 
 import java.sql.Connection;
@@ -37,7 +37,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
 
     @Override
     public int insert(ReservedRoom reservedRoom) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         int id = 0;
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
@@ -46,30 +46,30 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
                     reservedRoom.getCheckInDate(),
                     reservedRoom.getCheckOutDate());
         } finally {
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
         }
         return id;
     }
 
     @Override
     public boolean delete(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;
         //        return false;
     }
 
     @Override
     public ReservedRoom find(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if (rs.next()) {
                 ReservedRoom reservedRoom = DtoMapper.ResultSet.toReservedRoom(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return reservedRoom;
             }
         } catch (SQLException e) {
@@ -80,7 +80,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
 
     @Override
     public List<ReservedRoom> findAll() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
@@ -88,7 +88,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
             while (rs.next()) {
                 reservedRooms.add(DtoMapper.ResultSet.toReservedRoom(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return reservedRooms;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,21 +98,21 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
 
     @Override
     public boolean update(ReservedRoom reservedRoom) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
                 reservedRoom.getRoomId(),
                 reservedRoom.getCheckInDate(),
                 reservedRoom.getCheckOutDate(),
                 reservedRoom.getId());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return update;
 //        return false;
     }
 
     @Override
     public List<ReservedRoom> findReservedInDateRange(Date checkInDate, Date checkOutDate) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_DATES_RANGE,checkInDate, checkOutDate);
@@ -120,7 +120,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
             while (rs.next()) {
                 reservedRooms.add(DtoMapper.ResultSet.toReservedRoom(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return reservedRooms;
         } catch (SQLException e) {
             e.printStackTrace();

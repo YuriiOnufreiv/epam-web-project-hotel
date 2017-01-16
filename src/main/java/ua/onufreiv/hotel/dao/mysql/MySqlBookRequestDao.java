@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IBookRequestDao;
 import ua.onufreiv.hotel.entities.BookRequest;
-import ua.onufreiv.hotel.jdbc.Database;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 
 import java.sql.Connection;
@@ -37,7 +37,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
     @Override
     public int insert(BookRequest bookRequest) {
         int id;
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         id = jdbcQuery.insert(connection, QUERY_INSERT,
                 bookRequest.getCreationDate(),
@@ -47,28 +47,28 @@ public class MySqlBookRequestDao implements IBookRequestDao {
                 bookRequest.getCheckIn(),
                 bookRequest.getCheckOut(),
                 bookRequest.getProcessed());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return id;
     }
 
     @Override
     public boolean delete(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;
     }
 
     @Override
     public BookRequest find(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if (rs.next()) {
                 BookRequest bookRequest = DtoMapper.ResultSet.toBookRequest(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return bookRequest;
             }
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
 
     @Override
     public List<BookRequest> findAll() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
@@ -87,7 +87,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
             while (rs.next()) {
                 bookRequests.add(DtoMapper.ResultSet.toBookRequest(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return bookRequests;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
 
     @Override
     public boolean update(BookRequest bookRequest) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
                 bookRequest.getCreationDate(),
@@ -108,13 +108,13 @@ public class MySqlBookRequestDao implements IBookRequestDao {
                 bookRequest.getCheckOut(),
                 bookRequest.getProcessed(),
                 bookRequest.getId());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return update;
     }
 
     @Override
     public List<BookRequest> findByUserId(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_USER_ID, id);
@@ -122,7 +122,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
             while (rs.next()) {
                 bookRequests.add(DtoMapper.ResultSet.toBookRequest(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return bookRequests;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,7 +132,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
 
     @Override
     public List<BookRequest> getNotProcessedRequests() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_PROCESSED, false);
@@ -140,7 +140,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
             while (rs.next()) {
                 bookRequests.add(DtoMapper.ResultSet.toBookRequest(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return bookRequests;
         } catch (SQLException e) {
             e.printStackTrace();

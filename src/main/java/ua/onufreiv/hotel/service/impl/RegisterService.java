@@ -5,6 +5,7 @@ import ua.onufreiv.hotel.dao.IPasswordDao;
 import ua.onufreiv.hotel.dao.IUserDao;
 import ua.onufreiv.hotel.entities.PasswordHash;
 import ua.onufreiv.hotel.entities.User;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.service.IRegisterService;
 
 /**
@@ -34,14 +35,14 @@ public class RegisterService implements IRegisterService {
 
     @Override
     public boolean isUniqueEmail(String email) {
-        IUserDao userDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDao();
+        IUserDao userDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserDao();
         return userDao.find(email) == null;
     }
 
     @Override
     public void registerNewUser(User user, PasswordHash passwordHash) {
-        IUserDao userDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getUserDao();
-        IPasswordDao passwordDao = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB).getPasswordDao();
+        IUserDao userDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserDao();
+        IPasswordDao passwordDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getPasswordDao();
 
         int id = passwordDao.insert(passwordHash);
 

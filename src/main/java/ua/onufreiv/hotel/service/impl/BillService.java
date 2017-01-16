@@ -3,6 +3,7 @@ package ua.onufreiv.hotel.service.impl;
 import ua.onufreiv.hotel.dao.DaoFactory;
 import ua.onufreiv.hotel.entities.Bill;
 import ua.onufreiv.hotel.entities.BookRequest;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.service.IBillService;
 
 /**
@@ -11,7 +12,7 @@ import ua.onufreiv.hotel.service.IBillService;
 public class BillService implements IBillService {
     @Override
     public boolean createNewBill(Bill bill) {
-        DaoFactory daoFactory = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB);
+        DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         daoFactory.getBillDao().insert(bill);
         BookRequest bookRequest = daoFactory.getBookRequestDao().find(bill.getBookRequestId());
         if(bookRequest.getProcessed()) {
@@ -24,7 +25,7 @@ public class BillService implements IBillService {
 
     @Override
     public Bill getByBookRequestId(int id) {
-        DaoFactory daoFactory = DaoFactory.getDAOFactory(DaoFactory.FactoryType.MYSQL_DB);
+        DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         return daoFactory.getBillDao().findByBookRequestId(id);
     }
 }

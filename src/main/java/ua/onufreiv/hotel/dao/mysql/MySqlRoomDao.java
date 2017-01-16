@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IRoomDao;
 import ua.onufreiv.hotel.entities.Room;
-import ua.onufreiv.hotel.jdbc.Database;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 
 import java.sql.Connection;
@@ -36,7 +36,7 @@ public class MySqlRoomDao implements IRoomDao {
 
     @Override
     public int insert(Room room) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         int id = 0;
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
@@ -44,29 +44,29 @@ public class MySqlRoomDao implements IRoomDao {
                     room.getRoomTypeId(),
                     room.getNumber());
         } finally {
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
         }
         return id;
     }
 
     @Override
     public boolean delete(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;//        return false;
     }
 
     @Override
     public Room find(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
                 Room room = DtoMapper.ResultSet.toRoom(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return room;
             }
         } catch (SQLException e) {
@@ -77,7 +77,7 @@ public class MySqlRoomDao implements IRoomDao {
 
     @Override
     public List<Room> findAll() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
@@ -85,7 +85,7 @@ public class MySqlRoomDao implements IRoomDao {
             while (rs.next()) {
                 users.add(DtoMapper.ResultSet.toRoom(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return users;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,20 +95,20 @@ public class MySqlRoomDao implements IRoomDao {
 
     @Override
     public boolean update(Room room) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
                 room.getRoomTypeId(),
                 room.getNumber(),
                 room.getId());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return update;
 //        return false;
     }
 
     @Override
     public List<Room> findAllExcept(List<Integer> exceptRoomIds) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         List<Room> validRooms = new ArrayList<>();
         List<Room> allRooms = findAll();
         for (Room room : allRooms) {
@@ -121,13 +121,13 @@ public class MySqlRoomDao implements IRoomDao {
 
     @Override
     public Room findByRoomNum(int number) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ROOM_NUM, number);
             if(rs.next()) {
                 Room room = DtoMapper.ResultSet.toRoom(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return room;
             }
         } catch (SQLException e) {

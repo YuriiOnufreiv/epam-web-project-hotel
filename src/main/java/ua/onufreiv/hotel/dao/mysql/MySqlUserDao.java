@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IUserDao;
 import ua.onufreiv.hotel.entities.User;
-import ua.onufreiv.hotel.jdbc.Database;
+import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 
 import java.sql.Connection;
@@ -37,7 +37,7 @@ public class MySqlUserDao implements IUserDao {
     @Override
     public int insert(User user) {
         int id = 0;
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             id = jdbcQuery.insert(connection, QUERY_INSERT,
@@ -48,30 +48,30 @@ public class MySqlUserDao implements IUserDao {
                     user.getUserRoleId(),
                     user.getPwdHashId());
         } finally {
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
         }
         return id;
     }
 
     @Override
     public boolean delete(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;
         //return false;
     }
 
     @Override
     public User find(int id) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if (rs.next()) {
                 User user = DtoMapper.ResultSet.toUser(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return user;
             }
         } catch (SQLException e) {
@@ -82,7 +82,7 @@ public class MySqlUserDao implements IUserDao {
 
     @Override
     public List<User> findAll() {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
@@ -90,7 +90,7 @@ public class MySqlUserDao implements IUserDao {
             while (rs.next()) {
                 users.add(DtoMapper.ResultSet.toUser(rs));
             }
-            Database.getInstance().closeConnection(connection);
+            ConnectionManager.closeConnection(connection);
             return users;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,7 +100,7 @@ public class MySqlUserDao implements IUserDao {
 
     @Override
     public boolean update(User user) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         JdbcQuery jdbcQuery = new JdbcQuery();
         boolean result = jdbcQuery.update(connection, QUERY_UPDATE,
                 user.getName(),
@@ -110,19 +110,19 @@ public class MySqlUserDao implements IUserDao {
                 user.getUserRoleId(),
                 user.getPwdHashId(),
                 user.getId());
-        Database.getInstance().closeConnection(connection);
+        ConnectionManager.closeConnection(connection);
         return result;
     }
 
     @Override
     public User find(String email) {
-        Connection connection = Database.getInstance().getConnection();
+        Connection connection = ConnectionManager.getConnection();
         try {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_EMAIL, email);
             if (rs != null && rs.next()) {
                 User user = DtoMapper.ResultSet.toUser(rs);
-                Database.getInstance().closeConnection(connection);
+                ConnectionManager.closeConnection(connection);
                 return user;
             }
         } catch (SQLException e) {
