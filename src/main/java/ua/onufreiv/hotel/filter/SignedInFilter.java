@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.controller.filters;
+package ua.onufreiv.hotel.filter;
 
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 

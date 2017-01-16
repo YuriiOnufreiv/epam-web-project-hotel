@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.controller.filters;
+package ua.onufreiv.hotel.filter;
 
 import javax.servlet.*;
 import java.io.IOException;
