@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="dateTag" uri="/WEB-INF/date.tld" %>
 <html>
 <head>
     <%@ include file="/WEB-INF/jspf/client/head.jspf" %>
@@ -33,9 +34,12 @@
             <c:forEach var="bookRequest" items="${requestScope.bookRequests}">
                 <tr>
                     <td><c:out value="${bookRequest.id}"/></td>
-                    <td><fmt:formatDate pattern="MM/dd/yyyy hh:mm" value="${bookRequest.creationDate}"/></td>
-                    <td><fmt:formatDate value="${bookRequest.checkIn}"/></td>
-                    <td><c:out value="${bookRequest.checkOut}"/></td>
+                        <%--<td><fmt:formatDate pattern="MM/dd/yyyy hh:mm" value="${bookRequest.creationDate}"/></td>--%>
+                    <td><dateTag:date date="${bookRequest.creationDate}" locale="${sessionScope.language}"
+                                      showTime="true"/></td>
+                    <td><dateTag:date date="${bookRequest.checkIn}" locale="${sessionScope.language}"/></td>
+                    <td><dateTag:date date="${bookRequest.checkOut}" locale="${sessionScope.language}"/></td>
+                        <%--<td><c:out value="${bookRequest.checkOut}"/></td>--%>
                     <td><c:out value="${sessionScope.idTypeTitlesMap[bookRequest.roomTypeId]}"/></td>
                     <td><c:out value="${bookRequest.persons}"/></td>
                     <td>

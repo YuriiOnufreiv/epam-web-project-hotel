@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/WEB-INF/dateTag.tld" prefix="roomTag" %>
 <!DOCTYPE HTML>
 <!doctype html>
 <html lang="en">
@@ -43,7 +44,8 @@
                                     <c:forEach var="bookRequest" items="${requestScope.newBookRequests}">
                                         <tr>
                                             <td><c:out value="${bookRequest.id}"/></td>
-                                            <td><fmt:formatDate pattern="MM/dd/yyyy hh:mm"
+                                            <td><
+                                                <fmt:formatDate pattern="MM/dd/yyyy hh:mm"
                                                                 value="${bookRequest.creationDate}"/></td>
                                             <td>
                                                 <a href="/hotel?command=processBookRequest&id=${bookRequest.id}"

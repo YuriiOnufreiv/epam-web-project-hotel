@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="dateTag" uri="/WEB-INF/date.tld" %>
 <html>
 <head>
     <%@ include file="/WEB-INF/jspf/client/head.jspf" %>
@@ -22,7 +23,8 @@
         <h3 class="hdg">Bill #1</h3>
         <div class="single-top">
             <div class="col-md-6 single-right">
-                <p><fmt:formatDate pattern="MM/dd/yyyy hh:mm" value="${requestScope.billCreationDate}"/></p>
+                <p><dateTag:date date="${requestScope.billCreationDate}" locale="${sessionScope.language}"
+                                 showTime="true"/></p>
                 <br><h4>Client Info</h4>
                 <hr>
                 <p><strong>Name: </strong>${requestScope.user.name} ${requestScope.user.surname}</p>
