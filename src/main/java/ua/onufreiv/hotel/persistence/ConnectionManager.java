@@ -83,8 +83,4 @@ public class ConnectionManager {
             logger.error("Failed to close connection: " + e);
         }
     }
-
-    public enum Type {
-        MY_SQL, UNDEFINED
-    }
 }
