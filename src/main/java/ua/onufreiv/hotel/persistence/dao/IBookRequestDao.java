@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.dao;
+package ua.onufreiv.hotel.persistence.dao;
 
 import ua.onufreiv.hotel.entity.BookRequest;
 

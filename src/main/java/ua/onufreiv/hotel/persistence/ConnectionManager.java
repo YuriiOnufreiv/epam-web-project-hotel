@@ -1,7 +1,7 @@
-package ua.onufreiv.hotel.jdbc;
+package ua.onufreiv.hotel.persistence;
 
 import org.apache.log4j.Logger;
-import ua.onufreiv.hotel.dao.DaoFactory;
+import ua.onufreiv.hotel.persistence.dao.DaoFactory;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

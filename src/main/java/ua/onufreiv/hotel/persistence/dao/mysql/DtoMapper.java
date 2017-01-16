@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.dao.mysql;
+package ua.onufreiv.hotel.persistence.dao.mysql;
 
 import ua.onufreiv.hotel.entity.*;
 

@@ -1,10 +1,10 @@
-package ua.onufreiv.hotel.dao.mysql;
+package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import ua.onufreiv.hotel.dao.IUserDao;
 import ua.onufreiv.hotel.entity.User;
-import ua.onufreiv.hotel.jdbc.ConnectionManager;
-import ua.onufreiv.hotel.jdbc.JdbcQuery;
-import ua.onufreiv.hotel.jdbc.query.QueryInsert;
+import ua.onufreiv.hotel.persistence.ConnectionManager;
+import ua.onufreiv.hotel.persistence.dao.IUserDao;
+import ua.onufreiv.hotel.persistence.jdbc.JdbcQuery;
+import ua.onufreiv.hotel.persistence.jdbc.query.QueryInsert;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

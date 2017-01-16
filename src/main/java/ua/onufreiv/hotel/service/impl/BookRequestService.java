@@ -1,9 +1,9 @@
 package ua.onufreiv.hotel.service.impl;
 
-import ua.onufreiv.hotel.dao.DaoFactory;
-import ua.onufreiv.hotel.dao.IBookRequestDao;
 import ua.onufreiv.hotel.entity.BookRequest;
-import ua.onufreiv.hotel.jdbc.ConnectionManager;
+import ua.onufreiv.hotel.persistence.ConnectionManager;
+import ua.onufreiv.hotel.persistence.dao.DaoFactory;
+import ua.onufreiv.hotel.persistence.dao.IBookRequestDao;
 import ua.onufreiv.hotel.service.IBookRequestService;
 
 import java.util.List;

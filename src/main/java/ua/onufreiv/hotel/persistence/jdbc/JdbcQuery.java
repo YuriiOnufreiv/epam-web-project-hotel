@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.jdbc;
+package ua.onufreiv.hotel.persistence.jdbc;
 
 import java.sql.*;
 

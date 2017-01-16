@@ -1,6 +1,6 @@
-package ua.onufreiv.hotel.dao.mysql;
+package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import ua.onufreiv.hotel.dao.*;
+import ua.onufreiv.hotel.persistence.dao.*;
 
 /**
  * Created by yurii on 12/23/16.

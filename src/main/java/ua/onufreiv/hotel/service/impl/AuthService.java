@@ -1,10 +1,10 @@
 package ua.onufreiv.hotel.service.impl;
 
-import ua.onufreiv.hotel.dao.DaoFactory;
-import ua.onufreiv.hotel.dao.IPasswordDao;
-import ua.onufreiv.hotel.dao.IUserDao;
 import ua.onufreiv.hotel.entity.User;
-import ua.onufreiv.hotel.jdbc.ConnectionManager;
+import ua.onufreiv.hotel.persistence.ConnectionManager;
+import ua.onufreiv.hotel.persistence.dao.DaoFactory;
+import ua.onufreiv.hotel.persistence.dao.IPasswordDao;
+import ua.onufreiv.hotel.persistence.dao.IUserDao;
 import ua.onufreiv.hotel.service.IAuthService;
 import ua.onufreiv.hotel.util.PasswordEncoder;
 

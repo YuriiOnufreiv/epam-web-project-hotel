@@ -1,9 +1,9 @@
-package ua.onufreiv.hotel.dao.mysql;
+package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import ua.onufreiv.hotel.dao.IRoomDao;
 import ua.onufreiv.hotel.entity.Room;
-import ua.onufreiv.hotel.jdbc.ConnectionManager;
-import ua.onufreiv.hotel.jdbc.JdbcQuery;
+import ua.onufreiv.hotel.persistence.ConnectionManager;
+import ua.onufreiv.hotel.persistence.dao.IRoomDao;
+import ua.onufreiv.hotel.persistence.jdbc.JdbcQuery;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

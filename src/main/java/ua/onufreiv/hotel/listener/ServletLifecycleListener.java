@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.listener;
 
-import ua.onufreiv.hotel.jdbc.ConnectionManager;
+import ua.onufreiv.hotel.persistence.ConnectionManager;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
