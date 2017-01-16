@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.dao;
 
-import ua.onufreiv.hotel.entities.ReservedRoom;
+import ua.onufreiv.hotel.entity.ReservedRoom;
 
 import java.util.Date;
 import java.util.List;

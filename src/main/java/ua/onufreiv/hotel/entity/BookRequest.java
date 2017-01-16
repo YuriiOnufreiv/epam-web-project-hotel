@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.entities;
+package ua.onufreiv.hotel.entity;
 
 import java.io.Serializable;
 import java.util.Date;

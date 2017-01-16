@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.dao;
 
-import ua.onufreiv.hotel.entities.AbstractEntity;
+import ua.onufreiv.hotel.entity.AbstractEntity;
 
 import java.util.List;
 

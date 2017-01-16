@@ -1,8 +1,8 @@
 package ua.onufreiv.hotel.service.impl;
 
 import ua.onufreiv.hotel.dao.DaoFactory;
-import ua.onufreiv.hotel.entities.Bill;
-import ua.onufreiv.hotel.entities.BookRequest;
+import ua.onufreiv.hotel.entity.Bill;
+import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.service.IBillService;
 

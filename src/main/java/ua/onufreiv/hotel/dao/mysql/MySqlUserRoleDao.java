@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IUserRoleDao;
-import ua.onufreiv.hotel.entities.UserRole;
+import ua.onufreiv.hotel.entity.UserRole;
 import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 

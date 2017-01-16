@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.controller.commands;
 
 import ua.onufreiv.hotel.controller.manager.PathConfig;
-import ua.onufreiv.hotel.entities.RoomType;
+import ua.onufreiv.hotel.entity.RoomType;
 import ua.onufreiv.hotel.service.IRoomTypeService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
 

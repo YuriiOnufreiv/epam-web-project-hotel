@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.service;
 
-import ua.onufreiv.hotel.entities.RoomType;
+import ua.onufreiv.hotel.entity.RoomType;
 
 import java.util.Map;
 

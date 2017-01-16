@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.service;
 
-import ua.onufreiv.hotel.entities.Bill;
+import ua.onufreiv.hotel.entity.Bill;
 
 /**
  * Created by yurii on 1/10/17.

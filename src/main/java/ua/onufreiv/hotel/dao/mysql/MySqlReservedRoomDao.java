@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IReservedRoomDao;
-import ua.onufreiv.hotel.entities.ReservedRoom;
+import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 

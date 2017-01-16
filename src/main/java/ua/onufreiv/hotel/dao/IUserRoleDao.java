@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.dao;
 
-import ua.onufreiv.hotel.entities.UserRole;
+import ua.onufreiv.hotel.entity.UserRole;
 
 /**
  * Created by yurii on 12/23/16.

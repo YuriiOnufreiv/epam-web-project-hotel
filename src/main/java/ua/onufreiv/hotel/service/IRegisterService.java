@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.service;
 
-import ua.onufreiv.hotel.entities.PasswordHash;
-import ua.onufreiv.hotel.entities.User;
+import ua.onufreiv.hotel.entity.PasswordHash;
+import ua.onufreiv.hotel.entity.User;
 
 /**
  * Created by yurii on 1/1/17.

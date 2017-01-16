@@ -1,8 +1,8 @@
 package ua.onufreiv.hotel.controller.commands;
 
 import ua.onufreiv.hotel.controller.manager.PathConfig;
-import ua.onufreiv.hotel.entities.BookRequest;
-import ua.onufreiv.hotel.entities.User;
+import ua.onufreiv.hotel.entity.BookRequest;
+import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.impl.BookRequestService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
 

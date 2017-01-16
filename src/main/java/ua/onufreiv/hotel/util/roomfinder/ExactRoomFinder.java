@@ -1,8 +1,8 @@
 package ua.onufreiv.hotel.util.roomfinder;
 
-import ua.onufreiv.hotel.entities.BookRequest;
-import ua.onufreiv.hotel.entities.Room;
-import ua.onufreiv.hotel.entities.RoomType;
+import ua.onufreiv.hotel.entity.BookRequest;
+import ua.onufreiv.hotel.entity.Room;
+import ua.onufreiv.hotel.entity.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;

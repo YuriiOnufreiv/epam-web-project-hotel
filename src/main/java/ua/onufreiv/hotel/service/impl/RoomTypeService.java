@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.service.impl;
 
 import ua.onufreiv.hotel.dao.DaoFactory;
-import ua.onufreiv.hotel.entities.RoomType;
+import ua.onufreiv.hotel.entity.RoomType;
 import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.service.IRoomTypeService;
 

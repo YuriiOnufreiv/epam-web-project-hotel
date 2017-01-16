@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.dao.mysql;
 
-import ua.onufreiv.hotel.entities.*;
+import ua.onufreiv.hotel.entity.*;
 
 import java.sql.SQLException;
 

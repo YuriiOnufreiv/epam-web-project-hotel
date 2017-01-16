@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IPasswordDao;
-import ua.onufreiv.hotel.entities.PasswordHash;
+import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 

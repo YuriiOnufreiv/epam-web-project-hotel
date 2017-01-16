@@ -1,9 +1,10 @@
 package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IUserDao;
-import ua.onufreiv.hotel.entities.User;
+import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
+import ua.onufreiv.hotel.jdbc.query.QueryInsert;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,14 +16,21 @@ import java.util.List;
  * Created by yurii on 12/23/16.
  */
 public class MySqlUserDao implements IUserDao {
-    private static MySqlUserDao instance;
-
+    private static final String TABLE_NAME = "user";
+    private static final String COLUMN_ID_NAME = "idUser";
+    private static final String COLUMN_NAME_NAME = "name";
+    private static final String COLUMN_SURNAME_NAME = "surname";
+    private static final String COLUMN_EMAIL_NAME = "email";
+    private static final String COLUMN_PHONE_NUM_NAME = "phoneNum";
+    private static final String COLUMN_ROLE_FK_NAME = "roleFK";
+    private static final String COLUMN_PWD_FK_NAME = "pwdFK";
     private static final String QUERY_INSERT = "INSERT INTO USER (name, surname, email, phoneNum, roleFK, pwdFK) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String QUERY_DELETE = "DELETE FROM USER WHERE idUser = ?";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM USER WHERE idUser = ?";
     private static final String QUERY_SELECT_BY_EMAIL = "SELECT * FROM USER WHERE email = ?";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM USER";
     private static final String QUERY_UPDATE = "UPDATE USER SET name = ?, surname = ?, email = ?, phoneNum = ?, roleFK = ?, pwdFK = ? WHERE idUser = ?";
+    private static MySqlUserDao instance;
 
     private MySqlUserDao() {
     }
@@ -38,15 +46,18 @@ public class MySqlUserDao implements IUserDao {
     public int insert(User user) {
         int id = 0;
         Connection connection = ConnectionManager.getConnection();
+        QueryInsert insert = new QueryInsert();
+        insert.into(TABLE_NAME)
+                .value(COLUMN_NAME_NAME, user.getName())
+                .value(COLUMN_SURNAME_NAME, user.getSurname())
+                .value(COLUMN_EMAIL_NAME, user.getEmail())
+                .value(COLUMN_PHONE_NUM_NAME, user.getPhoneNum())
+                .value(COLUMN_ROLE_FK_NAME, user.getUserRoleId())
+                .value(COLUMN_PWD_FK_NAME, user.getPwdHashId());
         try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            id = jdbcQuery.insert(connection, QUERY_INSERT,
-                    user.getName(),
-                    user.getSurname(),
-                    user.getEmail(),
-                    user.getPhoneNum(),
-                    user.getUserRoleId(),
-                    user.getPwdHashId());
+            insert.execute(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
             ConnectionManager.closeConnection(connection);
         }

@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.dao.mysql;
 
 import ua.onufreiv.hotel.dao.IBookRequestDao;
-import ua.onufreiv.hotel.entities.BookRequest;
+import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.jdbc.ConnectionManager;
 import ua.onufreiv.hotel.jdbc.JdbcQuery;
 

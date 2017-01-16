@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.entities;
+package ua.onufreiv.hotel.entity;
 
 /**
  * Created by yurii on 1/8/17.

@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.dao;
 
-import ua.onufreiv.hotel.entities.RoomType;
+import ua.onufreiv.hotel.entity.RoomType;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.service;
 
-import ua.onufreiv.hotel.entities.BookRequest;
+import ua.onufreiv.hotel.entity.BookRequest;
 
 import java.util.List;
 
