@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.strategy;
+package ua.onufreiv.hotel.util.roomfinder;
 
 import ua.onufreiv.hotel.entities.BookRequest;
 import ua.onufreiv.hotel.entities.Room;

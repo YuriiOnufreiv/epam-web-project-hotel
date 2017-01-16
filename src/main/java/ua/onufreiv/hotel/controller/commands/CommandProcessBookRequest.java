@@ -5,9 +5,9 @@ import ua.onufreiv.hotel.entities.*;
 import ua.onufreiv.hotel.service.IBookRequestService;
 import ua.onufreiv.hotel.service.IUserService;
 import ua.onufreiv.hotel.service.impl.*;
-import ua.onufreiv.hotel.strategy.CheaperRoomFinder;
-import ua.onufreiv.hotel.strategy.ExactRoomFinder;
-import ua.onufreiv.hotel.strategy.ExpensiveRoomFinder;
+import ua.onufreiv.hotel.util.roomfinder.CheaperRoomFinder;
+import ua.onufreiv.hotel.util.roomfinder.ExactRoomFinder;
+import ua.onufreiv.hotel.util.roomfinder.ExpensiveRoomFinder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
