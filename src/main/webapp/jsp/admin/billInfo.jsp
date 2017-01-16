@@ -50,7 +50,8 @@
                                 </div>
                                 <hr>
                                 <div class="typo-line">
-                                    <h5><p class="category"><b>Total Price</b></p><b>${requestScope.totalPrice}</b></h5>
+                                    <h5><p class="category"><b>Total Price</b></p><b>$${requestScope.totalPrice}</b>
+                                    </h5>
                                 </div>
                             </div>
                         </div>

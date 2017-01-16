@@ -36,13 +36,13 @@
                 <hr>
                 <p><strong>Room #: </strong>${requestScope.roomNo}</p>
                 <p><strong>Room type: </strong>${requestScope.roomType}</p>
-                <p><strong>Price: </strong>${requestScope.roomPrice}</p>
+                <p><strong>Price: </strong>$${requestScope.roomPrice}</p>
                 <p><strong>Check In: </strong>${requestScope.checkIn}</p>
                 <p><strong>Check Out: </strong>${requestScope.checkOut}</p>
             </div>
             <div class="clearfix"></div>
             <hr>
-            <p align="right"><strong>TOTAL PRICE: ${requestScope.totalPrice}</strong></p>
+            <p align="right"><strong>TOTAL PRICE: $${requestScope.totalPrice}</strong></p>
         </div>
     </div>
 </div>

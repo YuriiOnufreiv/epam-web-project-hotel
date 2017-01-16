@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Price</label>
+                                                <label>Price, $</label>
                                                 <input name="price" type="number" class="form-control" min="1"
                                                        value="${requestScope.price}">
                                             </div>

@@ -96,7 +96,7 @@
                                         <h5><p class="category">Type</p>${exactType.type}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Price</p>${exactType.price}</h5>
+                                        <h5><p class="category">Price</p>$${exactType.price}</h5>
                                     </div>
                                     <div class="typo-line">
                                         <h5><p class="category">Persons</p>${exactType.maxPerson}</h5>
@@ -125,7 +125,7 @@
                                         <h5><p class="category">Type</p>${cheaperType.type}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Price</p>${cheaperType.price}</h5>
+                                        <h5><p class="category">Price</p>$${cheaperType.price}</h5>
                                     </div>
                                     <div class="typo-line">
                                         <h5><p class="category">Persons</p>${cheaperType.maxPerson}</h5>
@@ -155,7 +155,7 @@
                                         <h5><p class="category">Type</p>${expensiveType.type}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Price</p>${expensiveType.price}</h5>
+                                        <h5><p class="category">Price</p>$${expensiveType.price}</h5>
                                     </div>
                                     <div class="typo-line">
                                         <h5><p class="category">Persons</p>${expensiveType.maxPerson}</h5>
