@@ -2,7 +2,6 @@ package ua.onufreiv.hotel.controller;
 
 import ua.onufreiv.hotel.controller.commands.ICommand;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
-import ua.onufreiv.hotel.controller.manager.MessageConfig;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

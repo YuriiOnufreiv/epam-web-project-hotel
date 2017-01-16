@@ -1,6 +1,5 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.MessageConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.impl.AuthService;
@@ -30,7 +29,7 @@ public class CommandLogin implements ICommand {
         if (user != null && session != null) {
             session.setAttribute("user", user);
         } else {
-            request.setAttribute("errorMessage", MessageConfig.getInstance().getProperty(MessageConfig.LOGIN_ERROR_MESSAGE));
+            request.setAttribute("errorMessage", true);
             return PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
         }
         return REDIRECT_TO_HOME_PATH;

@@ -1,6 +1,5 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.MessageConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 
 import javax.servlet.ServletException;
@@ -22,7 +21,7 @@ public class CommandLogout implements ICommand {
             session.invalidate();
             page = PathConfig.getInstance().getProperty(PathConfig.MAIN_PAGE_PATH);
         } else {
-            request.setAttribute("errorMessage", MessageConfig.getInstance().getProperty(MessageConfig.LOGIN_ERROR_MESSAGE));
+            request.setAttribute("errorMessage", true);
             page = PathConfig.getInstance().getProperty(PathConfig.ERROR_PAGE_PATH);
         }
         return page;
