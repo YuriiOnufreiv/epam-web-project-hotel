@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
+import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IBookRequestDao;
@@ -15,6 +16,8 @@ import java.util.List;
  * Created by yurii on 1/1/17.
  */
 public class MySqlBookRequestDao implements IBookRequestDao {
+    private final static Logger logger = Logger.getLogger(MySqlBookRequestDao.class);
+
     private static final String QUERY_INSERT = "INSERT INTO BOOK_REQUEST (creationDateTime, userFK, persons, roomTypeFK, checkIn, checkOut, processed) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM BOOK_REQUEST";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BOOK_REQUEST WHERE idRequest = ?";
@@ -72,7 +75,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
                 return bookRequest;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find book request by id: ", e);
         }
         return null;
     }
@@ -90,7 +93,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
             ConnectionManager.closeConnection(connection);
             return bookRequests;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find all book requests: ", e);
         }
         return null;
     }
@@ -125,7 +128,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
             ConnectionManager.closeConnection(connection);
             return bookRequests;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find book request by user id: ", e);
         }
         return null;
     }
@@ -143,7 +146,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
             ConnectionManager.closeConnection(connection);
             return bookRequests;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find not processed requests: ", e);
         }
         return null;
     }

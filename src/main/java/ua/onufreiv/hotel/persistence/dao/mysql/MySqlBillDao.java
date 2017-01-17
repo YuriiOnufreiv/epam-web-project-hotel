@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
+import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.Bill;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IBillDao;
@@ -15,6 +16,8 @@ import java.util.List;
  * Created by yurii on 1/10/17.
  */
 public class MySqlBillDao implements IBillDao {
+    private final static Logger logger = Logger.getLogger(MySqlBillDao.class);
+
     private static final String QUERY_INSERT = "INSERT INTO BILL (creationDateTime, bookRequestFK, roomFK, price) VALUES (?, ?, ?, ?)";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM BILL";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BILL WHERE idBill = ?";
@@ -67,7 +70,7 @@ public class MySqlBillDao implements IBillDao {
                 return bill;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find bill by id: ", e);
         }
         return null;
     }
@@ -85,7 +88,7 @@ public class MySqlBillDao implements IBillDao {
             ConnectionManager.closeConnection(connection);
             return bills;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find all bill: ", e);
         }
         return null;
     }
@@ -116,7 +119,7 @@ public class MySqlBillDao implements IBillDao {
                 return bill;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find bill by book request's id: ", e);
         }
         return null;
     }

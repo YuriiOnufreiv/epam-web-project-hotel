@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
+import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IUserDao;
@@ -16,6 +17,8 @@ import java.util.List;
  * Created by yurii on 12/23/16.
  */
 public class MySqlUserDao implements IUserDao {
+    private final static Logger logger = Logger.getLogger(MySqlUserDao.class);
+
     private static final String TABLE_NAME = "user";
     private static final String COLUMN_ID_NAME = "idUser";
     private static final String COLUMN_NAME_NAME = "name";
@@ -57,7 +60,7 @@ public class MySqlUserDao implements IUserDao {
         try {
             insert.execute(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to insert new user: ", e);
         } finally {
             ConnectionManager.closeConnection(connection);
         }
@@ -86,7 +89,7 @@ public class MySqlUserDao implements IUserDao {
                 return user;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find user by id: ", e);
         }
         return null;
     }
@@ -104,7 +107,7 @@ public class MySqlUserDao implements IUserDao {
             ConnectionManager.closeConnection(connection);
             return users;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find all users: ", e);
         }
         return null;
     }
@@ -137,7 +140,7 @@ public class MySqlUserDao implements IUserDao {
                 return user;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find user by email: ", e);
         }
         return null;
     }

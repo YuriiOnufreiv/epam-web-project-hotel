@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
+import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IReservedRoomDao;
@@ -16,6 +17,8 @@ import java.util.List;
  * Created by yurii on 1/5/17.
  */
 public class MySqlReservedRoomDao implements IReservedRoomDao {
+    private final static Logger logger = Logger.getLogger(MySqlReservedRoomDao.class);
+
     private static MySqlReservedRoomDao instance;
 
     private static final String QUERY_INSERT = "INSERT INTO RESERVED_ROOM (roomFK, checkIn, checkOut) VALUES (?, ?, ?)";
@@ -73,7 +76,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
                 return reservedRoom;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find password hash by id", e);
         }
         return null;
     }
@@ -91,7 +94,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
             ConnectionManager.closeConnection(connection);
             return reservedRooms;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find all password hashes", e);
         }
         return null;
     }
@@ -123,7 +126,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
             ConnectionManager.closeConnection(connection);
             return reservedRooms;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to get reserved rooms in date range: ", e);
         }
         return null;
     }

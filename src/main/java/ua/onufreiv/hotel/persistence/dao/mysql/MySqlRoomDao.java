@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
+import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IRoomDao;
@@ -15,6 +16,8 @@ import java.util.List;
  * Created by yurii on 1/5/17.
  */
 public class MySqlRoomDao implements IRoomDao {
+    private final static Logger logger = Logger.getLogger(MySqlRoomDao.class);
+
     private static MySqlRoomDao instance;
 
     private static final String QUERY_INSERT = "INSERT INTO ROOM (typeFK, number) VALUES (?, ?)";
@@ -70,7 +73,7 @@ public class MySqlRoomDao implements IRoomDao {
                 return room;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find room by id: ", e);
         }
         return null;
     }
@@ -88,7 +91,7 @@ public class MySqlRoomDao implements IRoomDao {
             ConnectionManager.closeConnection(connection);
             return users;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find all rooms: ", e);
         }
         return null;
     }
@@ -131,7 +134,7 @@ public class MySqlRoomDao implements IRoomDao {
                 return room;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to get room by number: ", e);
         }
         return null;
     }

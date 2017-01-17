@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
+import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.UserRole;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IUserRoleDao;
@@ -15,6 +16,8 @@ import java.util.List;
  * Created by yurii on 1/8/17.
  */
 public class MySqlUserRoleDao implements IUserRoleDao {
+    private final static Logger logger = Logger.getLogger(MySqlUserRoleDao.class);
+
     private static MySqlUserRoleDao instance;
 
     private static final String QUERY_INSERT = "INSERT INTO USER_ROLE (role) VALUES (?)";
@@ -68,7 +71,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
                 return userRole;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find user role by id: ", e);
         }
         return null;
     }
@@ -86,7 +89,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
             ConnectionManager.closeConnection(connection);
             return userRoles;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to find all user roles: ", e);
         }
         return null;
     }
@@ -114,7 +117,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
                 return b;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to define, whether the user with id " + id + " is admin: ", e);
         }
         return false;
     }
@@ -131,7 +134,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
                 return b;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to define, whether the user with id " + id + " is client: ", e);
         }
         return false;
     }

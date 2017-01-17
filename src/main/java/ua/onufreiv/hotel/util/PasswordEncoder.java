@@ -1,5 +1,7 @@
 package ua.onufreiv.hotel.util;
 
+import org.apache.log4j.Logger;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -7,6 +9,8 @@ import java.security.NoSuchAlgorithmException;
  * Created by yurii on 1/1/17.
  */
 public class PasswordEncoder {
+    private final static Logger logger = Logger.getLogger(PasswordEncoder.class);
+
     public static String encode(String password) {
         String encodedPwd;
         try {
@@ -19,7 +23,7 @@ public class PasswordEncoder {
             }
             encodedPwd = sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            logger.error("Failed to encode the password: ", e);
             return null;
         }
         return encodedPwd;

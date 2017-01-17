@@ -14,7 +14,8 @@ import java.util.ResourceBundle;
  * Created by yurii on 1/5/17.
  */
 public class ConnectionManager {
-    final static Logger logger = Logger.getLogger(ConnectionManager.class);
+    private final static Logger logger = Logger.getLogger(ConnectionManager.class);
+
     public static DaoFactory.FactoryType databaseType;
     private static DataSource dataSource;
 
