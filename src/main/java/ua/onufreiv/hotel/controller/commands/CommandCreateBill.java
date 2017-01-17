@@ -41,7 +41,7 @@ public class CommandCreateBill implements ICommand {
         bill.setCreationDate(new Date());
         bill.setBookRequestId(bookRequestId);
         bill.setRoomId(roomId);
-        bill.setTotalPrice(price); ///////////////// hardcoded
+        bill.setTotalPrice(price);
 
         if(!billService.createNewBill(bill)) {
             request.setAttribute("createBillError", "true");
