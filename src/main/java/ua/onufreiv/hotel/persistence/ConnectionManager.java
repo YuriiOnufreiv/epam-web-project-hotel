@@ -1,7 +1,6 @@
 package ua.onufreiv.hotel.persistence;
 
 import org.apache.log4j.Logger;
-import ua.onufreiv.hotel.persistence.dao.DaoFactory;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -16,18 +15,19 @@ import java.util.ResourceBundle;
 public class ConnectionManager {
     private final static Logger logger = Logger.getLogger(ConnectionManager.class);
 
-    public static DaoFactory.FactoryType databaseType;
+    public static DatabaseType databaseType;
     private static DataSource dataSource;
     private static Connection transactionConnection;
     private static boolean transactionIsActive;
+    private static int defaultIsolationLevel = Connection.TRANSACTION_READ_COMMITTED;
 
-    private static DaoFactory.FactoryType getDbTypeFromProperties() {
+    private static DatabaseType getDbTypeFromProperties() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("database");
 
-        DaoFactory.FactoryType type;
+        DatabaseType type;
         switch ((String) resourceBundle.getObject("db.type")) {
             case "mysql":
-                type = DaoFactory.FactoryType.MYSQL_DB;
+                type = DatabaseType.MYSQL_DB;
                 break;
             default:
                 type = null;
@@ -58,11 +58,19 @@ public class ConnectionManager {
         return dataSource;
     }
 
-    private static void initializeTransaction() throws SQLException {
-        transactionConnection = dataSource.getConnection();
-        transactionConnection.setAutoCommit(false);
-        transactionConnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-        transactionIsActive = true;
+    private static Connection initializeTransaction(int isolationLevel) {
+        if (transactionConnection == null) {
+            try {
+                transactionConnection = dataSource.getConnection();
+                transactionConnection.setAutoCommit(false);
+                transactionConnection.setTransactionIsolation(isolationLevel);
+                transactionIsActive = true;
+                logger.info("Transaction started: " + transactionConnection.toString());
+            } catch (SQLException e) {
+                logger.error("Failed to start transaction: ", e);
+            }
+        }
+        return transactionConnection;
     }
 
     public static void createPoolFromJndi() {
@@ -104,15 +112,11 @@ public class ConnectionManager {
     }
 
     public static Connection startTransaction() {
-        if (transactionConnection == null) {
-            try {
-                initializeTransaction();
-                logger.info("Transaction started: " + transactionConnection.toString());
-            } catch (SQLException e) {
-                logger.error("Failed to start transaction: ", e);
-            }
-        }
-        return transactionConnection;
+        return startTransaction(Connection.TRANSACTION_READ_COMMITTED);
+    }
+
+    public static Connection startTransaction(int isolationLevel) {
+        return initializeTransaction(isolationLevel);
     }
 
     public static void commit() {
@@ -137,5 +141,13 @@ public class ConnectionManager {
         } catch (SQLException e) {
             logger.error("Failed to rollback transaction: ", e);
         }
+    }
+
+    public static int getDefaultIsolationLevel() {
+        return defaultIsolationLevel;
+    }
+
+    public static void setDefaultIsolationLevel(int defaultIsolationLevel) {
+        ConnectionManager.defaultIsolationLevel = defaultIsolationLevel;
     }
 }

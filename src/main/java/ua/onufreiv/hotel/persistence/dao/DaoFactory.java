@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.persistence.dao;
 
+import ua.onufreiv.hotel.persistence.DatabaseType;
 import ua.onufreiv.hotel.persistence.dao.mysql.MySqlDaoFactory;
 
 /**
@@ -8,7 +9,7 @@ import ua.onufreiv.hotel.persistence.dao.mysql.MySqlDaoFactory;
 public abstract class DaoFactory {
 
 
-    public static DaoFactory getDAOFactory(FactoryType whichFactory) {
+    public static DaoFactory getDAOFactory(DatabaseType whichFactory) {
         switch (whichFactory) {
             case MYSQL_DB:
                 return MySqlDaoFactory.getInstance();
@@ -35,9 +36,4 @@ public abstract class DaoFactory {
     public abstract IUserRoleDao getUserRoleDao();
 
     public abstract IBillDao getBillDao();
-
-    // List of DAO types supported by the factory
-    public enum FactoryType {
-        MYSQL_DB;
-    }
 }
