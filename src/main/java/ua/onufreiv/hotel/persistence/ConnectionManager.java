@@ -7,7 +7,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 /**
  * Created by yurii on 1/5/17.
@@ -19,21 +18,17 @@ public class ConnectionManager {
     private static DataSource dataSource;
     private static Connection transactionConnection;
     private static boolean transactionIsActive;
-    private static int defaultIsolationLevel = Connection.TRANSACTION_READ_COMMITTED;
+    private static int defaultIsolationLevel;
 
-    private static DatabaseType getDbTypeFromProperties() {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("database");
-
-        DatabaseType type;
-        switch ((String) resourceBundle.getObject("db.type")) {
+    private static void readDBProperties() {
+        switch (DatabaseConfig.getInstance().getProperty(DatabaseConfig.DATABASE_TYPE)) {
             case "mysql":
-                type = DatabaseType.MYSQL_DB;
+                databaseType = DatabaseType.MYSQL_DB;
                 break;
             default:
-                type = null;
+                databaseType = null;
         }
-
-        return type;
+        defaultIsolationLevel = Integer.parseInt(DatabaseConfig.getInstance().getProperty(DatabaseConfig.DATABASE_TRANSACTIONS_LEVEL));
     }
 
     private static DataSource initialiseAppropriatePool() {
@@ -74,7 +69,7 @@ public class ConnectionManager {
     }
 
     public static void createPoolFromJndi() {
-        databaseType = getDbTypeFromProperties();
+        readDBProperties();
         dataSource = initialiseAppropriatePool();
     }
 
