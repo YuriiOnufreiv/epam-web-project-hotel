@@ -25,6 +25,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
     private static final String QUERY_DELETE = "DELETE FROM RESERVED_ROOM WHERE idReservedRoom = ?";
     private static final String QUERY_SELECT_BY_ID = "SELECT * FROM RESERVED_ROOM WHERE idReservedRoom = ?";
     private static final String QUERY_SELECT_BY_DATES_RANGE = "SELECT * FROM RESERVED_ROOM WHERE DATE(?) < checkOut and DATE(?) > checkIn;";
+    private static final String QUERY_SELECT_BY_ROOM_ID_AND_DATES_RANGE = "SELECT * FROM RESERVED_ROOM WHERE DATE(?) < checkOut and DATE(?) > checkIn and roomFK = ?;";
     private static final String QUERY_SELECT_ALL = "SELECT * FROM RESERVED_ROOM";
     private static final String QUERY_UPDATE = "UPDATE RESERVED_ROOM SET roomFK = ?, checkIn = ?, checkOut = ? WHERE idReservedRoom = ?";
 
@@ -131,5 +132,20 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
             ConnectionManager.closeConnection(connection);
         }
         return null;
+    }
+
+    @Override
+    public boolean roomIsReservedInDateRange(int roomId, Date checkInDate, Date checkOutDate) {
+        Connection connection = ConnectionManager.getConnection();
+        try {
+            JdbcQuery jdbcQuery = new JdbcQuery();
+            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ROOM_ID_AND_DATES_RANGE, checkInDate, checkOutDate, roomId);
+            return rs.next();
+        } catch (SQLException e) {
+            logger.error("Failed to get reserved rooms in date range: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
+        }
+        return false;
     }
 }
