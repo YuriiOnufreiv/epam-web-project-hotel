@@ -29,7 +29,7 @@
                 <div class="grid_3 grid_5">
                     <div class="alert alert-danger" role="alert">
                         <strong><fmt:message key="reservation.oops"/> </strong><fmt:message
-                            key="error.invalid.checkin_date"/>
+                            key="error.invalid.date"/>
                     </div>
                 </div>
             </c:if>
