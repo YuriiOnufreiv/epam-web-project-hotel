@@ -18,24 +18,8 @@ public class ConnectionManager {
 
     public static DaoFactory.FactoryType databaseType;
     private static DataSource dataSource;
-
-//    private static Connection transactionConnection;
-
-    public static Connection getConnection() {
-        try {
-            Connection connection = dataSource.getConnection();
-            logger.info("Connection opened: " + connection.toString());
-            return connection;
-        } catch (SQLException e) {
-            logger.error("Failed to get connection: " + e);
-        }
-        return null;
-    }
-
-    public static void createPoolFromJndi() {
-        databaseType = getDbTypeFromProperties();
-        dataSource = initialiseAppropriatePool();
-    }
+    private static Connection transactionConnection;
+    private static boolean transactionIsActive;
 
     private static DaoFactory.FactoryType getDbTypeFromProperties() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("database");
@@ -68,20 +52,90 @@ public class ConnectionManager {
                     break;
             }
         } catch (NamingException e) {
-            logger.error("Failed to initialise connection pool: " + e);
+            logger.error("Failed to initialise connection pool: ", e);
         }
 
         return dataSource;
     }
 
+    private static void initializeTransaction() throws SQLException {
+        transactionConnection = dataSource.getConnection();
+        transactionConnection.setAutoCommit(false);
+        transactionConnection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+        transactionIsActive = true;
+    }
+
+    public static void createPoolFromJndi() {
+        databaseType = getDbTypeFromProperties();
+        dataSource = initialiseAppropriatePool();
+    }
+
+    public static Connection getConnection() {
+        try {
+            if (transactionIsActive) {
+                logger.info("Connection for transaction returned: " + transactionConnection.toString());
+                return transactionConnection;
+            }
+            Connection connection = dataSource.getConnection();
+            logger.info("Connection opened: " + connection.toString());
+            return connection;
+        } catch (SQLException e) {
+            logger.error("Failed to get connection: ", e);
+        }
+        return null;
+    }
+
     public static void closeConnection(Connection connection) {
         try {
             if (connection != null && !connection.isClosed()) {
-                connection.close();
-                logger.info("Connection closed: " + connection.toString());
+                if (connection.equals(transactionConnection)) {
+                    if (!transactionIsActive) {
+                        logger.info("Transaction connection closed: " + transactionConnection.toString());
+                        transactionConnection.close();
+                    }
+                } else {
+                    logger.info("Connection closed: " + connection.toString());
+                    connection.close();
+                }
             }
         } catch (SQLException e) {
             logger.error("Failed to close connection: " + e);
+        }
+    }
+
+    public static Connection startTransaction() {
+        if (transactionConnection == null) {
+            try {
+                initializeTransaction();
+                logger.info("Transaction started: " + transactionConnection.toString());
+            } catch (SQLException e) {
+                logger.error("Failed to start transaction: ", e);
+            }
+        }
+        return transactionConnection;
+    }
+
+    public static void commit() {
+        try {
+            transactionConnection.commit();
+            logger.info("Transaction committed: " + transactionConnection.toString());
+        } catch (SQLException e) {
+            logger.error("Failed to commit transaction: ", e);
+            rollback();
+        } finally {
+            transactionIsActive = false;
+            closeConnection(transactionConnection);
+            transactionConnection = null;
+            logger.info("Transaction connection set to null");
+        }
+    }
+
+    public static void rollback() {
+        try {
+            transactionConnection.rollback();
+            logger.info("Transaction rollbacked" + transactionConnection.toString());
+        } catch (SQLException e) {
+            logger.error("Failed to rollback transaction: ", e);
         }
     }
 }
