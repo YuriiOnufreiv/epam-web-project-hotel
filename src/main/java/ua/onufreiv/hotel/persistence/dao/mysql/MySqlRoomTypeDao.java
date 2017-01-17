@@ -72,12 +72,12 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
-                RoomType roomType = DtoMapper.ResultSet.toRoomType(rs);
-                ConnectionManager.closeConnection(connection);
-                return roomType;
+                return DtoMapper.ResultSet.toRoomType(rs);
             }
         } catch (SQLException e) {
             logger.error("Failed to find room type by id: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -92,10 +92,11 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
             while (rs.next()) {
                 users.add(DtoMapper.ResultSet.toRoomType(rs));
             }
-            ConnectionManager.closeConnection(connection);
             return users;
         } catch (SQLException e) {
             logger.error("Failed to find all room types: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -125,10 +126,11 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
             while (rs.next()) {
                 types.add(rs.getString(1));
             }
-            ConnectionManager.closeConnection(connection);
             return types;
         } catch (SQLException e) {
             logger.error("Failed to get all room types: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }

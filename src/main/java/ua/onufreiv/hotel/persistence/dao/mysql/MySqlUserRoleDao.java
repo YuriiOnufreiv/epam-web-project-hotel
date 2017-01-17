@@ -66,12 +66,12 @@ public class MySqlUserRoleDao implements IUserRoleDao {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
-                UserRole userRole = DtoMapper.ResultSet.toUserRole(rs);
-                ConnectionManager.closeConnection(connection);
-                return userRole;
+                return DtoMapper.ResultSet.toUserRole(rs);
             }
         } catch (SQLException e) {
             logger.error("Failed to find user role by id: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -86,10 +86,11 @@ public class MySqlUserRoleDao implements IUserRoleDao {
             while (rs.next()) {
                 userRoles.add(DtoMapper.ResultSet.toUserRole(rs));
             }
-            ConnectionManager.closeConnection(connection);
             return userRoles;
         } catch (SQLException e) {
             logger.error("Failed to find all user roles: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -112,12 +113,12 @@ public class MySqlUserRoleDao implements IUserRoleDao {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
-                boolean b = rs.getString("role").equalsIgnoreCase("ADMIN");
-                ConnectionManager.closeConnection(connection);
-                return b;
+                return rs.getString("role").equalsIgnoreCase("ADMIN");
             }
         } catch (SQLException e) {
             logger.error("Failed to define, whether the user with id " + id + " is admin: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return false;
     }
@@ -129,12 +130,12 @@ public class MySqlUserRoleDao implements IUserRoleDao {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
-                boolean b = rs.getString("role").equalsIgnoreCase("CLIENT");
-                ConnectionManager.closeConnection(connection);
-                return b;
+                return rs.getString("role").equalsIgnoreCase("CLIENT");
             }
         } catch (SQLException e) {
             logger.error("Failed to define, whether the user with id " + id + " is client: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return false;
     }

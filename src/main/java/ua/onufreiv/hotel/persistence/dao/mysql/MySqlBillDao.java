@@ -65,12 +65,12 @@ public class MySqlBillDao implements IBillDao {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if (rs.next()) {
-                Bill bill = DtoMapper.ResultSet.toBill(rs);
-                ConnectionManager.closeConnection(connection);
-                return bill;
+                return DtoMapper.ResultSet.toBill(rs);
             }
         } catch (SQLException e) {
             logger.error("Failed to find bill by id: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -85,10 +85,11 @@ public class MySqlBillDao implements IBillDao {
             while (rs.next()) {
                 bills.add(DtoMapper.ResultSet.toBill(rs));
             }
-            ConnectionManager.closeConnection(connection);
             return bills;
         } catch (SQLException e) {
             logger.error("Failed to find all bill: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -114,12 +115,12 @@ public class MySqlBillDao implements IBillDao {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_BOOK_REQUEST_ID, id);
             if (rs.next()) {
-                Bill bill = DtoMapper.ResultSet.toBill(rs);
-                ConnectionManager.closeConnection(connection);
-                return bill;
+                return DtoMapper.ResultSet.toBill(rs);
             }
         } catch (SQLException e) {
             logger.error("Failed to find bill by book request's id: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }

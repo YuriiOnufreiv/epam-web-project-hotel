@@ -74,6 +74,8 @@ public class MySqlRoomDao implements IRoomDao {
             }
         } catch (SQLException e) {
             logger.error("Failed to find room by id: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -88,10 +90,11 @@ public class MySqlRoomDao implements IRoomDao {
             while (rs.next()) {
                 users.add(DtoMapper.ResultSet.toRoom(rs));
             }
-            ConnectionManager.closeConnection(connection);
             return users;
         } catch (SQLException e) {
             logger.error("Failed to find all rooms: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -111,7 +114,6 @@ public class MySqlRoomDao implements IRoomDao {
 
     @Override
     public List<Room> findAllExcept(List<Integer> exceptRoomIds) {
-        Connection connection = ConnectionManager.getConnection();
         List<Room> validRooms = new ArrayList<>();
         List<Room> allRooms = findAll();
         for (Room room : allRooms) {
@@ -130,11 +132,12 @@ public class MySqlRoomDao implements IRoomDao {
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ROOM_NUM, number);
             if(rs.next()) {
                 Room room = DtoMapper.ResultSet.toRoom(rs);
-                ConnectionManager.closeConnection(connection);
                 return room;
             }
         } catch (SQLException e) {
             logger.error("Failed to get room by number: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }

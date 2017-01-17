@@ -71,12 +71,12 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
             JdbcQuery jdbcQuery = new JdbcQuery();
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if (rs.next()) {
-                ReservedRoom reservedRoom = DtoMapper.ResultSet.toReservedRoom(rs);
-                ConnectionManager.closeConnection(connection);
-                return reservedRoom;
+                return DtoMapper.ResultSet.toReservedRoom(rs);
             }
         } catch (SQLException e) {
             logger.error("Failed to find password hash by id", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -91,10 +91,11 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
             while (rs.next()) {
                 reservedRooms.add(DtoMapper.ResultSet.toReservedRoom(rs));
             }
-            ConnectionManager.closeConnection(connection);
             return reservedRooms;
         } catch (SQLException e) {
             logger.error("Failed to find all password hashes", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
@@ -123,10 +124,11 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
             while (rs.next()) {
                 reservedRooms.add(DtoMapper.ResultSet.toReservedRoom(rs));
             }
-            ConnectionManager.closeConnection(connection);
             return reservedRooms;
         } catch (SQLException e) {
             logger.error("Failed to get reserved rooms in date range: ", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }

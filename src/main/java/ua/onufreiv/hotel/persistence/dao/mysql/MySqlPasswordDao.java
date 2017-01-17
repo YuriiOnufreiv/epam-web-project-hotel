@@ -59,11 +59,12 @@ public class MySqlPasswordDao implements IPasswordDao {
             ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
             if(rs.next()) {
                 PasswordHash passwordHash = DtoMapper.ResultSet.toPasswordHash(rs);
-                ConnectionManager.closeConnection(connection);
                 return passwordHash;
             }
         } catch (SQLException e) {
             logger.error("Failed to find password hash by id", e);
+        } finally {
+            ConnectionManager.closeConnection(connection);
         }
         return null;
     }
