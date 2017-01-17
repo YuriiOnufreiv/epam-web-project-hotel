@@ -13,13 +13,17 @@ public class BillService implements IBillService {
     @Override
     public boolean createNewBill(Bill bill) {
         DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
-        daoFactory.getBillDao().insert(bill);
         BookRequest bookRequest = daoFactory.getBookRequestDao().find(bill.getBookRequestId());
-        if(bookRequest.getProcessed()) {
+        boolean roomIsReserved = daoFactory.getReservedRoomDao()
+                .roomIsReservedInDateRange(bill.getRoomId(), bookRequest.getCheckIn(), bookRequest.getCheckOut());
+        if (bookRequest.getProcessed() || roomIsReserved) {
             return false;
         }
+        ConnectionManager.startTransaction();
+        daoFactory.getBillDao().insert(bill);
         bookRequest.setProcessed(true);
         daoFactory.getBookRequestDao().update(bookRequest);
+        ConnectionManager.commit();
         return true;
     }
 
