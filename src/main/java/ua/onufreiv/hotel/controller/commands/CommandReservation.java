@@ -37,7 +37,8 @@ public class CommandReservation implements ICommand {
         try {
             checkInDate = df.parse(checkInDateString);
             checkOutDate = df.parse(checkOutDateString);
-            if(checkInDate.compareTo(checkOutDate) > 0) {
+            if (checkInDate.before(new Date())
+                    || checkInDate.compareTo(checkOutDate) >= 0) {
                 request.setAttribute("invalidDates", "true");
                 request.setAttribute(PARAM_NAME_ROOM_TYPE, roomType.toString());
                 request.setAttribute(PARAM_NAME_TOTAL_PERSONS, totalPersons);
