@@ -2,7 +2,6 @@ package ua.onufreiv.hotel.controller;
 
 import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.controller.commands.ICommand;
-import ua.onufreiv.hotel.controller.manager.PathConfig;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,14 +23,8 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page;
-        try {
-            ICommand command = controllerHelper.getCommand(request);
-            page = command.execute(request, response);
-        } catch (ServletException | IOException e) {
-            logger.error("Failed to execute the command: ", e);
-            page = PathConfig.getInstance().getProperty(PathConfig.ERROR_PAGE_PATH);
-        }
+        ICommand command = controllerHelper.getCommand(request);
+        String page = command.execute(request, response);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }

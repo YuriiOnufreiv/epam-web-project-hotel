@@ -6,11 +6,9 @@ import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.impl.BookRequestService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,7 +16,7 @@ import java.util.List;
  */
 public class CommandClientRequests implements ICommand {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         List<BookRequest> bookRequests = new BookRequestService().getRequestsByUserId(user.getId());

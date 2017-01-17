@@ -6,10 +6,8 @@ import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.IBookRequestService;
 import ua.onufreiv.hotel.service.impl.BookRequestService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +23,7 @@ public class CommandReservation implements ICommand {
     private static final String PARAM_NAME_CHECK_OUT_DATE = "check_out_date";
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         IBookRequestService reservationService = new BookRequestService();
 
         Integer totalPersons = Integer.valueOf(request.getParameter(PARAM_NAME_TOTAL_PERSONS));

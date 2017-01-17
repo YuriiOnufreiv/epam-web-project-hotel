@@ -6,10 +6,8 @@ import ua.onufreiv.hotel.service.IRoomTypeService;
 import ua.onufreiv.hotel.service.impl.BookRequestService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +17,7 @@ import java.util.Map;
 public class CommandShowAdminDashboard implements ua.onufreiv.hotel.controller.commands.ICommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         IRoomTypeService roomTypeService = new RoomTypeService();
         List<BookRequest> notProcessedRequests = new BookRequestService().getNotProcessedRequests();
         request.setAttribute("newBookRequests", notProcessedRequests);

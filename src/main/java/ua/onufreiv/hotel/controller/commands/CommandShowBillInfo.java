@@ -11,17 +11,15 @@ import ua.onufreiv.hotel.service.impl.BookRequestService;
 import ua.onufreiv.hotel.service.impl.RoomService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Created by yurii on 1/14/17.
  */
 public class CommandShowBillInfo implements ICommand {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         IBookRequestService bookRequestService = new BookRequestService();
         IBillService billService = new BillService();
         IRoomService roomService = new RoomService();

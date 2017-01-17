@@ -9,11 +9,9 @@ import ua.onufreiv.hotel.util.roomfinder.CheaperRoomFinder;
 import ua.onufreiv.hotel.util.roomfinder.ExactRoomFinder;
 import ua.onufreiv.hotel.util.roomfinder.ExpensiveRoomFinder;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +21,7 @@ import java.util.Map;
  */
 public class CommandProcessBookRequest implements ICommand {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         IBookRequestService bookRequestService = new BookRequestService();
         IUserService userService = new UserService();
         int id = Integer.parseInt(request.getParameter("id"));

@@ -11,10 +11,8 @@ import ua.onufreiv.hotel.service.impl.BillService;
 import ua.onufreiv.hotel.service.impl.BookRequestService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CommandCreateBill implements ICommand {
     @Override
-        public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         IBillService billService = new BillService();
         IBookRequestService bookRequestService = new BookRequestService();
         IRoomTypeService roomTypeService = new RoomTypeService();

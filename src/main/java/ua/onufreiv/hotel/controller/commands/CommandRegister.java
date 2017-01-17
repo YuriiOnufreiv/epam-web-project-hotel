@@ -7,10 +7,8 @@ import ua.onufreiv.hotel.service.IRegisterService;
 import ua.onufreiv.hotel.service.impl.RegisterService;
 import ua.onufreiv.hotel.util.PasswordEncoder;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Created by yurii on 12/29/16.
@@ -28,7 +26,7 @@ public class CommandRegister implements ICommand {
     private static final String ERRORS_DELIMITER = "|";
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         //IUserService userService = new UserService();
         IRegisterService registerService = new RegisterService();
 

@@ -4,11 +4,9 @@ import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.impl.AuthService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 /**
  * Created by yurii on 12/27/16.
@@ -20,7 +18,7 @@ public class CommandLogin implements ICommand {
     private static final String REDIRECT_TO_HOME_PATH = "/hotel?command=redirect";
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         AuthService authService = new AuthService();
         String login = request.getParameter(PARAM_NAME_EMAIL);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);

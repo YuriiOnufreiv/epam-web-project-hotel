@@ -5,17 +5,15 @@ import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.service.IRoomService;
 import ua.onufreiv.hotel.service.impl.RoomService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Created by yurii on 1/14/17.
  */
 public class CommandAddNewRoom implements ICommand {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         IRoomService roomService = new RoomService();
 
         int roomTypeId = Integer.parseInt(request.getParameter("room_type"));
