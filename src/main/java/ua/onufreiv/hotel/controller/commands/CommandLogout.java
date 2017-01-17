@@ -22,7 +22,7 @@ public class CommandLogout implements ICommand {
             page = PathConfig.getInstance().getProperty(PathConfig.MAIN_PAGE_PATH);
         } else {
             request.setAttribute("errorMessage", true);
-            page = PathConfig.getInstance().getProperty(PathConfig.ERROR_PAGE_PATH);
+            page = PathConfig.getInstance().getProperty(PathConfig.NOT_SIGNED_IN_ERROR_PAGE_PATH);
         }
         return page;
     }
