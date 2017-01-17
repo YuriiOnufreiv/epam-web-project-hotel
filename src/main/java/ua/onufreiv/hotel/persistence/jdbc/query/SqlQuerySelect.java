@@ -28,6 +28,7 @@ public class SqlQuerySelect implements ISqlWhereWrappableQuery {
 
     public ResultSet execute(Connection connection) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement());
+        fillPreparedStatement(preparedStatement);
         return preparedStatement.executeQuery();
     }
 
@@ -42,5 +43,10 @@ public class SqlQuerySelect implements ISqlWhereWrappableQuery {
                 .append(";");
 
         return builder.toString();
+    }
+
+    @Override
+    public int fillPreparedStatement(PreparedStatement preparedStatement) {
+        return 0;
     }
 }

@@ -33,11 +33,7 @@ public class SqlQueryInsert implements ISqlQuery {
 
     public int execute(Connection connection) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement(), Statement.RETURN_GENERATED_KEYS);
-
-        int i = 1;
-        for (Object value : values.values()) {
-            preparedStatement.setObject(i++, value);
-        }
+        fillPreparedStatement(preparedStatement);
 
         if (preparedStatement.executeUpdate() <= 0) {
             return -1;
@@ -59,5 +55,16 @@ public class SqlQueryInsert implements ISqlQuery {
                 .append(";");
 
         return builder.toString();
+    }
+
+    @Override
+    public int fillPreparedStatement(PreparedStatement preparedStatement) throws SQLException {
+        int i = 1;
+
+        for (Object value : values.values()) {
+            preparedStatement.setObject(i++, value);
+        }
+
+        return values.size();
     }
 }

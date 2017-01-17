@@ -16,9 +16,6 @@ public class SqlQueryUpdate implements ISqlWhereWrappableQuery {
 
     public SqlQueryUpdate(String tableName) {
         this.tableName = tableName;
-    }
-
-    public SqlQueryUpdate() {
         values = new HashMap<>();
     }
 
@@ -32,7 +29,7 @@ public class SqlQueryUpdate implements ISqlWhereWrappableQuery {
         return this;
     }
 
-    public boolean execute(Connection connection) throws SQLException {
+    public void execute(Connection connection) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement());
 
         int i = 1;
@@ -40,7 +37,7 @@ public class SqlQueryUpdate implements ISqlWhereWrappableQuery {
             preparedStatement.setObject(i++, value);
         }
 
-        return preparedStatement.executeUpdate() > 0;
+        preparedStatement.executeUpdate();
     }
 
     @Override
@@ -58,5 +55,14 @@ public class SqlQueryUpdate implements ISqlWhereWrappableQuery {
                 .append(";");
 
         return builder.toString();
+    }
+
+    @Override
+    public int fillPreparedStatement(PreparedStatement preparedStatement) throws SQLException {
+        int i = 1;
+        for (Object value : values.values()) {
+            preparedStatement.setObject(i++, value);
+        }
+        return values.size();
     }
 }

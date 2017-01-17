@@ -32,4 +32,9 @@ public class SqlQueryDelete implements ISqlWhereWrappableQuery {
 
         return builder.toString();
     }
+
+    @Override
+    public int fillPreparedStatement(PreparedStatement preparedStatement) throws SQLException {
+        return 0;
+    }
 }
