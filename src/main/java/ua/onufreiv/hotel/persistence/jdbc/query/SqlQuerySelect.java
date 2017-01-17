@@ -12,6 +12,10 @@ public class SqlQuerySelect implements ISqlWhereWrappableQuery {
     private String tableName;
     private String[] columns;
 
+    public SqlQuerySelect(String tableName) {
+        this.tableName = tableName;
+    }
+
     public SqlQuerySelect from(String tableName) {
         this.tableName = tableName;
         return this;

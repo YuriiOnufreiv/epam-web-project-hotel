@@ -14,6 +14,10 @@ public class SqlQueryUpdate implements ISqlWhereWrappableQuery {
     private String tableName;
     private Map<String, Object> values;
 
+    public SqlQueryUpdate(String tableName) {
+        this.tableName = tableName;
+    }
+
     public SqlQueryUpdate() {
         values = new HashMap<>();
     }

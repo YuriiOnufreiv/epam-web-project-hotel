@@ -16,6 +16,11 @@ public class SqlQueryInsert implements ISqlQuery {
         values = new HashMap<>();
     }
 
+    public SqlQueryInsert(String tableName) {
+        this();
+        this.tableName = tableName;
+    }
+
     public SqlQueryInsert into(String tableName) {
         this.tableName = tableName;
         return this;

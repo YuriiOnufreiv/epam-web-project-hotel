@@ -11,19 +11,19 @@ public class QueryBuilder {
     }
 
     public SqlQuerySelect select() {
-        return new SqlQuerySelect();
+        return new SqlQuerySelect(tableName);
     }
 
     public SqlQueryInsert insert() {
-        return new SqlQueryInsert();
+        return new SqlQueryInsert(tableName);
     }
 
     public SqlQueryUpdate update() {
-        return new SqlQueryUpdate();
+        return new SqlQueryUpdate(tableName);
     }
 
     public SqlQueryDelete delete() {
-        return new SqlQueryDelete();
+        return new SqlQueryDelete(tableName);
     }
 
     @SuppressWarnings("unchecked")

@@ -10,6 +10,10 @@ import java.sql.SQLException;
 public class SqlQueryDelete implements ISqlWhereWrappableQuery {
     private String tableName;
 
+    public SqlQueryDelete(String tableName) {
+        this.tableName = tableName;
+    }
+
     public SqlQueryDelete from(String tableName) {
         this.tableName = tableName;
         return this;
