@@ -1,14 +1,12 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IRoomDao;
-import ua.onufreiv.hotel.persistence.jdbc.JdbcQuery;
+import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.RoomMapper;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +14,23 @@ import java.util.List;
  * Created by yurii on 1/5/17.
  */
 public class MySqlRoomDao implements IRoomDao {
-    private final static Logger logger = Logger.getLogger(MySqlRoomDao.class);
+    private static final String TABLE_NAME = "room";
+    private static final String COLUMN_ID_NAME = "idRoom";
+    private static final String COLUMN_ROOM_TYPE_FK_NAME = "typeFK";
+    private static final String COLUMN_NUMBER_NAME = "number";
 
     private static MySqlRoomDao instance;
+    private QueryBuilder<Room> queryBuilder;
 
-    private static final String QUERY_INSERT = "INSERT INTO ROOM (typeFK, number) VALUES (?, ?)";
-    private static final String QUERY_SELECT_ALL = "SELECT * FROM ROOM";
-    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM ROOM WHERE idRoom = ?";
-    private static final String QUERY_SELECT_BY_ROOM_NUM = "SELECT * FROM ROOM WHERE number = ?";
-    private static final String QUERY_UPDATE = "UPDATE ROOM SET typeFK = ?, number = ? WHERE idRoom = ?";
-    private static final String QUERY_DELETE = "DELETE FROM ROOM WHERE idRoom = ?";
+//    private static final String QUERY_INSERT = "INSERT INTO ROOM (typeFK, number) VALUES (?, ?)";
+//    private static final String QUERY_SELECT_ALL = "SELECT * FROM ROOM";
+//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM ROOM WHERE idRoom = ?";
+//    private static final String QUERY_SELECT_BY_ROOM_NUM = "SELECT * FROM ROOM WHERE number = ?";
+//    private static final String QUERY_UPDATE = "UPDATE ROOM SET typeFK = ?, number = ? WHERE idRoom = ?";
+//    private static final String QUERY_DELETE = "DELETE FROM ROOM WHERE idRoom = ?";
 
     private MySqlRoomDao() {
+        queryBuilder = new QueryBuilder<>(TABLE_NAME);
     }
 
     public static synchronized MySqlRoomDao getInstance() {
@@ -40,76 +43,56 @@ public class MySqlRoomDao implements IRoomDao {
     @Override
     public int insert(Room room) {
         Connection connection = ConnectionManager.getConnection();
-        int id = 0;
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            id = jdbcQuery.insert(connection, QUERY_INSERT,
-                    room.getRoomTypeId(),
-                    room.getNumber());
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
+        int id = queryBuilder.insert()
+                .value(COLUMN_ROOM_TYPE_FK_NAME, room.getRoomTypeId())
+                .value(COLUMN_NUMBER_NAME, room.getNumber())
+                .execute(connection);
+        ConnectionManager.closeConnection(connection);
         return id;
     }
 
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
+        boolean result = queryBuilder.delete()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeUpdate(connection);
         ConnectionManager.closeConnection(connection);
-        return result;//        return false;
+        return result;
     }
 
     @Override
     public Room find(int id) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
-            if(rs.next()) {
-                Room room = DtoMapper.ResultSet.toRoom(rs);
-                ConnectionManager.closeConnection(connection);
-                return room;
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to find room by id: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        Room room = queryBuilder.select()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeQueryForObject(connection, new RoomMapper());
+        ConnectionManager.closeConnection(connection);
+        return room;
     }
 
     @Override
     public List<Room> findAll() {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
-            List<Room> users = new ArrayList<>();
-            while (rs.next()) {
-                users.add(DtoMapper.ResultSet.toRoom(rs));
-            }
-            return users;
-        } catch (SQLException e) {
-            logger.error("Failed to find all rooms: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        List<Room> bookRequests = queryBuilder.select()
+                .selectAll(connection, new RoomMapper());
+        ConnectionManager.closeConnection(connection);
+        return bookRequests;
     }
 
     @Override
     public boolean update(Room room) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
-                room.getRoomTypeId(),
-                room.getNumber(),
-                room.getId());
+        boolean update = queryBuilder.update()
+                .set(COLUMN_ROOM_TYPE_FK_NAME, room.getRoomTypeId())
+                .set(COLUMN_NUMBER_NAME, room.getNumber())
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(room.getId())
+                .executeUpdate(connection);
         ConnectionManager.closeConnection(connection);
         return update;
-//        return false;
     }
 
     @Override
@@ -127,18 +110,11 @@ public class MySqlRoomDao implements IRoomDao {
     @Override
     public Room findByRoomNum(int number) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ROOM_NUM, number);
-            if(rs.next()) {
-                Room room = DtoMapper.ResultSet.toRoom(rs);
-                return room;
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to get room by number: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        Room room = queryBuilder.select()
+                .where()
+                .column(COLUMN_NUMBER_NAME).isEqual(number)
+                .executeQueryForObject(connection, new RoomMapper());
+        ConnectionManager.closeConnection(connection);
+        return room;
     }
 }

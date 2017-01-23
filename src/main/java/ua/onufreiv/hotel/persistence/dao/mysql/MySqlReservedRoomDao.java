@@ -4,12 +4,10 @@ import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IReservedRoomDao;
-import ua.onufreiv.hotel.persistence.jdbc.JdbcQuery;
+import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.ReservedRoomMapper;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,17 +17,17 @@ import java.util.List;
 public class MySqlReservedRoomDao implements IReservedRoomDao {
     private final static Logger logger = Logger.getLogger(MySqlReservedRoomDao.class);
 
-    private static MySqlReservedRoomDao instance;
+    private static final String TABLE_NAME = "reserved_room";
+    private static final String COLUMN_ID_NAME = "idReservedRoom";
+    private static final String COLUMN_ROOM_FK_NAME = "roomFK";
+    private static final String COLUMN_CHECK_IN_NAME = "checkIn";
+    private static final String COLUMN_CHECK_OUT_NAME = "checkOut";
 
-    private static final String QUERY_INSERT = "INSERT INTO RESERVED_ROOM (roomFK, checkIn, checkOut) VALUES (?, ?, ?)";
-    private static final String QUERY_DELETE = "DELETE FROM RESERVED_ROOM WHERE idReservedRoom = ?";
-    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM RESERVED_ROOM WHERE idReservedRoom = ?";
-    private static final String QUERY_SELECT_BY_DATES_RANGE = "SELECT * FROM RESERVED_ROOM WHERE DATE(?) < checkOut and DATE(?) > checkIn;";
-    private static final String QUERY_SELECT_BY_ROOM_ID_AND_DATES_RANGE = "SELECT * FROM RESERVED_ROOM WHERE DATE(?) < checkOut and DATE(?) > checkIn and roomFK = ?;";
-    private static final String QUERY_SELECT_ALL = "SELECT * FROM RESERVED_ROOM";
-    private static final String QUERY_UPDATE = "UPDATE RESERVED_ROOM SET roomFK = ?, checkIn = ?, checkOut = ? WHERE idReservedRoom = ?";
+    private static MySqlReservedRoomDao instance;
+    private QueryBuilder<ReservedRoom> queryBuilder;
 
     private MySqlReservedRoomDao() {
+        queryBuilder = new QueryBuilder<>(TABLE_NAME);
     }
 
     public static synchronized MySqlReservedRoomDao getInstance() {
@@ -42,110 +40,85 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
     @Override
     public int insert(ReservedRoom reservedRoom) {
         Connection connection = ConnectionManager.getConnection();
-        int id = 0;
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            id = jdbcQuery.insert(connection, QUERY_INSERT,
-                    reservedRoom.getRoomId(),
-                    reservedRoom.getCheckInDate(),
-                    reservedRoom.getCheckOutDate());
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
+        int id = queryBuilder.insert()
+                .value(COLUMN_ROOM_FK_NAME, reservedRoom.getRoomId())
+                .value(COLUMN_CHECK_IN_NAME, reservedRoom.getCheckInDate())
+                .value(COLUMN_CHECK_OUT_NAME, reservedRoom.getCheckOutDate())
+                .execute(connection);
+        ConnectionManager.closeConnection(connection);
         return id;
     }
 
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
+        boolean result = queryBuilder.delete()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeUpdate(connection);
         ConnectionManager.closeConnection(connection);
         return result;
-        //        return false;
     }
 
     @Override
     public ReservedRoom find(int id) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
-            if (rs.next()) {
-                return DtoMapper.ResultSet.toReservedRoom(rs);
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to find password hash by id", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        ReservedRoom reservedRoom = queryBuilder.select()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeQueryForObject(connection, new ReservedRoomMapper());
+        ConnectionManager.closeConnection(connection);
+        return reservedRoom;
     }
 
     @Override
     public List<ReservedRoom> findAll() {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
-            List<ReservedRoom> reservedRooms = new ArrayList<>();
-            while (rs.next()) {
-                reservedRooms.add(DtoMapper.ResultSet.toReservedRoom(rs));
-            }
-            return reservedRooms;
-        } catch (SQLException e) {
-            logger.error("Failed to find all password hashes", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        List<ReservedRoom> bookRequests = queryBuilder.select()
+                .selectAll(connection, new ReservedRoomMapper());
+        ConnectionManager.closeConnection(connection);
+        return bookRequests;
     }
 
     @Override
     public boolean update(ReservedRoom reservedRoom) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
-                reservedRoom.getRoomId(),
-                reservedRoom.getCheckInDate(),
-                reservedRoom.getCheckOutDate(),
-                reservedRoom.getId());
+        boolean result = queryBuilder.update()
+                .set(COLUMN_ROOM_FK_NAME, reservedRoom.getRoomId())
+                .set(COLUMN_CHECK_IN_NAME, reservedRoom.getCheckInDate())
+                .set(COLUMN_CHECK_OUT_NAME, reservedRoom.getCheckOutDate())
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(reservedRoom.getId())
+                .executeUpdate(connection);
         ConnectionManager.closeConnection(connection);
-        return update;
-//        return false;
+        return result;
     }
 
     @Override
     public List<ReservedRoom> findReservedInDateRange(Date checkInDate, Date checkOutDate) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_DATES_RANGE,checkInDate, checkOutDate);
-            List<ReservedRoom> reservedRooms = new ArrayList<>();
-            while (rs.next()) {
-                reservedRooms.add(DtoMapper.ResultSet.toReservedRoom(rs));
-            }
-            return reservedRooms;
-        } catch (SQLException e) {
-            logger.error("Failed to get reserved rooms in date range: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        List<ReservedRoom> reservedRooms = queryBuilder.select()
+                .where()
+                .column(COLUMN_CHECK_OUT_NAME).greater(checkInDate)
+                .and()
+                .column(COLUMN_CHECK_IN_NAME).less(checkOutDate)
+                .executeQuery(connection, new ReservedRoomMapper());
+        ConnectionManager.closeConnection(connection);
+        return reservedRooms;
     }
 
     @Override
     public boolean roomIsReservedInDateRange(int roomId, Date checkInDate, Date checkOutDate) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ROOM_ID_AND_DATES_RANGE, checkInDate, checkOutDate, roomId);
-            return rs.next();
-        } catch (SQLException e) {
-            logger.error("Failed to get reserved rooms in date range: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return false;
+        ReservedRoom reservedRoom = queryBuilder.select()
+                .where()
+                .column(COLUMN_ROOM_FK_NAME).isEqual(roomId)
+                .and()
+                .column(COLUMN_CHECK_OUT_NAME).greater(checkInDate)
+                .and()
+                .column(COLUMN_CHECK_IN_NAME).less(checkOutDate)
+                .executeQueryForObject(connection, new ReservedRoomMapper());
+        ConnectionManager.closeConnection(connection);
+        return reservedRoom != null;
     }
 }

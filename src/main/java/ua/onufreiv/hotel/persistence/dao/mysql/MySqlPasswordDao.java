@@ -4,11 +4,10 @@ import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IPasswordDao;
-import ua.onufreiv.hotel.persistence.jdbc.JdbcQuery;
+import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.PasswordHashMapper;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -17,12 +16,18 @@ import java.util.List;
 public class MySqlPasswordDao implements IPasswordDao {
     private final static Logger logger = Logger.getLogger(MySqlPasswordDao.class);
 
-    private static MySqlPasswordDao instance;
+    private static final String TABLE_NAME = "password";
+    private static final String COLUMN_ID_NAME = "idPassword";
+    private static final String COLUMN_PWD_HASH_NAME = "pwdhash";
 
-    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM PASSWORD WHERE idPassword = ?";
-    private static final String QUERY_INSERT = "INSERT INTO PASSWORD (pwdhash) VALUES (?)";
+//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM PASSWORD WHERE idPassword = ?";
+//    private static final String QUERY_INSERT = "INSERT INTO PASSWORD (pwdhash) VALUES (?)";
+
+    private static MySqlPasswordDao instance;
+    private QueryBuilder<PasswordHash> queryBuilder;
 
     private MySqlPasswordDao() {
+        queryBuilder = new QueryBuilder<>(TABLE_NAME);
     }
 
     public static synchronized MySqlPasswordDao getInstance() {
@@ -35,14 +40,10 @@ public class MySqlPasswordDao implements IPasswordDao {
     @Override
     public int insert(PasswordHash passwordHash) {
         Connection connection = ConnectionManager.getConnection();
-        int id = 0;
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            id = jdbcQuery.insert(connection, QUERY_INSERT,
-                    passwordHash.getPwdHash());
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
+        int id = queryBuilder.insert()
+                .value(COLUMN_PWD_HASH_NAME, passwordHash.getPwdHash())
+                .execute(connection);
+        ConnectionManager.closeConnection(connection);
         return id;
     }
 
@@ -54,19 +55,12 @@ public class MySqlPasswordDao implements IPasswordDao {
     @Override
     public PasswordHash find(int id) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
-            if(rs.next()) {
-                PasswordHash passwordHash = DtoMapper.ResultSet.toPasswordHash(rs);
-                return passwordHash;
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to find password hash by id", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        PasswordHash bookRequest = queryBuilder.select()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeQueryForObject(connection, new PasswordHashMapper());
+        ConnectionManager.closeConnection(connection);
+        return bookRequest;
     }
 
     @Override

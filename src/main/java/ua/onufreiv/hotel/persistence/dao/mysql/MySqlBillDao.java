@@ -4,12 +4,10 @@ import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.Bill;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IBillDao;
-import ua.onufreiv.hotel.persistence.jdbc.JdbcQuery;
+import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.BillMapper;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,15 +16,24 @@ import java.util.List;
 public class MySqlBillDao implements IBillDao {
     private final static Logger logger = Logger.getLogger(MySqlBillDao.class);
 
-    private static final String QUERY_INSERT = "INSERT INTO BILL (creationDateTime, bookRequestFK, roomFK, price) VALUES (?, ?, ?, ?)";
-    private static final String QUERY_SELECT_ALL = "SELECT * FROM BILL";
-    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BILL WHERE idBill = ?";
-    private static final String QUERY_SELECT_BY_BOOK_REQUEST_ID = "SELECT * FROM BILL WHERE bookRequestFK = ?";
-    private static final String QUERY_UPDATE = "UPDATE BILL SET creationDateTime = ?, bookRequestFK = ?, roomFK = ?, price = ? WHERE idBill = ?";
-    private static final String QUERY_DELETE = "DELETE FROM BILL WHERE idBill = ?";
+    private static final String TABLE_NAME = "bill";
+    private static final String COLUMN_ID_NAME = "idBill";
+    private static final String COLUMN_CREATION_DATE_TIME_NAME = "creationDateTime";
+    private static final String COLUMN_BOOK_REQUEST_FK_NAME = "bookRequestFK";
+    private static final String COLUMN_ROOM_FK_NAME = "roomFK";
+    private static final String COLUMN_PRICE_NAME = "price";
+
+    //    private static final String QUERY_INSERT = "INSERT INTO BILL (creationDateTime, bookRequestFK, roomFK, price) VALUES (?, ?, ?, ?)";
+//    private static final String QUERY_SELECT_ALL = "SELECT * FROM BILL";
+//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BILL WHERE idBill = ?";
+//    private static final String QUERY_SELECT_BY_BOOK_REQUEST_ID = "SELECT * FROM BILL WHERE bookRequestFK = ?";
+//    private static final String QUERY_UPDATE = "UPDATE BILL SET creationDateTime = ?, bookRequestFK = ?, roomFK = ?, price = ? WHERE idBill = ?";
+//    private static final String QUERY_DELETE = "DELETE FROM BILL WHERE idBill = ?";
     private static MySqlBillDao instance;
+    private QueryBuilder<Bill> queryBuilder;
 
     private MySqlBillDao() {
+        queryBuilder = new QueryBuilder<>(TABLE_NAME);
     }
 
     public static synchronized MySqlBillDao getInstance() {
@@ -39,12 +46,12 @@ public class MySqlBillDao implements IBillDao {
     @Override
     public int insert(Bill bill) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        int id = jdbcQuery.insert(connection, QUERY_INSERT,
-                bill.getCreationDate(),
-                bill.getBookRequestId(),
-                bill.getRoomId(),
-                bill.getTotalPrice());
+        int id = queryBuilder.insert()
+                .value(COLUMN_CREATION_DATE_TIME_NAME, bill.getCreationDate())
+                .value(COLUMN_BOOK_REQUEST_FK_NAME, bill.getBookRequestId())
+                .value(COLUMN_ROOM_FK_NAME, bill.getRoomId())
+                .value(COLUMN_PRICE_NAME, bill.getTotalPrice())
+                .execute(connection);
         ConnectionManager.closeConnection(connection);
         return id;
     }
@@ -52,8 +59,10 @@ public class MySqlBillDao implements IBillDao {
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
+        boolean result = queryBuilder.delete()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeUpdate(connection);
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -61,49 +70,34 @@ public class MySqlBillDao implements IBillDao {
     @Override
     public Bill find(int id) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
-            if (rs.next()) {
-                return DtoMapper.ResultSet.toBill(rs);
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to find bill by id: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        Bill bill = queryBuilder.select()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeQueryForObject(connection, new BillMapper());
+        ConnectionManager.closeConnection(connection);
+        return bill;
     }
 
     @Override
     public List<Bill> findAll() {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
-            List<Bill> bills = new ArrayList<>();
-            while (rs.next()) {
-                bills.add(DtoMapper.ResultSet.toBill(rs));
-            }
-            return bills;
-        } catch (SQLException e) {
-            logger.error("Failed to find all bill: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        List<Bill> bills = queryBuilder.select()
+                .selectAll(connection, new BillMapper());
+        ConnectionManager.closeConnection(connection);
+        return bills;
     }
 
     @Override
     public boolean update(Bill bill) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        boolean result = jdbcQuery.update(connection, QUERY_UPDATE,
-                bill.getCreationDate(),
-                bill.getBookRequestId(),
-                bill.getRoomId(),
-                bill.getTotalPrice(),
-                bill.getId());
+        boolean result = queryBuilder.update()
+                .set(COLUMN_CREATION_DATE_TIME_NAME, bill.getCreationDate())
+                .set(COLUMN_BOOK_REQUEST_FK_NAME, bill.getBookRequestId())
+                .set(COLUMN_ROOM_FK_NAME, bill.getRoomId())
+                .set(COLUMN_PRICE_NAME, bill.getTotalPrice())
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(bill.getId())
+                .executeUpdate(connection);
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -111,17 +105,11 @@ public class MySqlBillDao implements IBillDao {
     @Override
     public Bill findByBookRequestId(int id) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_BOOK_REQUEST_ID, id);
-            if (rs.next()) {
-                return DtoMapper.ResultSet.toBill(rs);
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to find bill by book request's id: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        Bill bill = queryBuilder.select()
+                .where()
+                .column(COLUMN_BOOK_REQUEST_FK_NAME).isEqual(id)
+                .executeQueryForObject(connection, new BillMapper());
+        ConnectionManager.closeConnection(connection);
+        return bill;
     }
 }

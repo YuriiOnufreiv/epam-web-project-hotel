@@ -1,32 +1,33 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.UserRole;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IUserRoleDao;
-import ua.onufreiv.hotel.persistence.jdbc.JdbcQuery;
+import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.UserRoleMapper;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by yurii on 1/8/17.
  */
 public class MySqlUserRoleDao implements IUserRoleDao {
-    private final static Logger logger = Logger.getLogger(MySqlUserRoleDao.class);
+    private static final String TABLE_NAME = "user_role";
+    private static final String COLUMN_ID_NAME = "idUserRole";
+    private static final String COLUMN_ROLE_NAME = "role";
 
     private static MySqlUserRoleDao instance;
+    private final QueryBuilder<UserRole> queryBuilder;
 
-    private static final String QUERY_INSERT = "INSERT INTO USER_ROLE (role) VALUES (?)";
-    private static final String QUERY_DELETE = "DELETE FROM USER_ROLE WHERE idUserRole = ?";
-    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM USER_ROLE WHERE idUserRole = ?";
-    private static final String QUERY_SELECT_ALL = "SELECT * FROM USER_ROLE";
-    private static final String QUERY_UPDATE = "UPDATE USER_ROLE SET role = ? WHERE idUserRole = ?";
+//    private static final String QUERY_INSERT = "INSERT INTO USER_ROLE (role) VALUES (?)";
+//    private static final String QUERY_DELETE = "DELETE FROM USER_ROLE WHERE idUserRole = ?";
+//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM USER_ROLE WHERE idUserRole = ?";
+//    private static final String QUERY_SELECT_ALL = "SELECT * FROM USER_ROLE";
+//    private static final String QUERY_UPDATE = "UPDATE USER_ROLE SET role = ? WHERE idUserRole = ?";
 
     private MySqlUserRoleDao() {
+        queryBuilder = new QueryBuilder<>(TABLE_NAME);
     }
 
     public static synchronized MySqlUserRoleDao getInstance() {
@@ -39,104 +40,65 @@ public class MySqlUserRoleDao implements IUserRoleDao {
     @Override
     public int insert(UserRole userRole) {
         Connection connection = ConnectionManager.getConnection();
-        int id = 0;
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            id = jdbcQuery.insert(connection, QUERY_INSERT,
-                    userRole.getRole());
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
+        int id = queryBuilder.insert()
+                .value(COLUMN_ROLE_NAME, userRole.getRole())
+                .execute(connection);
+        ConnectionManager.closeConnection(connection);
         return id;
     }
 
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        boolean result = jdbcQuery.delete(connection, QUERY_DELETE, id);
+        boolean result = queryBuilder.delete()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeUpdate(connection);
         ConnectionManager.closeConnection(connection);
-        return result;//        return false;
+        return result;
     }
 
     @Override
     public UserRole find(int id) {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
-            if(rs.next()) {
-                return DtoMapper.ResultSet.toUserRole(rs);
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to find user role by id: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        UserRole userRole = queryBuilder.select()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeQueryForObject(connection, new UserRoleMapper());
+        ConnectionManager.closeConnection(connection);
+        return userRole;
     }
 
     @Override
     public List<UserRole> findAll() {
         Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_ALL);
-            List<UserRole> userRoles = new ArrayList<>();
-            while (rs.next()) {
-                userRoles.add(DtoMapper.ResultSet.toUserRole(rs));
-            }
-            return userRoles;
-        } catch (SQLException e) {
-            logger.error("Failed to find all user roles: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return null;
+        List<UserRole> bookRequests = queryBuilder.select()
+                .selectAll(connection, new UserRoleMapper());
+        ConnectionManager.closeConnection(connection);
+        return bookRequests;
     }
 
     @Override
     public boolean update(UserRole userRole) {
         Connection connection = ConnectionManager.getConnection();
-        JdbcQuery jdbcQuery = new JdbcQuery();
-        boolean update = jdbcQuery.update(connection, QUERY_UPDATE,
-                userRole.getRole(),
-                userRole.getId());
+        boolean update = queryBuilder.update()
+                .set(COLUMN_ROLE_NAME, userRole.getRole())
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(userRole.getId())
+                .executeUpdate(connection);
         ConnectionManager.closeConnection(connection);
         return update;
     }
 
     @Override
     public boolean isAdmin(int id) {
-        Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
-            if(rs.next()) {
-                return rs.getString("role").equalsIgnoreCase("ADMIN");
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to define, whether the user with id " + id + " is admin: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return false;
+        UserRole userRole = find(id);
+        return userRole != null && userRole.getRole().equalsIgnoreCase("ADMIN");
     }
 
     @Override
     public boolean isClient(int id) {
-        Connection connection = ConnectionManager.getConnection();
-        try {
-            JdbcQuery jdbcQuery = new JdbcQuery();
-            ResultSet rs = jdbcQuery.select(connection, QUERY_SELECT_BY_ID, id);
-            if(rs.next()) {
-                return rs.getString("role").equalsIgnoreCase("CLIENT");
-            }
-        } catch (SQLException e) {
-            logger.error("Failed to define, whether the user with id " + id + " is client: ", e);
-        } finally {
-            ConnectionManager.closeConnection(connection);
-        }
-        return false;
+        UserRole userRole = find(id);
+        return userRole != null && userRole.getRole().equalsIgnoreCase("CLIENT");
     }
 }
