@@ -18,7 +18,7 @@ public class ConnectionManager {
     private static DataSource dataSource;
     private static Connection transactionConnection;
     private static boolean transactionIsActive;
-    private static int defaultIsolationLevel;
+    private static int isolationLevel;
 
     private static void readDBProperties() {
         switch (DatabaseConfig.getInstance().getProperty(DatabaseConfig.DATABASE_TYPE)) {
@@ -28,7 +28,8 @@ public class ConnectionManager {
             default:
                 databaseType = null;
         }
-        defaultIsolationLevel = Integer.parseInt(DatabaseConfig.getInstance().getProperty(DatabaseConfig.DATABASE_TRANSACTIONS_LEVEL));
+        isolationLevel = Integer.parseInt(DatabaseConfig.getInstance()
+                .getProperty(DatabaseConfig.DATABASE_TRANSACTIONS_LEVEL));
     }
 
     private static DataSource initialiseAppropriatePool() {
@@ -138,11 +139,11 @@ public class ConnectionManager {
         }
     }
 
-    public static int getDefaultIsolationLevel() {
-        return defaultIsolationLevel;
+    public static int getIsolationLevel() {
+        return isolationLevel;
     }
 
-    public static void setDefaultIsolationLevel(int defaultIsolationLevel) {
-        ConnectionManager.defaultIsolationLevel = defaultIsolationLevel;
+    public static void setIsolationLevel(int isolationLevel) {
+        ConnectionManager.isolationLevel = isolationLevel;
     }
 }
