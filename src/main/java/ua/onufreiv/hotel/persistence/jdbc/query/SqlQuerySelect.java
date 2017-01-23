@@ -1,14 +1,21 @@
 package ua.onufreiv.hotel.persistence.jdbc.query;
 
+import org.apache.log4j.Logger;
+import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.ResultSetMapper;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yurii on 1/5/17.
  */
-public class SqlQuerySelect implements ISqlWhereWrappableQuery {
+public class SqlQuerySelect<T> implements SqlQueryWhereWrappable {
+    private final static Logger logger = Logger.getLogger(SqlQuerySelect.class);
+
     private String tableName;
     private String[] columns;
 
@@ -26,14 +33,60 @@ public class SqlQuerySelect implements ISqlWhereWrappableQuery {
         return this;
     }
 
-    public ResultSet execute(Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement());
-        fillPreparedStatement(preparedStatement);
-        return preparedStatement.executeQuery();
+    public T selectObject(Connection connection, ResultSetMapper<T> mapper) {
+        ResultSet resultSet = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement())) {
+            fillPreparedStatement(preparedStatement);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return mapper.map(resultSet);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed to execute select statement: ", e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.error("Failed to close result set: ", e);
+                }
+            }
+        }
+        return null;
     }
 
+    public List<T> selectAll(Connection connection, ResultSetMapper<T> mapper) {
+        ResultSet resultSet = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement())) {
+            fillPreparedStatement(preparedStatement);
+            resultSet = preparedStatement.executeQuery();
+            List<T> objects = new ArrayList<>();
+            while (resultSet.next()) {
+                objects.add(mapper.map(resultSet));
+            }
+            return objects;
+        } catch (SQLException e) {
+            logger.error("Failed to execute select statement: ", e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.error("Failed to close result set: ", e);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public SqlQueryWhereWrapper<T, SqlQuerySelect<T>> where() {
+        return new SqlQueryWhereWrapper<>(this);
+    }
+
+    @Override
     public String getSqlStatement() {
-        String columnsToSelect = columns == null ?
+        String columnsToSelect = columns == null || columns.length == 0 ?
                 "*" : String.join(",", columns);
 
         StringBuilder builder = new StringBuilder("SELECT ");

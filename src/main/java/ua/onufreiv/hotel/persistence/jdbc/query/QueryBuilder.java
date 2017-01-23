@@ -3,15 +3,15 @@ package ua.onufreiv.hotel.persistence.jdbc.query;
 /**
  * Created by yurii on 1/16/17.
  */
-public class QueryBuilder {
+public class QueryBuilder<T> {
     private String tableName;
 
     public QueryBuilder(String tableName) {
         this.tableName = tableName;
     }
 
-    public SqlQuerySelect select() {
-        return new SqlQuerySelect(tableName);
+    public SqlQuerySelect<T> select() {
+        return new SqlQuerySelect<T>(tableName);
     }
 
     public SqlQueryInsert insert() {
@@ -24,10 +24,5 @@ public class QueryBuilder {
 
     public SqlQueryDelete delete() {
         return new SqlQueryDelete(tableName);
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T extends ISqlWhereWrappableQuery> SqlQueryWhereWrapper wrapWithWhereClause(T whereClauseUsable) {
-        return new SqlQueryWhereWrapper(whereClauseUsable);
     }
 }

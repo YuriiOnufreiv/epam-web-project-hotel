@@ -1,5 +1,7 @@
 package ua.onufreiv.hotel.persistence.jdbc.query;
 
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,7 +10,9 @@ import java.util.Map;
 /**
  * Created by yurii on 1/5/17.
  */
-public class SqlQueryInsert implements ISqlQuery {
+public class SqlQueryInsert implements SqlQuery {
+    private final static Logger logger = Logger.getLogger(SqlQueryInsert.class);
+
     private String tableName;
     private Map<String, Object> values;
 
@@ -31,16 +35,29 @@ public class SqlQueryInsert implements ISqlQuery {
         return this;
     }
 
-    public int execute(Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement(), Statement.RETURN_GENERATED_KEYS);
-        fillPreparedStatement(preparedStatement);
+    public int execute(Connection connection) {
+        ResultSet generatedKeys = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement(),
+                Statement.RETURN_GENERATED_KEYS)) {
+            fillPreparedStatement(preparedStatement);
 
-        if (preparedStatement.executeUpdate() <= 0) {
-            return -1;
+            if (preparedStatement.executeUpdate() > 0) {
+                generatedKeys = preparedStatement.getGeneratedKeys();
+                generatedKeys.next();
+                return generatedKeys.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed to execute insert statement: ", e);
+        } finally {
+            if (generatedKeys != null) {
+                try {
+                    generatedKeys.close();
+                } catch (SQLException e) {
+                    logger.error("Failed to close result set: ", e);
+                }
+            }
         }
-
-        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-        return generatedKeys.next() ? generatedKeys.getInt(1) : -1;
+        return -1;
     }
 
     @Override

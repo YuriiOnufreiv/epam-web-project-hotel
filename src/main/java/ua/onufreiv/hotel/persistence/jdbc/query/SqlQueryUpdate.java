@@ -1,5 +1,7 @@
 package ua.onufreiv.hotel.persistence.jdbc.query;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,7 +12,9 @@ import java.util.Map;
 /**
  * Created by yurii on 1/5/17.
  */
-public class SqlQueryUpdate implements ISqlWhereWrappableQuery {
+public class SqlQueryUpdate<T> implements SqlQueryWhereWrappable {
+    private final static Logger logger = Logger.getLogger(SqlQueryUpdate.class);
+
     private String tableName;
     private Map<String, Object> values;
 
@@ -29,15 +33,24 @@ public class SqlQueryUpdate implements ISqlWhereWrappableQuery {
         return this;
     }
 
-    public void execute(Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement());
+    public boolean executeUpdate(Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement())) {
+            int i = 1;
+            for (Object value : values.values()) {
+                preparedStatement.setObject(i++, value);
+            }
 
-        int i = 1;
-        for (Object value : values.values()) {
-            preparedStatement.setObject(i++, value);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            logger.error("Failed to execute update statement: ", e);
         }
 
-        preparedStatement.executeUpdate();
+        return false;
+    }
+
+    @Override
+    public SqlQueryWhereWrapper<T, SqlQueryUpdate<T>> where() {
+        return new SqlQueryWhereWrapper<>(this);
     }
 
     @Override

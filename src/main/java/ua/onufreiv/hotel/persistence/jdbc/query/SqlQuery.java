@@ -6,7 +6,7 @@ import java.sql.SQLException;
 /**
  * Created by yurii on 1/16/17.
  */
-public interface ISqlQuery {
+public interface SqlQuery {
     String getSqlStatement();
 
     int fillPreparedStatement(PreparedStatement preparedStatement) throws SQLException;
