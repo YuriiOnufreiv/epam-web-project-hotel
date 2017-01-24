@@ -10,12 +10,12 @@ import ua.onufreiv.hotel.service.IUserRoleService;
  */
 public class UserRoleService implements IUserRoleService {
     @Override
-    public boolean isAdmin(User user) {
+    public boolean userIsAdmin(User user) {
         return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserRoleDao().isAdmin(user.getUserRoleId());
     }
 
     @Override
-    public boolean isClient(User user) {
+    public boolean userIsClient(User user) {
         return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserRoleDao().isClient(user.getUserRoleId());
     }
 }
