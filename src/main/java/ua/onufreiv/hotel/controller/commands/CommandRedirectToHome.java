@@ -11,24 +11,26 @@ import javax.servlet.http.HttpServletResponse;
  * Created by yurii on 12/29/16.
  */
 public class CommandRedirectToHome implements Command {
+    private static final String USER_NAME = "user";
     private static final String ADMIN_DASHBOARD_PATH = "/hotel?command=showAdminDashboard";
+
+    private UserRoleService userRoleService;
+
+    public CommandRedirectToHome() {
+        userRoleService = new UserRoleService();
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
-        User user = (User) request.getSession(false).getAttribute("user");
-        if (user != null) {
-            UserRoleService userRoleService = new UserRoleService();
+        User user = (User) request.getSession(false).getAttribute(USER_NAME);
 
-            if (userRoleService.isAdmin(user)) {
-                page = ADMIN_DASHBOARD_PATH;
-            } else {
-                page = PathConfig.getInstance().getProperty(PathConfig.MAIN_PAGE_PATH);
-            }
-
+        if (user != null && userRoleService.userIsAdmin(user)) {
+            page = ADMIN_DASHBOARD_PATH;
         } else {
             page = PathConfig.getInstance().getProperty(PathConfig.MAIN_PAGE_PATH);
         }
+
         return page;
     }
 }

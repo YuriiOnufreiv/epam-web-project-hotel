@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </c:if>
-            <c:if test="${not empty requestScope.invalidDates}">
+            <c:if test="${not empty requestScope.invalidDatesError}">
                 <div class="grid_3 grid_5">
                     <div class="alert alert-danger" role="alert">
                         <strong><fmt:message key="reservation.oops"/> </strong><fmt:message

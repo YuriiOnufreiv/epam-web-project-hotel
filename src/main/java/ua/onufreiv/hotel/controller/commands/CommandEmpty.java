@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 public class CommandEmpty implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
-        return page;
+        return PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
     }
 }

@@ -20,32 +20,51 @@ import java.util.Map;
  * Created by yurii on 1/10/17.
  */
 public class CommandProcessBookRequest implements Command {
+    private static final String USER_NAME = "user";
+    private static final String ID_NAME = "id";
+    private static final String BOOK_REQUEST_NAME = "bookRequest";
+    private static final String EXACT_ROOM_NAME = "exactRoom";
+    private static final String CHEAPER_ROOM_NAME = "cheaperRoom";
+    private static final String EXPENSIVE_ROOM_NAME = "expensiveRoom";
+    private static final String ID_TYPE_MAP_NAME = "idTypeMap";
+    private final IBookRequestService bookRequestService;
+    private final IUserService userService;
+    private final ReservedRoomService reservedRoomService;
+    private final RoomService roomService;
+    private final RoomTypeService roomTypeService;
+
+    public CommandProcessBookRequest() {
+        bookRequestService = new BookRequestService();
+        userService = new UserService();
+        reservedRoomService = new ReservedRoomService();
+        roomService = new RoomService();
+        roomTypeService = new RoomTypeService();
+    }
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        IBookRequestService bookRequestService = new BookRequestService();
-        IUserService userService = new UserService();
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter(ID_NAME));
         BookRequest bookRequest = bookRequestService.getById(id);
         User user = userService.getById(bookRequest.getUserId());
-        request.setAttribute("user", user);
-        request.setAttribute("bookRequest", bookRequest);
+        request.setAttribute(USER_NAME, user);
+        request.setAttribute(BOOK_REQUEST_NAME, bookRequest);
 
-        List<ReservedRoom> reservedInDateRange = new ReservedRoomService().findReservedInDateRange(bookRequest.getCheckIn(), bookRequest.getCheckOut());
+        List<ReservedRoom> reservedInDateRange = reservedRoomService.findReservedInDateRange(bookRequest.getCheckIn(), bookRequest.getCheckOut());
         List<Integer> roomIds = new ArrayList<>(reservedInDateRange.size());
         for (ReservedRoom reservedRoom : reservedInDateRange) {
             roomIds.add(reservedRoom.getId());
         }
-        List<Room> possibleRooms = new RoomService().findAllExcept(roomIds);
-        Map<Integer, RoomType> idTypeMap = new RoomTypeService().getIdTypeMap();
+        List<Room> possibleRooms = roomService.findAllExcept(roomIds);
+        Map<Integer, RoomType> idTypeMap = roomTypeService.getIdTypeMap();
         List<Room> exact = new ExactRoomFinder().getMostSuitableRooms(bookRequest, possibleRooms, idTypeMap);
         List<Room> cheaper = new CheaperRoomFinder().getMostSuitableRooms(bookRequest, possibleRooms, idTypeMap);
         List<Room> expensive = new ExpensiveRoomFinder().getMostSuitableRooms(bookRequest, possibleRooms, idTypeMap);
 
         HttpSession session = request.getSession(false);
-        request.setAttribute("exactRoom", exact.size() > 0 ? exact.get(0) : null);
-        request.setAttribute("cheaperRoom", cheaper.size() > 0 ? cheaper.get(0) : null);
-        request.setAttribute("expensiveRoom", expensive.size() > 0 ? expensive.get(0) : null);
-        session.setAttribute("idTypeMap", idTypeMap);
+        request.setAttribute(EXACT_ROOM_NAME, exact.size() > 0 ? exact.get(0) : null);
+        request.setAttribute(CHEAPER_ROOM_NAME, cheaper.size() > 0 ? cheaper.get(0) : null);
+        request.setAttribute(EXPENSIVE_ROOM_NAME, expensive.size() > 0 ? expensive.get(0) : null);
+        session.setAttribute(ID_TYPE_MAP_NAME, idTypeMap);
 
         return PathConfig.getInstance().getProperty(PathConfig.PROCESS_REQUEST_PAGE_PATH);
     }

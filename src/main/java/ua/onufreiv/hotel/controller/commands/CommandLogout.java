@@ -13,15 +13,17 @@ public class CommandLogout implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page;
         HttpSession session = request.getSession();
+        String page;
+
         if (session != null) {
             session.invalidate();
             page = PathConfig.getInstance().getProperty(PathConfig.MAIN_PAGE_PATH);
         } else {
-            request.setAttribute("errorMessage", true);
+            //request.setAttribute("errorMessage", true);
             page = PathConfig.getInstance().getProperty(PathConfig.NOT_SIGNED_IN_ERROR_PAGE_PATH);
         }
+
         return page;
     }
 }

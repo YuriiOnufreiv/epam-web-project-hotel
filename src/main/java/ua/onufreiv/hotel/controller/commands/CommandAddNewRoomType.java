@@ -13,26 +13,34 @@ import java.util.Map;
  * Created by yurii on 1/14/17.
  */
 public class CommandAddNewRoomType implements Command {
+    private static final String TYPE_NAME = "type";
+    private static final String PRICE_NAME = "price";
+    private static final String PERSONS_NAME = "persons";
+    private static final String DESCRIPTION_NAME = "description";
+    private static final String ID_TYPE_TITLES_NAME = "idTypeTitlesMap";
+    private static final String INVALID_ROOM_TYPE_ERROR_NAME = "invalidRoomTypeError";
+    private static final String ADD_ROOM_TYPE_SUCCESS_NAME = "addRoomTypeSuccess";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         IRoomTypeService roomTypeService = new RoomTypeService();
 
-        String type = request.getParameter("type");
-        int price = Integer.parseInt(request.getParameter("price"));
-        int persons = Integer.parseInt(request.getParameter("persons"));
-        String description = request.getParameter("description");
+        String type = request.getParameter(TYPE_NAME);
+        int price = Integer.parseInt(request.getParameter(PRICE_NAME));
+        int persons = Integer.parseInt(request.getParameter(PERSONS_NAME));
+        String description = request.getParameter(DESCRIPTION_NAME);
 
         RoomType roomType = new RoomType(null, type, description, price, persons);
         if (roomTypeService.containsType(type)) {
-            request.setAttribute("invalidRoomTypeError", true);
-            request.setAttribute("type", type);
-            request.setAttribute("price", price);
-            request.setAttribute("persons", persons);
-            request.setAttribute("description", description);
+            request.setAttribute(INVALID_ROOM_TYPE_ERROR_NAME, true);
+            request.setAttribute(TYPE_NAME, type);
+            request.setAttribute(PRICE_NAME, price);
+            request.setAttribute(PERSONS_NAME, persons);
+            request.setAttribute(DESCRIPTION_NAME, description);
         } else {
             int id = roomTypeService.addNewRoomType(roomType);
-            request.setAttribute("addRoomTypeSuccess", true);
-            ((Map<Integer, String>) request.getSession(false).getAttribute("idTypeTitlesMap")).put(id, type);
+            request.setAttribute(ADD_ROOM_TYPE_SUCCESS_NAME, true);
+            ((Map<Integer, String>) request.getSession(false).getAttribute(ID_TYPE_TITLES_NAME)).put(id, type);
         }
 
         return PathConfig.getInstance().getProperty(PathConfig.ADD_NEW_ROOM_TYPE_PAGE_PATH);
