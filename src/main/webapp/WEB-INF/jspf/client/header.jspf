@@ -32,7 +32,8 @@
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1"
                                     id="myTabDrop1-contents">
-                                    <li><a href="/hotel?command=clientRequests"><fmt:message key="header.bookRequests"/></a>
+                                    <li><a href="/hotel?command=showClientRequests"><fmt:message
+                                            key="header.bookRequests"/></a>
                                     </li>
                                     <li><a href="/hotel?command=logout"><fmt:message key="header.sign.out"/></a></li>
                                 </ul>

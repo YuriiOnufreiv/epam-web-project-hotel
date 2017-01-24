@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by yurii on 12/27/16.
  */
-public class CommandLogin implements ICommand {
+public class CommandLogin implements Command {
     private static final String PARAM_NAME_EMAIL = "email";
     private static final String PARAM_NAME_PASSWORD = "password";
 

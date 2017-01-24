@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by yurii on 1/10/17.
  */
-public class CommandCreateBill implements ICommand {
+public class CommandCreateBill implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         IBillService billService = new BillService();

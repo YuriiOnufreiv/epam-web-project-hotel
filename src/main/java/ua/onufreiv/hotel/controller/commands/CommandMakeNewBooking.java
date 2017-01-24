@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * Created by yurii on 1/1/17.
  */
-public class CommandReservation implements ICommand {
+public class CommandMakeNewBooking implements Command {
     private static final String PARAM_NAME_TOTAL_PERSONS = "total_persons";
     private static final String PARAM_NAME_ROOM_TYPE = "room_type";
     private static final String PARAM_NAME_CHECK_IN_DATE = "check_in_date";

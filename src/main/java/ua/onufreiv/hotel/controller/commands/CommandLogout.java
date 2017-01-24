@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by yurii on 12/27/16.
  */
-public class CommandLogout implements ICommand {
+public class CommandLogout implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

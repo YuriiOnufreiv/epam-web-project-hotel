@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.controller;
 
 import org.apache.log4j.Logger;
-import ua.onufreiv.hotel.controller.commands.ICommand;
+import ua.onufreiv.hotel.controller.commands.Command;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ICommand command = controllerHelper.getCommand(request);
+        Command command = controllerHelper.getCommand(request);
         String page = command.execute(request, response);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);

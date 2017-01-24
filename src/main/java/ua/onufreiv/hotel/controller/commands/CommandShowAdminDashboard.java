@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by yurii on 1/5/17.
  */
-public class CommandShowAdminDashboard implements ua.onufreiv.hotel.controller.commands.ICommand {
+public class CommandShowAdminDashboard implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * Created by yurii on 1/10/17.
  */
-public class CommandProcessBookRequest implements ICommand {
+public class CommandProcessBookRequest implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         IBookRequestService bookRequestService = new BookRequestService();

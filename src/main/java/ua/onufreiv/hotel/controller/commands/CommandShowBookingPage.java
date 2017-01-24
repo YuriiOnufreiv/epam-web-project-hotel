@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by yurii on 1/4/17.
  */
-public class CommandShowBookingPage implements ICommand {
+public class CommandShowBookingPage implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         IRoomTypeService roomTypeService = new RoomTypeService();

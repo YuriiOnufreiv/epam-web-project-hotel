@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by yurii on 12/29/16.
  */
-public class CommandRegister implements ICommand {
+public class CommandRegister implements Command {
     private static final String PARAM_NAME_FIRST_NAME = "first_name";
     private static final String PARAM_NAME_LAST_NAME = "last_name";
     private static final String PARAM_NAME_EMAIL = "email";

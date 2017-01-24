@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by yurii on 1/2/17.
  */
-public class CommandClientRequests implements ICommand {
+public class CommandShowClientRequests implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);

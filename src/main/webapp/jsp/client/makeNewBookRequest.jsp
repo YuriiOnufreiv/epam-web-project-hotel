@@ -33,8 +33,8 @@
                     </div>
                 </div>
             </c:if>
-            <form name="registerForm" method="POST" action="/hotel/reservation" autocomplete="on">
-                <input type="hidden" name="command" value="reservation"/>
+            <form name="registerForm" method="POST" action="/hotel/makeNewBooking" autocomplete="on">
+                <input type="hidden" name="command" value="makeNewBooking"/>
                 <div class="register-top-grid">
                     <h3><fmt:message key="register.personal_info"/></h3>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">

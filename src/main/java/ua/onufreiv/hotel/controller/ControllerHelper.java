@@ -12,39 +12,45 @@ import java.util.Map;
 public class ControllerHelper {
     private static ControllerHelper helperInstance = null;
 
-    private Map<String, ICommand> commands;
+    private Map<String, Command> commands;
 
     private ControllerHelper() {
         commands = new HashMap<>();
+
+        // common commands
         commands.put("login", new CommandLogin());
         commands.put("logout", new CommandLogout());
         commands.put("register", new CommandRegister());
         commands.put("redirect", new CommandRedirectToHome());
-        commands.put("reservation", new CommandReservation());
-        commands.put("clientRequests", new CommandClientRequests());
+
+        // client specific commands
         commands.put("showBookingPage", new CommandShowBookingPage());
+        commands.put("makeNewBooking", new CommandMakeNewBooking());
+        commands.put("showClientRequests", new CommandShowClientRequests());
+        commands.put("showBillInfo", new CommandShowBillInfo());
+
+        // admin specific commands
         commands.put("showAdminDashboard", new CommandShowAdminDashboard());
         commands.put("processBookRequest", new CommandProcessBookRequest());
         commands.put("createBill", new CommandCreateBill());
-        commands.put("showBillInfo", new CommandShowBillInfo());
         commands.put("addNewRoomType", new CommandAddNewRoomType());
         commands.put("addNewRoom", new CommandAddNewRoom());
     }
 
     public static ControllerHelper getInstance() {
-        if(helperInstance == null) {
+        if (helperInstance == null) {
             helperInstance = new ControllerHelper();
         }
         return helperInstance;
     }
 
-    public ICommand getCommand(HttpServletRequest request) {
+    public Command getCommand(HttpServletRequest request) {
         String action = request.getParameter("command");
-        ICommand command = commands.get(action);
+        Command command = commands.get(action);
 
-        if(command == null) {
-            return (request.getSession(false) != null)
-                    ? new CommandRedirectToHome() : new CommandEmpty();
+        if (command == null) {
+            return (request.getSession(false) != null) ?
+                    new CommandRedirectToHome() : new CommandEmpty();
         }
 
         return command;

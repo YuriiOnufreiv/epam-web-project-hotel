@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by yurii on 1/14/17.
  */
-public class CommandAddNewRoom implements ICommand {
+public class CommandAddNewRoom implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         IRoomService roomService = new RoomService();

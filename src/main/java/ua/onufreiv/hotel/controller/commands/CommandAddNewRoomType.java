@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by yurii on 1/14/17.
  */
-public class CommandAddNewRoomType implements ICommand {
+public class CommandAddNewRoomType implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         IRoomTypeService roomTypeService = new RoomTypeService();
