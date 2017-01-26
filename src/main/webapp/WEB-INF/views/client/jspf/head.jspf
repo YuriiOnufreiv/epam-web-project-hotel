@@ -17,20 +17,20 @@
 <fmt:setBundle basename="lang"/>
 
 <!-------------------- STYLES -------------------->
-<link href="${pageContext.request.contextPath}/resources/css/client/bootstrap.css" rel='stylesheet' type='text/css'/>
-<link href="${pageContext.request.contextPath}/resources/css/client/style.css" rel='stylesheet' type='text/css'/>
+<link href="${pageContext.request.contextPath}/resources/client/css/bootstrap.css" rel='stylesheet' type='text/css'/>
+<link href="${pageContext.request.contextPath}/resources/client/css/style.css" rel='stylesheet' type='text/css'/>
 <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300italic,300,600' rel='stylesheet' type='text/css'>
-<link href="${pageContext.request.contextPath}/resources/css/client/jquery-ui.css" rel="stylesheet"/>
-<link href="${pageContext.request.contextPath}/resources/css/client/jquery-ui.css" rel="stylesheet"/>
+<link href="${pageContext.request.contextPath}/resources/client/css/jquery-ui.css" rel="stylesheet"/>
+<link href="${pageContext.request.contextPath}/resources/client/css/jquery-ui.css" rel="stylesheet"/>
 
 <!-------------------- SCRIPTS -------------------->
 <script type="applijewelleryion/x-javascript">
      addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
 </script>
-<script src="${pageContext.request.contextPath}/resources/js/client/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/client/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/client/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/resources/client/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/client/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/resources/client/js/jquery-ui.js"></script>
 <script>
     $(function () {
         $("#datepicker,#datepicker1").datepicker();
