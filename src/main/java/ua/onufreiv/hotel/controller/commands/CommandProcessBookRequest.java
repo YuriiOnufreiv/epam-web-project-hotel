@@ -23,14 +23,6 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
  * Created by yurii on 1/10/17.
  */
 public class CommandProcessBookRequest implements Command {
-//    private static final String USER_NAME = "user";
-//    private static final String ID_NAME = "id";
-//    private static final String BOOK_REQUEST_NAME = "bookRequest";
-//    private static final String EXACT_ROOM_NAME = "exactRoom";
-//    private static final String CHEAPER_ROOM_NAME = "cheaperRoom";
-//    private static final String EXPENSIVE_ROOM_NAME = "expensiveRoom";
-//    private static final String ID_TYPE_MAP_NAME = "idTypeMap";
-
     private final IBookRequestService bookRequestService;
     private final IUserService userService;
     private final ReservedRoomService reservedRoomService;

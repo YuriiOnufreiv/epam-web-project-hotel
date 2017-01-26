@@ -22,6 +22,7 @@ public class ControllerHelper {
         commands.put("logout", new CommandLogout());
         commands.put("register", new CommandRegister());
         commands.put("redirect", new CommandRedirectToHome());
+        commands.put("forward", new CommandForwardToPage());
 
         // client specific commands
         commands.put("showBookingPage", new CommandShowBookingPage());

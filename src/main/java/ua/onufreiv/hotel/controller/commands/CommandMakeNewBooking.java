@@ -20,14 +20,6 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
  * Created by yurii on 1/1/17.
  */
 public class CommandMakeNewBooking implements Command {
-//    private static final String TOTAL_PERSONS_NAME = "total_persons";
-//    private static final String ROOM_TYPE_NAME = "room_type";
-//    private static final String CHECK_IN_DATE_NAME = "check_in_date";
-//    private static final String CHECK_OUT_DATE_NAME = "check_out_date";
-//    private static final String USER_NAME = "user";
-//    private static final String RESERVE_SUCCESS_NAME = "successfulReserve";
-//    private static final String INVALID_DATES_ERROR_NAME = "invalidDatesError";
-
     private final IBookRequestService reservationService;
     private final ParamNamesConfig names;
 

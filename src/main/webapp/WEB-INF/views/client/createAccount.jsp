@@ -10,15 +10,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <%@ include file="/WEB-INF/jspf/client/head.jspf" %>
+    <%@ include file="/WEB-INF/views/client/jspf/head.jspf" %>
     <title><fmt:message key="general.register"/></title>
 </head>
 <body>
-<%@ include file="/WEB-INF/jspf/client/header.jspf" %>
+<%@ include file="/WEB-INF/views/client/jspf/header.jspf" %>
 <div class="main-1">
     <div class="container">
         <div class="register">
-            <form name="registerForm" method="POST" action="/hotel/register" autocomplete="on">
+            <form name="registerForm" method="POST" action="/hotel" autocomplete="on">
                 <input type="hidden" name="command" value="register"/>
                 <div class="register-top-grid">
                     <h3><fmt:message key="register.personal_info"/></h3>
@@ -74,7 +74,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 <!-- footer -->
-<%@ include file="/WEB-INF/jspf/client/footer.jspf" %>
+<%@ include file="/WEB-INF/views/client/jspf/footer.jspf" %>
 <!-- footer -->
 </body>
 </html>

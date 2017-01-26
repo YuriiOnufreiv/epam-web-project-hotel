@@ -19,13 +19,9 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.NOT_PROCESSE
  * Created by yurii on 1/5/17.
  */
 public class CommandShowAdminDashboard implements Command {
-//    private static final String NEW_BOOK_REQUESTS_NAME = "newBookRequests";
-//    private static final String NEW_BOOK_REQUESTS_COUNT_NAME = "newBookRequestsCount";
-//    private static final String ID_TYPE_TITLES_MAP_NAME = "idTypeTitlesMap";
-
-    private final ParamNamesConfig names;
     private final IRoomTypeService roomTypeService;
     private final BookRequestService bookRequestService;
+    private final ParamNamesConfig names;
 
     public CommandShowAdminDashboard() {
         roomTypeService = new RoomTypeService();

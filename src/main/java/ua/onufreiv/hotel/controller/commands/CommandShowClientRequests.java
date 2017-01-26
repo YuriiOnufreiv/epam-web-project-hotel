@@ -18,13 +18,9 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
  * Created by yurii on 1/2/17.
  */
 public class CommandShowClientRequests implements Command {
-//    private static final String USER_NAME = "user";
-//    private static final String ID_TYPE_TITLES_MAP_NAME = "idTypeTitlesMapTitlesMap";
-//    private static final String BOOK_REQUESTS_NAME = "bookRequests";
-
-    private final ParamNamesConfig names;
     private final BookRequestService bookRequestService;
     private final RoomTypeService roomTypeService;
+    private final ParamNamesConfig names;
 
     public CommandShowClientRequests() {
         names = ParamNamesConfig.getInstance();

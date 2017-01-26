@@ -12,30 +12,35 @@ import java.io.IOException;
 /**
  * Created by yurii on 1/4/17.
  */
-public class SignedInFilter implements Filter {
-    private final static Logger logger = Logger.getLogger(SignedInFilter.class);
+public class AccessControlFilter implements Filter {
+    private final static Logger logger = Logger.getLogger(AccessControlFilter.class);
+
+    private boolean userMustBeSignedIn(ServletRequest request) {
+        String command = request.getParameter("command");
+        return command != null && !command.equals("forward") && !command.equals("login");
+    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        logger.info("SignedInFilter.init()");
+        logger.info("AccessControlFilter.init()");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
 
-        if (session == null || session.getAttribute("user") == null) {
-            logger.info("SignedInFilter.doFilter() - user ISN'T signed in");
+        if (userMustBeSignedIn(request) && (session == null || session.getAttribute("user") == null)) {
+            logger.info("AccessControlFilter.doFilter() - user must be signed in");
             ((HttpServletResponse) response).sendRedirect(PathConfig.getInstance()
-                    .getProperty(PathConfig.NOT_SIGNED_IN_ERROR_PAGE_PATH));
+                    .getProperty(PathConfig.FORWARD_TO_NOT_SIGNED_IN_COMMAND_PATH));
         } else {
-            logger.info("SignedInFilter.doFilter() - user IS signed in");
+            logger.info("AccessControlFilter.doFilter() - user must not be signed in");
             chain.doFilter(request, response);
         }
     }
 
     @Override
     public void destroy() {
-        logger.info("SignedInFilter.destroy()");
+        logger.info("AccessControlFilter.destroy()");
     }
 }

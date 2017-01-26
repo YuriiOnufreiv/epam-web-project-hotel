@@ -9,13 +9,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <%@ include file="/WEB-INF/jspf/client/head.jspf" %>
+    <%@ include file="/WEB-INF/views/client/jspf/head.jspf" %>
     <title><fmt:message key="general.sign.in"/></title>
 </head>
 <body>
 <!-- banner -->
 <!--<div class="banner1">-->
-<%@ include file="/WEB-INF/jspf/client/header.jspf" %>
+<%@ include file="/WEB-INF/views/client/jspf/header.jspf" %>
 <!--</div>-->
 <!-- banner -->
 
@@ -25,7 +25,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
                 <h3><fmt:message key="login.new_customer"/></h3>
                 <p><fmt:message key="login.new_customer.label"/></p>
-                <a class="acount-btn" href="/jsp/client/createAccount.jsp"><fmt:message key="login.create_account"/></a>
+                <a class="acount-btn" href="/hotel?command=forward&page=createAccount"><fmt:message
+                        key="login.create_account"/></a>
             </div>
             <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
                 <c:if test="${not empty requestScope.signUpSuccess}">
@@ -38,7 +39,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </c:if>
                 <h3><fmt:message key="login.registered_customers"/></h3>
                 <p><fmt:message key="login.registered_customers.label"/></p>
-                <form name="loginForm" method="POST" action="/hotel/login" autocomplete="on">
+                <form name="loginForm" method="POST" action="/hotel" autocomplete="on">
                     <input type="hidden" name="command" value="login"/>
                     <div>
                         <span><fmt:message key="general.email"/><label>*</label></span>
@@ -64,7 +65,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 <!-- footer -->
-<%@ include file="/WEB-INF/jspf/client/footer.jspf" %>
+<%@ include file="/WEB-INF/views/client/jspf/footer.jspf" %>
 <!-- footer -->
 </body>
 </html>

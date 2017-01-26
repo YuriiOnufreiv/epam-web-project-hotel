@@ -15,15 +15,8 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
  * Created by yurii on 12/27/16.
  */
 public class CommandLogin implements Command {
-//    private static final String EMAIL_NAME = "email";
-//    private static final String PASSWORD_NAME = "password";
-//    private static final String USER_NAME = "user";
-//    private static final String ERROR_MESSAGE_NAME = "errorMessage";
-
-    private static final String REDIRECT_TO_HOME_PATH = "/hotel?command=redirect";
-
-    private AuthService authService;
-    private ParamNamesConfig names;
+    private final AuthService authService;
+    private final ParamNamesConfig names;
 
     public CommandLogin() {
         names = ParamNamesConfig.getInstance();
@@ -45,6 +38,6 @@ public class CommandLogin implements Command {
             return PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
         }
 
-        return REDIRECT_TO_HOME_PATH;
+        return PathConfig.getInstance().getProperty(PathConfig.REDIRECT_TO_HOME_COMMAND_PATH);
     }
 }

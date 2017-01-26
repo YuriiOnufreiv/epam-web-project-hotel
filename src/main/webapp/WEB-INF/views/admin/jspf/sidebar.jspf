@@ -25,13 +25,13 @@
                 </a>
             </li>
             <li>
-                <a href="/jsp/admin/addNewRoom.jsp">
+                <a href="/hotel?command=forward&page=addNewRoom">
                     <i class="pe-7s-plus"></i>
                     <p>New Room</p>
                 </a>
             </li>
             <li>
-                <a href="/jsp/admin/addNewRoomType.jsp">
+                <a href="/hotel?command=forward&page=addNewRoomType">
                     <i class="pe-7s-albums"></i>
                     <p>New Room Type</p>
                 </a>

@@ -10,11 +10,11 @@
 <%@ taglib prefix="dateTag" uri="/WEB-INF/date.tld" %>
 <html>
 <head>
-    <%@ include file="/WEB-INF/jspf/client/head.jspf" %>
+    <%@ include file="/WEB-INF/views/client/jspf/head.jspf" %>
     <title><fmt:message key="header.billInfo"/></title>
 </head>
 <body>
-<%@ include file="/WEB-INF/jspf/client/header.jspf" %>
+<%@ include file="/WEB-INF/views/client/jspf/header.jspf" %>
 <div class="main-1">
     <div class="container big-padding">
         <div class="sinbt">
@@ -46,6 +46,6 @@
         </div>
     </div>
 </div>
-<%@ include file="/WEB-INF/jspf/client/footer.jspf" %>
+<%@ include file="/WEB-INF/views/client/jspf/footer.jspf" %>
 </body>
 </html>

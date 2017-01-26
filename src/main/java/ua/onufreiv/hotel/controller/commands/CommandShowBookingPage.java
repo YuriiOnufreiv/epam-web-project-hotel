@@ -15,10 +15,8 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.ID_ROOM_TYPE
  * Created by yurii on 1/4/17.
  */
 public class CommandShowBookingPage implements Command {
-//    private static final String ID_TYPE_TITLES_MAP_NAME = "idTypeTitlesMap";
-
-    private final ParamNamesConfig names;
     private final IRoomTypeService roomTypeService;
+    private final ParamNamesConfig names;
 
     public CommandShowBookingPage() {
         roomTypeService = new RoomTypeService();

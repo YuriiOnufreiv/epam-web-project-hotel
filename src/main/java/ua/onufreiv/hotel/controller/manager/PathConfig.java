@@ -22,6 +22,11 @@ public class PathConfig {
     public static final String ADD_NEW_ROOM_TYPE_PAGE_PATH = "ADD_NEW_ROOM_TYPE_PAGE_PATH";
     public static final String ADD_NEW_ROOM_PAGE_PATH = "ADD_NEW_ROOM_PAGE_PATH";
 
+    public static final String FORWARD_TO_NOT_SIGNED_IN_COMMAND_PATH = "FORWARD_TO_NOT_SIGNED_IN_COMMAND_PATH";
+    public static final String PROCESS_BOOK_REQUEST_BY_ID_COMMAND_PATH = "PROCESS_BOOK_REQUEST_BY_ID_COMMAND_PATH";
+    public static final String REDIRECT_TO_HOME_COMMAND_PATH = "REDIRECT_TO_HOME_COMMAND_PATH";
+    public static final String SHOW_ADMIN_DASHBOARD_COMMAND_PATH = "SHOW_ADMIN_DASHBOARD_COMMAND_PATH";
+
     private static PathConfig instance;
 
     private ResourceBundle resourceBundle;

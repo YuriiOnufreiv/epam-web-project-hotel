@@ -28,12 +28,12 @@
 
     <filter>
         <filter-name>signedInFilter</filter-name>
-        <filter-class>ua.onufreiv.hotel.filter.SignedInFilter</filter-class>
+        <filter-class>ua.onufreiv.hotel.filter.AccessControlFilter</filter-class>
     </filter>
 
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
-        <url-pattern>/hotel/*</url-pattern>
+        <url-pattern>/hotel</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
@@ -48,7 +48,7 @@
 
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>/hotel/*</url-pattern>
+        <url-pattern>/hotel</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

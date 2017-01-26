@@ -11,16 +11,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <%@ include file="/WEB-INF/jspf/admin/head.jspf" %>
+    <%@ include file="/WEB-INF/views/admin/jspf/head.jspf" %>
     <meta charset="utf-8"/>
     <title>Process request</title>
 </head>
 <body>
 
 <div class="wrapper">
-    <%@ include file="/WEB-INF/jspf/admin/sidebar.jspf" %>
+    <%@ include file="/WEB-INF/views/admin/jspf/sidebar.jspf" %>
     <div class="main-panel">
-        <%@ include file="/WEB-INF/jspf/admin/header.jspf" %>
+        <%@ include file="/WEB-INF/views/admin/jspf/header.jspf" %>
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -176,7 +176,7 @@
 
             </div>
         </div>
-        <%@ include file="/WEB-INF/jspf/admin/footer.jspf" %>
+        <%@ include file="/WEB-INF/views/admin/jspf/footer.jspf" %>
     </div>
 </div>
 </body>

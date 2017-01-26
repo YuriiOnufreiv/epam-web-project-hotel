@@ -23,23 +23,10 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
  * Created by yurii on 1/10/17.
  */
 public class CommandCreateBill implements Command {
-//    private static final String REQUEST_ID_NAME = "requestId";
-//    private static final String ROOM_ID_NAME = "roomId";
-//    private static final String ROOM_TYPE_ID_NAME = "roomTypeId";
-//    private static final String CREATE_BILL_ERROR_NAME = "createBillError";
-//    private static final String BOOK_REQUEST_ID_NAME = "bookRequestId";
-//    private static final String REQUEST_CREATION_DATE_NAME = "requestCreationDate";
-//    private static final String PERSONS_NAME = "persons";
-//    private static final String TYPE_NAME = "type";
-//    private static final String CHECK_IN_NAME = "checkIn";
-//    private static final String CHECK_OUT_NAME = "checkOut";
-//    private static final String BILL_TOTAL_PRICE_NAME = "totalPrice";
-
-    private static final String PROCESS_BOOK_REQUEST_PATH = "/hotel?command=processBookRequest&id=";
-    private ParamNamesConfig names;
     private final IBillService billService;
     private final IBookRequestService bookRequestService;
     private final IRoomTypeService roomTypeService;
+    private final ParamNamesConfig names;
 
     public CommandCreateBill() {
         names = ParamNamesConfig.getInstance();
@@ -69,7 +56,8 @@ public class CommandCreateBill implements Command {
 
         if(!billService.createNewBill(bill)) {
             request.setAttribute(names.get(CREATE_BILL_ERROR_NAME), "true");
-            return PROCESS_BOOK_REQUEST_PATH + bookRequestId;
+            return PathConfig.getInstance()
+                    .getProperty(PathConfig.PROCESS_BOOK_REQUEST_BY_ID_COMMAND_PATH) + bookRequestId;
         }
 
         request.setAttribute(names.get(BOOK_REQUEST_ID_NAME), bookRequestId);
