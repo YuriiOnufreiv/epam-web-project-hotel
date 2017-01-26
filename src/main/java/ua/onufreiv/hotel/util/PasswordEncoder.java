@@ -11,7 +11,19 @@ import java.security.NoSuchAlgorithmException;
 public class PasswordEncoder {
     private final static Logger logger = Logger.getLogger(PasswordEncoder.class);
 
-    public static String encode(String password) {
+    private static PasswordEncoder instance;
+
+    private PasswordEncoder() {
+    }
+
+    public static PasswordEncoder getInstance() {
+        if (instance == null) {
+            instance = new PasswordEncoder();
+        }
+        return instance;
+    }
+
+    public String encode(String password) {
         String encodedPwd;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");

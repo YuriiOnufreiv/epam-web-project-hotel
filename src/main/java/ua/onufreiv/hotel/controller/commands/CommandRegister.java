@@ -70,7 +70,7 @@ public class CommandRegister implements Command {
         user.setPhoneNum(telephone);
 
         String page;
-        String passwordHashString = PasswordEncoder.encode(password);
+        String passwordHashString = PasswordEncoder.getInstance().encode(password);
         if (passwordHashString != null) {
             PasswordHash passwordHash = new PasswordHash();
             passwordHash.setPwdHash(passwordHashString);

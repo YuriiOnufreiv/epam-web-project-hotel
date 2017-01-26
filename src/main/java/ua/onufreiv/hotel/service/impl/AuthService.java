@@ -19,7 +19,7 @@ public class AuthService implements IAuthService {
 
         User user = userDao.find(email);
         if(user != null && passwordDao.find(user.getPwdHashId())
-                .getPwdHash().equals(PasswordEncoder.encode(password))) {
+                .getPwdHash().equals(PasswordEncoder.getInstance().encode(password))) {
             return user;
         }
 
