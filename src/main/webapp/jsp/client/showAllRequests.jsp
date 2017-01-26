@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="bookRequest" items="${requestScope.bookRequests}">
+            <c:forEach var="bookRequest" items="${requestScope.bookRequestList}">
                 <tr>
                     <td><c:out value="${bookRequest.id}"/></td>
                         <%--<td><fmt:formatDate pattern="MM/dd/yyyy hh:mm" value="${bookRequest.creationDate}"/></td>--%>
@@ -40,7 +40,7 @@
                     <td><dateTag:date date="${bookRequest.checkIn}" locale="${sessionScope.language}"/></td>
                     <td><dateTag:date date="${bookRequest.checkOut}" locale="${sessionScope.language}"/></td>
                         <%--<td><c:out value="${bookRequest.checkOut}"/></td>--%>
-                    <td><c:out value="${sessionScope.idTypeTitlesMap[bookRequest.roomTypeId]}"/></td>
+                    <td><c:out value="${sessionScope.idRoomTypeTitleMap[bookRequest.roomTypeId]}"/></td>
                     <td><c:out value="${bookRequest.persons}"/></td>
                     <td>
                         <c:choose>

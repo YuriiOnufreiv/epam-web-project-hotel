@@ -33,7 +33,7 @@
                             </c:if>
                             <c:if test="${requestScope.invalidRoomNumberError}">
                                 <div class="alert alert-danger">
-                                    <span><b> Error - </b>Room #'${requestScope.number}' already exists</span>
+                                    <span><b> Error - </b>Room #'${requestScope.roomNumber}' already exists</span>
                                 </div>
                             </c:if>
                             <div class="header">
@@ -45,9 +45,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Type</label>
-                                                <select name="room_type" id="soflow">
-                                                    <c:forEach items="${sessionScope.idTypeTitlesMap}" var="entry">
-                                                        <option value="${entry.key}" ${entry.key == requestScope.room_type ? 'selected' : ''}>
+                                                <select name="roomType" id="soflow">
+                                                    <c:forEach items="${sessionScope.idRoomTypeTitleMap}" var="entry">
+                                                        <option value="${entry.key}" ${entry.key == requestScope.roomType ? 'selected' : ''}>
                                                             <c:out value="${entry.value}"/></option>
                                                     </c:forEach>
                                                 </select>
@@ -56,7 +56,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Number</label>
-                                                <input name="number" type="number" class="form-control" min="0"
+                                                <input name="roomNumber" type="number" class="form-control" min="0"
                                                        max="999">
                                             </div>
                                         </div>

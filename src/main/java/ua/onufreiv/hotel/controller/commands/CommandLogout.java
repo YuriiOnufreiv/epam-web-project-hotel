@@ -20,7 +20,6 @@ public class CommandLogout implements Command {
             session.invalidate();
             page = PathConfig.getInstance().getProperty(PathConfig.MAIN_PAGE_PATH);
         } else {
-            //request.setAttribute("errorMessage", true);
             page = PathConfig.getInstance().getProperty(PathConfig.NOT_SIGNED_IN_ERROR_PAGE_PATH);
         }
 

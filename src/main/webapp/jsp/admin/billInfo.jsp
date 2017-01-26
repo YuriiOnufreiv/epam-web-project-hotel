@@ -33,24 +33,24 @@
                             <div class="content">
                                 <div class="typo-line">
                                     <h5><p class="category">Request Date</p><fmt:formatDate pattern="MM/dd/yyyy hh:mm"
-                                                                                            value="${requestScope.requestCreationDate}"/>
+                                                                                            value="${requestScope.bookRequestCreationDate}"/>
                                     </h5>
                                 </div>
                                 <div class="typo-line">
-                                    <h5><p class="category">Persons</p>${requestScope.persons}</h5>
+                                    <h5><p class="category">Persons</p>${requestScope.bookRequestPersons}</h5>
                                 </div>
                                 <div class="typo-line">
-                                    <h5><p class="category">Room type</p>${requestScope.type}</h5>
+                                    <h5><p class="category">Room type</p>${requestScope.roomType}</h5>
                                 </div>
                                 <div class="typo-line">
-                                    <h5><p class="category">Check In</p>${requestScope.checkIn}</h5>
+                                    <h5><p class="category">Check In</p>${requestScope.checkInDate}</h5>
                                 </div>
                                 <div class="typo-line">
-                                    <h5><p class="category">Check Out</p>${requestScope.checkOut}</h5>
+                                    <h5><p class="category">Check Out</p>${requestScope.checkOutDate}</h5>
                                 </div>
                                 <hr>
                                 <div class="typo-line">
-                                    <h5><p class="category"><b>Total Price</b></p><b>$${requestScope.totalPrice}</b>
+                                    <h5><p class="category"><b>Total Price</b></p><b>$${requestScope.billTotalPrice}</b>
                                     </h5>
                                 </div>
                             </div>

@@ -17,7 +17,7 @@
 <div class="main-1">
     <div class="container">
         <div class="register">
-            <c:if test="${not empty requestScope.successfulReserve}">
+            <c:if test="${not empty requestScope.newBookRequestSuccess}">
                 <div class="grid_3 grid_5">
                     <div class="alert alert-success" role="alert">
                         <strong><fmt:message key="general.thank_you"/></strong><fmt:message
@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </c:if>
-            <c:if test="${not empty requestScope.invalidDatesError}">
+            <c:if test="${not empty requestScope.invalidBookRequestDatesError}">
                 <div class="grid_3 grid_5">
                     <div class="alert alert-danger" role="alert">
                         <strong><fmt:message key="reservation.oops"/> </strong><fmt:message
@@ -65,21 +65,21 @@
                     <h3><fmt:message key="reservation.request_info"/></h3>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span><fmt:message key="bookRequest.total_persons"/></span>
-                        <input name="total_persons" value="${requestScope.total_persons}" required="required"
+                        <input name="bookRequestPersons" value="${requestScope.bookRequestPersons}" required="required"
                                type="number" min="1" max="5"/>
                     </div>
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
                         <span><fmt:message key="bookRequest.room_type"/></span>
-                        <select name="room_type" class="frm-field required">
-                            <c:forEach items="${sessionScope.idTypeTitlesMap}" var="entry">
-                                <option value="${entry.key}" ${entry.key == requestScope.room_type ? 'selected' : ''}>
+                        <select name="roomType" class="frm-field required">
+                            <c:forEach items="${sessionScope.idTypeTitleMap}" var="entry">
+                                <option value="${entry.key}" ${entry.key == requestScope.roomType ? 'selected' : ''}>
                                     <c:out value="${entry.value}"/></option>
                             </c:forEach>
                         </select>
                     </div>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span><fmt:message key="bookRequest.checkin"/></span>
-                        <input name="check_in_date" class="date" id="datepicker" type="text"
+                        <input name="checkInDate" class="date" id="datepicker" type="text"
                                value="Press to select date..."
                                onfocus="this.value = '';"
                                onblur="if (this.value == '') {this.value = 'Check In';}">
@@ -87,7 +87,7 @@
                     </div>
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
                         <span><fmt:message key="bookRequest.checkout"/></span>
-                        <input name="check_out_date" class="date" id="datepicker1" type="text"
+                        <input name="checkOutDate" class="date" id="datepicker1" type="text"
                                value="Press to select date..."
                                onfocus="this.value = '';"
                                onblur="if (this.value == '') {this.value = 'Check In';}">

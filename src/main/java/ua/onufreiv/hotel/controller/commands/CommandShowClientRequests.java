@@ -1,5 +1,6 @@
 package ua.onufreiv.hotel.controller.commands;
 
+import ua.onufreiv.hotel.controller.manager.ParamNamesConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.User;
@@ -11,31 +12,37 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
+
 /**
  * Created by yurii on 1/2/17.
  */
 public class CommandShowClientRequests implements Command {
-    private static final String USER_NAME = "user";
-    private static final String ID_TYPE_TITLES_MAP_NAME = "idTypeTitlesMap";
-    private static final String BOOK_REQUESTS_NAME = "bookRequests";
+//    private static final String USER_NAME = "user";
+//    private static final String ID_TYPE_TITLES_MAP_NAME = "idTypeTitlesMapTitlesMap";
+//    private static final String BOOK_REQUESTS_NAME = "bookRequests";
 
+    private final ParamNamesConfig names;
     private final BookRequestService bookRequestService;
+    private final RoomTypeService roomTypeService;
 
     public CommandShowClientRequests() {
+        names = ParamNamesConfig.getInstance();
         bookRequestService = new BookRequestService();
+        roomTypeService = new RoomTypeService();
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute(USER_NAME);
+        User user = (User) session.getAttribute(names.get(USER_NAME));
         List<BookRequest> bookRequests = bookRequestService.getRequestsByUserId(user.getId());
 
-        if (session.getAttribute(ID_TYPE_TITLES_MAP_NAME) == null) {
-            session.setAttribute(ID_TYPE_TITLES_MAP_NAME, new RoomTypeService().getIdTypeTitleMap());
+        if (session.getAttribute(names.get(ID_ROOM_TYPE_TITLE_MAP_NAME)) == null) {
+            session.setAttribute(names.get(ID_ROOM_TYPE_TITLE_MAP_NAME), roomTypeService.getIdTypeTitleMap());
         }
 
-        request.setAttribute(BOOK_REQUESTS_NAME, bookRequests);
+        request.setAttribute(names.get(BOOK_REQUEST_LIST_NAME), bookRequests);
         return PathConfig.getInstance().getProperty(PathConfig.SHOW_ALL_REQUESTS_PAGE_PATH);
     }
 }

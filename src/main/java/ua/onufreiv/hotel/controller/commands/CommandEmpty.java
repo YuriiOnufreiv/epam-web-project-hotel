@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by yurii on 12/27/16.
  */
 public class CommandEmpty implements Command {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         return PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);

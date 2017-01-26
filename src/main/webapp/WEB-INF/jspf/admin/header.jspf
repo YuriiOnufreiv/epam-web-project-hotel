@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <nav class="navbar navbar-default navbar-fixed">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -24,13 +25,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="pe-7s-note2"></i>
                         <b class="caret"></b>
-                        <c:if test="${requestScope.newBookRequestsCount > 0}">
-                            <span class="notification">${requestScope.newBookRequestsCount}</span>
+                        <c:if test="${fn:length(requestScope.notProcessedBookRequestList) > 0}">
+                            <span class="notification">${fn:length(requestScope.notProcessedBookRequestList)}</span>
                         </c:if>
                     </a>
                     <ul class="dropdown-menu">
                         <c:choose>
-                            <c:when test="${requestScope.newBookRequestsCount > 0}">
+                            <c:when test="${fn:length(requestScope.notProcessedBookRequestList) > 0}">
                                 <li><a href="" style="pointer-events: none; cursor: default;"><b>New book requests</b></a></li>
                                 <li><a href="/hotel?command=showAdminDashboard">See all</a></li>
                             </c:when>

@@ -41,7 +41,8 @@
                                 </div>
                                 <div class="typo-line">
                                     <h5><p class="category">Room
-                                        type</p>${sessionScope.idTypeMap[requestScope.bookRequest.roomTypeId].type}</h5>
+                                        type</p>${sessionScope.idRoomTypeMap[requestScope.bookRequest.roomTypeId].type}
+                                    </h5>
                                 </div>
                                 <div class="typo-line">
                                     <h5><p class="category">Check In</p>${requestScope.bookRequest.checkIn}</h5>
@@ -88,7 +89,7 @@
                             <div class="content">
                                 <c:if test="${not empty requestScope.exactRoom}">
                                     <c:set var="exactType" scope="page"
-                                           value="${sessionScope.idTypeMap[requestScope.exactRoom.roomTypeId]}"/>
+                                           value="${sessionScope.idRoomTypeMap[requestScope.exactRoom.roomTypeId]}"/>
                                     <div class="typo-line">
                                         <h5><p class="category">#</p>${requestScope.exactRoom.number}</h5>
                                     </div>
@@ -104,7 +105,8 @@
                                     <div class="typo-line">
                                         <h5><p class="category">Description</p>${exactType.description}</h5>
                                     </div>
-                                    <a href="/hotel?command=createBill&requestId=${bookRequest.id}&roomId=${requestScope.exactRoom.id}&roomTypeId=${requestScope.exactRoom.roomTypeId}" class="btn btn-info btn-fill">Create Bill</a>
+                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.exactRoom.id}&roomTypeId=${requestScope.exactRoom.roomTypeId}"
+                                       class="btn btn-info btn-fill">Create Bill</a>
                                 </c:if>
                             </div>
                         </div>
@@ -117,7 +119,7 @@
                             <div class="content">
                                 <c:if test="${not empty requestScope.cheaperRoom}">
                                     <c:set var="cheaperType" scope="page"
-                                           value="${sessionScope.idTypeMap[requestScope.cheaperRoom.roomTypeId]}"/>
+                                           value="${sessionScope.idRoomTypeMap[requestScope.cheaperRoom.roomTypeId]}"/>
                                     <div class="typo-line">
                                         <h5><p class="category">#</p>${requestScope.cheaperRoom.number}</h5>
                                     </div>
@@ -133,7 +135,7 @@
                                     <div class="typo-line">
                                         <h5><p class="category">Description</p>${cheaperType.description}</h5>
                                     </div>
-                                    <a href="/hotel?command=createBill&requestId=${bookRequest.id}&roomId=${requestScope.cheaperRoom.id}&roomTypeId=${requestScope.cheaperRoom.roomTypeId}"
+                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.cheaperRoom.id}&roomTypeId=${requestScope.cheaperRoom.roomTypeId}"
                                        class="btn btn-info btn-fill">Create Bill</a>
                                 </c:if>
                             </div>
@@ -147,7 +149,7 @@
                             <div class="content">
                                 <c:if test="${not empty requestScope.expensiveRoom}">
                                     <c:set var="expensiveType" scope="page"
-                                           value="${sessionScope.idTypeMap[requestScope.expensiveRoom.roomTypeId]}"/>
+                                           value="${sessionScope.idRoomTypeMap[requestScope.expensiveRoom.roomTypeId]}"/>
                                     <div class="typo-line">
                                         <h5><p class="category">#</p>${requestScope.expensiveRoom.number}</h5>
                                     </div>
@@ -163,7 +165,7 @@
                                     <div class="typo-line">
                                         <h5><p class="category">Description</p>${expensiveType.description}</h5>
                                     </div>
-                                    <a href="/hotel?command=createBill&requestId=${bookRequest.id}&roomId=${requestScope.expensiveRoom.id}&roomTypeId=${requestScope.expensiveRoom.roomTypeId}"
+                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.expensiveRoom.id}&roomTypeId=${requestScope.expensiveRoom.roomTypeId}"
                                        class="btn btn-info btn-fill">Create Bill</a>
                                 </c:if>
                             </div>

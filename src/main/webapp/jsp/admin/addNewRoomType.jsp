@@ -33,7 +33,7 @@
                             </c:if>
                             <c:if test="${requestScope.invalidRoomTypeError}">
                                 <div class="alert alert-danger">
-                                    <span><b> Error - </b>Type '${requestScope.type}' already exists</span>
+                                    <span><b> Error - </b>Type '${requestScope.roomType}' already exists</span>
                                 </div>
                             </c:if>
                             <div class="header">
@@ -45,21 +45,22 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Type</label>
-                                                <input name="type" type="text" class="form-control" required>
+                                                <input name="roomType" type="text" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Price, $</label>
-                                                <input name="price" type="number" class="form-control" min="1"
-                                                       value="${requestScope.price}">
+                                                <input name="roomPrice" type="number" class="form-control" min="1"
+                                                       value="${requestScope.roomPrice}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Persons</label>
-                                                <input name="persons" type="number" class="form-control" min="1"
-                                                       value="${requestScope.persons}">
+                                                <input name="roomPersonsTotal" type="number" class="form-control"
+                                                       min="1"
+                                                       value="${requestScope.roomPersonsTotal}">
                                             </div>
                                         </div>
                                     </div>
@@ -67,8 +68,8 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Description</label>
-                                                <textarea name="description" rows="5" class="form-control"
-                                                          placeholder="Here can be new room type description">${requestScope.description}</textarea>
+                                                <textarea name="roomDescription" rows="5" class="form-control"
+                                                          placeholder="Here can be new room type description">${requestScope.roomDescription}</textarea>
                                             </div>
                                         </div>
                                     </div>

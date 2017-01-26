@@ -24,22 +24,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <h3><fmt:message key="register.personal_info"/></h3>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span><fmt:message key="general.first_name"/></span>
-                        <input name="first_name" required="required" type="text"
-                               value="${requestScope.first_name}" placeholder="Taras">
+                        <input name="userFirstName" required="required" type="text"
+                               value="${requestScope.userFirstName}" placeholder="Taras">
                     </div>
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
                         <span><fmt:message key="general.last_name"/></span>
-                        <input name="last_name" required="required" type="text" value="${requestScope.last_name}"
+                        <input name="userLastName" required="required" type="text" value="${requestScope.userLastName}"
                                placeholder="Shevchenko"/>
                     </div>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span><fmt:message key="general.email"/></span>
-                        <input name="email" required="required" type="email" value="${requestScope.email}"
+                        <input name="userEmail" required="required" type="email" value="${requestScope.userEmail}"
                                placeholder="shevchenko@mail.com"/>
                     </div>
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
                         <span><fmt:message key="general.phone_number"/></span>
-                        <input name="phoneNum" required="required" type="tel" value="${requestScope.phoneNum}"
+                        <input name="userTelephoneNumber" required="required" type="tel"
+                               value="${requestScope.userTelephoneNumber}"
                                maxlength="12" placeholder="eg. 380977767760"/>
                     </div>
                 </div>
@@ -47,15 +48,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <h3><fmt:message key="register.login_info"/></h3>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span><fmt:message key="general.password"/></span>
-                        <input name="password" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                        <input name="userPassword" required="required" type="userPassword" placeholder="eg. X8df!90EO"/>
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <c:if test="${not empty requestScope.errors}">
+                <c:if test="${not empty requestScope.signUpErrors}">
                     <div class="grid_3 grid_5">
                         <div class="alert alert-danger" role="alert">
                             <ul style="padding-left: 25px;">
-                                <c:forTokens items="${requestScope.errors}" var="error" delims="|">
+                                <c:forTokens items="${requestScope.signUpErrors}" var="error" delims="|">
                                     <li><strong><fmt:message key="${error}"/></strong></li>
                                 </c:forTokens>
                             </ul>

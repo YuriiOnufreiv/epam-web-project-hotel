@@ -41,14 +41,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="bookRequest" items="${requestScope.newBookRequests}">
+                                    <c:forEach var="bookRequest" items="${requestScope.notProcessedBookRequestList}">
                                         <tr>
                                             <td><c:out value="${bookRequest.id}"/></td>
                                             <td><fmt:formatDate pattern="MM/dd/yyyy hh:mm"
                                                                 value="${bookRequest.creationDate}"/>
                                             </td>
                                             <td>
-                                                <a href="/hotel?command=processBookRequest&id=${bookRequest.id}"
+                                                <a href="/hotel?command=processBookRequest&bookRequestId=${bookRequest.id}"
                                                    class="btn btn-info btn-fill">Process</a>
                                             </td>
                                         </tr>

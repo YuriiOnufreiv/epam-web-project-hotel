@@ -28,7 +28,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <a class="acount-btn" href="/jsp/client/createAccount.jsp"><fmt:message key="login.create_account"/></a>
             </div>
             <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
-                <c:if test="${not empty requestScope.successfulSignUp}">
+                <c:if test="${not empty requestScope.signUpSuccess}">
                     <div class="grid_3 grid_5">
                         <div class="alert alert-success" role="alert">
                             <strong><fmt:message key="general.thank_you"/></strong> <fmt:message
@@ -42,16 +42,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <input type="hidden" name="command" value="login"/>
                     <div>
                         <span><fmt:message key="general.email"/><label>*</label></span>
-                        <input type="text" name="email" required="required">
+                        <input type="text" name="userEmail" required="required">
                     </div>
                     <div>
                         <span><fmt:message key="general.password"/><label>*</label></span>
-                        <input name="password" required="required" type="password">
+                        <input name="userPassword" required="required" type="password">
                     </div>
                     <!--<a class="forgot" href="#">Forgot Your Password?</a>-->
                     <input type="submit" value=<fmt:message key="general.sign.in"/>>
                 </form>
-                <c:if test="${not empty requestScope.errorMessage}">
+                <c:if test="${not empty requestScope.invalidLoginError}">
                     <div class="grid_3 grid_5">
                         <div class="alert alert-danger" role="alert">
                             <strong><fmt:message key="login.oh_snap"/></strong><fmt:message key="errors.invalid.username_or_pwd"/>
