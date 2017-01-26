@@ -56,30 +56,6 @@
                             </div>
                         </div>
                     </div>
-                    <%--<div class="col-md-4">--%>
-                        <%--<div class="card card-user">--%>
-                            <%--<div class="image">--%>
-                                <%--<img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"--%>
-                                     <%--alt="..."/>--%>
-                            <%--</div>--%>
-                            <%--<div class="content">--%>
-                                <%--<div class="author">--%>
-                                    <%--<a>--%>
-                                        <%--<img class="avatar border-gray" src="/resources/assets/img/faces/face-0.jpg"--%>
-                                             <%--alt="..."/>--%>
-                                        <%--<h4 class="title">${requestScope.user.name} ${requestScope.user.surname}<br/>--%>
-                                            <%--<hr>--%>
-                                            <%--<small><b>Email:</b> ${requestScope.user.email}</small>--%>
-                                            <%--<br/>--%>
-                                            <%--<small><b>Phone:</b> ${requestScope.user.phoneNum}</small>--%>
-                                            <%--<br/>--%>
-                                            <%--<hr>--%>
-                                        <%--</h4>--%>
-                                    <%--</a>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
                 </div>
             </div>
             <a href="/hotel?command=showAdminDashboard" class="btn btn-info btn-fill">Back to new requests</a>

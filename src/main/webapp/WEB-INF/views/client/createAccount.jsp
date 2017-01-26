@@ -48,7 +48,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <h3><fmt:message key="register.login_info"/></h3>
                     <div class="wow fadeInLeft" data-wow-delay="0.4s">
                         <span><fmt:message key="general.password"/></span>
-                        <input name="userPassword" required="required" type="userPassword" placeholder="eg. X8df!90EO"/>
+                        <input name="userPassword" required="required" type="password" placeholder="eg. X8df!90EO"/>
                     </div>
                 </div>
                 <div class="clearfix"></div>
