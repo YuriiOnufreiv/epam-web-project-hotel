@@ -17,20 +17,6 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
  * Created by yurii on 12/29/16.
  */
 public class CommandRegister implements Command {
-//    private static final String USER_FIRST_NAME_NAME = "first_name";
-//    private static final String USER_LAST_NAME_NAME = "last_name";
-//    private static final String EMAIL_NAME = "email";
-//    private static final String TELEPHONE_NAME = "phoneNum";
-//    private static final String PASSWORD_NAME = "password";
-//    private static final String SUCCESSFUL_SIGN_UP_NAME = "successfulSignUp";
-//    private static final String ERRORS_NAME = "errors";
-
-//    private static final String EMAIL_EXISTS_ERROR_KEY = "errors.email_exists";
-//    private static final String INVALID_NUMBER_ERROR_KEY = "errors.invalid.number";
-//    private static final String INVALID_PASSWORD_ERROR_KEY = "errors.invalid.password";
-
-    //private static final String ERRORS_DELIMITER = "|";
-
     private final ParamNamesConfig names;
     private final IRegisterService registerService;
 

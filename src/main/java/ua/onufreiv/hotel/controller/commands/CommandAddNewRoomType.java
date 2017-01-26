@@ -15,14 +15,6 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
  * Created by yurii on 1/14/17.
  */
 public class CommandAddNewRoomType implements Command {
-//    private static final String TYPE_NAME = "type";
-//    private static final String PRICE_NAME = "price";
-//    private static final String PERSONS_NAME = "persons";
-//    private static final String DESCRIPTION_NAME = "description";
-//    private static final String ID_TYPE_TITLES_NAME = "idTypeTitlesMap";
-//    private static final String INVALID_ROOM_TYPE_ERROR_NAME = "invalidRoomTypeError";
-//    private static final String ADD_ROOM_TYPE_SUCCESS_NAME = "addRoomTypeSuccess";
-
     private final RoomTypeService roomTypeService;
     private final ParamNamesConfig names;
 
