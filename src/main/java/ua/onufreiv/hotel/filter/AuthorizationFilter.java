@@ -12,35 +12,42 @@ import java.io.IOException;
 /**
  * Created by yurii on 1/4/17.
  */
-public class AccessControlFilter implements Filter {
-    private final static Logger logger = Logger.getLogger(AccessControlFilter.class);
+public class AuthorizationFilter implements Filter {
+    private final static Logger logger = Logger.getLogger(AuthorizationFilter.class);
 
-    private boolean userMustBeSignedIn(ServletRequest request) {
+    private boolean authenticationRequired(ServletRequest request) {
         String command = request.getParameter("command");
         return command != null && !command.equals("forward") && !command.equals("login");
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        logger.info("AccessControlFilter.init()");
+        logger.info("AuthorizationFilter: initialized");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpSession session = ((HttpServletRequest) request).getSession(false);
+        HttpServletRequest requestHttp = (HttpServletRequest) request;
+        HttpSession session = requestHttp.getSession(false);
 
-        if (userMustBeSignedIn(request) && (session == null || session.getAttribute("user") == null)) {
-            logger.info("AccessControlFilter.doFilter() - user must be signed in");
+        String url = requestHttp.getRequestURL().toString();
+        String queryString = requestHttp.getQueryString();
+        StringBuilder urlBuilder = new StringBuilder(url)
+                .append("?")
+                .append(queryString);
+
+        if (authenticationRequired(request) && (session == null || session.getAttribute("user") == null)) {
+            logger.info("AuthorizationFilter: UNAUTHORIZED access request to " + urlBuilder.toString());
             ((HttpServletResponse) response).sendRedirect(PathConfig.getInstance()
                     .getProperty(PathConfig.FORWARD_TO_NOT_SIGNED_IN_COMMAND_PATH));
         } else {
-            logger.info("AccessControlFilter.doFilter() - user must not be signed in");
+            logger.info("AuthorizationFilter: NO violations in access to " + urlBuilder.toString());
             chain.doFilter(request, response);
         }
     }
 
     @Override
     public void destroy() {
-        logger.info("AccessControlFilter.destroy()");
+        logger.info("AuthorizationFilter: destroyed");
     }
 }

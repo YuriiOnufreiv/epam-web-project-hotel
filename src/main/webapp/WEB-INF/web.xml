@@ -27,9 +27,14 @@
     </filter>
 
     <filter>
-        <filter-name>accessControlFilter</filter-name>
-        <filter-class>ua.onufreiv.hotel.filter.AccessControlFilter</filter-class>
+        <filter-name>authorizationFilter</filter-name>
+        <filter-class>ua.onufreiv.hotel.filter.AuthorizationFilter</filter-class>
     </filter>
+
+    <!--<filter>-->
+    <!--<filter-name>passwordEncoderFilter</filter-name>-->
+    <!--<filter-class>ua.onufreiv.hotel.filter.PasswordEncoderFilter</filter-class>-->
+    <!--</filter>-->
 
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
@@ -37,9 +42,14 @@
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>accessControlFilter</filter-name>
+        <filter-name>authorizationFilter</filter-name>
         <url-pattern>/hotel</url-pattern>
     </filter-mapping>
+
+    <!--<filter-mapping>-->
+    <!--<filter-name>passwordEncoderFilter</filter-name>-->
+    <!--<url-pattern>/hotel</url-pattern>-->
+    <!--</filter-mapping>-->
 
     <servlet>
         <servlet-name>Controller</servlet-name>
