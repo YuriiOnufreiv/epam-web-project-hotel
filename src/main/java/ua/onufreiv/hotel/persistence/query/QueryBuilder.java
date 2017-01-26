@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.persistence.jdbc.query;
+package ua.onufreiv.hotel.persistence.query;
 
 /**
  * Created by yurii on 1/16/17.

@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper;
+package ua.onufreiv.hotel.persistence.query.resultsetmapper;
 
 import ua.onufreiv.hotel.entity.RoomType;
 

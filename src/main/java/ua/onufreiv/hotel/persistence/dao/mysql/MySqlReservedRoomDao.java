@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IReservedRoomDao;
-import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
-import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.ReservedRoomMapper;
+import ua.onufreiv.hotel.persistence.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.ReservedRoomMapper;
 
 import java.sql.Connection;
 import java.util.Date;

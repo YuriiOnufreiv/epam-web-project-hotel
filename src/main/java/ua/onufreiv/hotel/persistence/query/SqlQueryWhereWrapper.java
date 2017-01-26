@@ -1,7 +1,7 @@
-package ua.onufreiv.hotel.persistence.jdbc.query;
+package ua.onufreiv.hotel.persistence.query;
 
 import org.apache.log4j.Logger;
-import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.ResultSetMapper;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.ResultSetMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

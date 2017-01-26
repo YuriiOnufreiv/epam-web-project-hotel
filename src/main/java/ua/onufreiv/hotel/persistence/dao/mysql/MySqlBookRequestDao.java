@@ -3,8 +3,8 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IBookRequestDao;
-import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
-import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.BookRequestMapper;
+import ua.onufreiv.hotel.persistence.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.BookRequestMapper;
 
 import java.sql.Connection;
 import java.util.List;

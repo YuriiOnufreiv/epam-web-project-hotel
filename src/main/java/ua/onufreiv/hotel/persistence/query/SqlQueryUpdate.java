@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.persistence.jdbc.query;
+package ua.onufreiv.hotel.persistence.query;
 
 import org.apache.log4j.Logger;
 

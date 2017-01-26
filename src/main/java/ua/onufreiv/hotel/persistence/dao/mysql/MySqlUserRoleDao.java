@@ -3,8 +3,8 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 import ua.onufreiv.hotel.entity.UserRole;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IUserRoleDao;
-import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
-import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.UserRoleMapper;
+import ua.onufreiv.hotel.persistence.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.UserRoleMapper;
 
 import java.sql.Connection;
 import java.util.List;

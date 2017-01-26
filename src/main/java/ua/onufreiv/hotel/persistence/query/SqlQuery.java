@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.persistence.jdbc.query;
+package ua.onufreiv.hotel.persistence.query;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

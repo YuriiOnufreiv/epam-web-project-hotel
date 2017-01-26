@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IUserDao;
-import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
-import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.UserMapper;
+import ua.onufreiv.hotel.persistence.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.UserMapper;
 
 import java.sql.Connection;
 import java.util.List;

@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IPasswordDao;
-import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
-import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.PasswordHashMapper;
+import ua.onufreiv.hotel.persistence.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.PasswordHashMapper;
 
 import java.sql.Connection;
 import java.util.List;

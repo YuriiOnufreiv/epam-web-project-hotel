@@ -3,8 +3,8 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IRoomDao;
-import ua.onufreiv.hotel.persistence.jdbc.query.QueryBuilder;
-import ua.onufreiv.hotel.persistence.jdbc.query.resultsetmapper.RoomMapper;
+import ua.onufreiv.hotel.persistence.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.RoomMapper;
 
 import java.sql.Connection;
 import java.util.ArrayList;
