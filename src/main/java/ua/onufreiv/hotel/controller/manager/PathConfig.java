@@ -26,6 +26,9 @@ public class PathConfig {
 
     private ResourceBundle resourceBundle;
 
+    private PathConfig() {
+    }
+
     public static PathConfig getInstance() {
         if (instance == null) {
             instance = new PathConfig();
