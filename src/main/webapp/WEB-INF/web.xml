@@ -27,7 +27,7 @@
     </filter>
 
     <filter>
-        <filter-name>signedInFilter</filter-name>
+        <filter-name>accessControlFilter</filter-name>
         <filter-class>ua.onufreiv.hotel.filter.AccessControlFilter</filter-class>
     </filter>
 
@@ -37,7 +37,7 @@
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>signedInFilter</filter-name>
+        <filter-name>accessControlFilter</filter-name>
         <url-pattern>/hotel</url-pattern>
     </filter-mapping>
 
