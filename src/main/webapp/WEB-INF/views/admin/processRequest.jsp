@@ -62,7 +62,7 @@
                             <div class="content">
                                 <div class="author">
                                     <a>
-                                        <img class="avatar border-gray" src="/resources/assets/img/faces/face-0.jpg"
+                                        <img class="avatar border-gray" src="/resources/admin/img/faces/face-0.jpg"
                                              alt="..."/>
                                         <h4 class="title">${requestScope.user.name} ${requestScope.user.surname}<br/>
                                             <hr>
