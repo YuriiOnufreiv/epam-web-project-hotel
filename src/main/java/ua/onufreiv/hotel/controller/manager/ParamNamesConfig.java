@@ -47,6 +47,7 @@ public class ParamNamesConfig {
     public static final String USER_TELEPHONE_NUMBER_NAME = "USER_TELEPHONE_NUMBER_NAME";
     public static final String SIGN_UP_SUCCESS_NAME = "SIGN_UP_SUCCESS_NAME";
     public static final String SIGN_UP_ERRORS_NAME = "SIGN_UP_ERRORS_NAME";
+    public static final String NEW_ROOMS_AVAILABLE_NAME = "NEW_ROOMS_AVAILABLE_NAME";
 
 
     public static final String EMAIL_EXISTS_ERROR_KEY_NAME = "EMAIL_EXISTS_ERROR_KEY_NAME";
