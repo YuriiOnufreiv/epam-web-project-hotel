@@ -145,7 +145,24 @@ demo = {
                 align: align
             }
         });
-	}
+    },
+
+    showNotification: function (message) {
+        color = "#186AAB";
+
+        $.notify({
+            icon: "pe-7s-plus",
+            message: message
+
+        }, {
+            type: type[color],
+            timer: 4000,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    }
 
     
 }

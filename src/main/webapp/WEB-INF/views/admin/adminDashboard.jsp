@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="/WEB-INF/views/tld/dateTag.tld" prefix="roomTag" %>
+<%@ taglib uri="/WEB-INF/views/tld/autoPageRefresh.tld" prefix="autoPageRefresh" %>
 <!DOCTYPE HTML>
 <!doctype html>
 <html lang="en">
@@ -15,6 +15,7 @@
     <%@ include file="/WEB-INF/views/admin/jspf/head.jspf" %>
     <meta charset="utf-8"/>
     <title>Admin dashboard</title>
+    <autoPageRefresh:autoRefresh interval="15"/>
 </head>
 <body>
 
@@ -22,6 +23,11 @@
     <%@ include file="/WEB-INF/views/admin/jspf/sidebar.jspf" %>
     <div class="main-panel">
         <%@ include file="/WEB-INF/views/admin/jspf/header.jspf" %>
+        <c:if test="${requestScope.newRoomsAvailable}">
+            <script>
+                demo.showNotification("New room(-s) became available")
+            </script>
+        </c:if>
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
