@@ -5,7 +5,7 @@
 
     <tlib-version>1.0</tlib-version>
     <short-name>date</short-name>
-    <uri>/WEB-INF/date.tld</uri>
+    <uri>/WEB-INF/views/tld/dateTag.tld</uri>
 
     <tag>
         <name>date</name>
