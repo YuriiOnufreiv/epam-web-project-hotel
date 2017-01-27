@@ -5,6 +5,7 @@ import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.service.IRoomTypeService;
 import ua.onufreiv.hotel.service.impl.BookRequestService;
+import ua.onufreiv.hotel.service.impl.ReservedRoomService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.ID_ROOM_TYPE_TITLE_MAP_NAME;
-import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.NOT_PROCESSED_BOOK_REQUEST_LIST_NAME;
+import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
 
 /**
  * Created by yurii on 1/5/17.
@@ -21,11 +21,13 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.NOT_PROCESSE
 public class CommandShowAdminDashboard implements Command {
     private final IRoomTypeService roomTypeService;
     private final BookRequestService bookRequestService;
+    private final ReservedRoomService reservedRoomService;
     private final ParamNamesConfig names;
 
     public CommandShowAdminDashboard() {
         roomTypeService = new RoomTypeService();
         bookRequestService = new BookRequestService();
+        reservedRoomService = new ReservedRoomService();
         names = ParamNamesConfig.getInstance();
     }
 
@@ -33,7 +35,9 @@ public class CommandShowAdminDashboard implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         List<BookRequest> notProcessedRequests = bookRequestService.getNotProcessedRequests();
         Map<Integer, String> idTypeTitleMap = roomTypeService.getIdTypeTitleMap();
+        boolean result = reservedRoomService.removeExpiredDateReservedRooms();
 
+        request.setAttribute(names.get(NEW_ROOMS_AVAILABLE_NAME), result);
         request.setAttribute(names.get(NOT_PROCESSED_BOOK_REQUEST_LIST_NAME), notProcessedRequests);
         request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_TITLE_MAP_NAME), idTypeTitleMap);
 

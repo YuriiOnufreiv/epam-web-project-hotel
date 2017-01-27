@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface IReservedRoomService {
     List<ReservedRoom> findReservedInDateRange(Date checkInDate, Date checkOutDate);
+
+    boolean removeExpiredDateReservedRooms();
 }

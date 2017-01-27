@@ -121,4 +121,15 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
         ConnectionManager.closeConnection(connection);
         return reservedRoom != null;
     }
+
+    @Override
+    public boolean removeExpiredDateReservedRooms(Date date) {
+        Connection connection = ConnectionManager.getConnection();
+        boolean result = queryBuilder.delete()
+                .where()
+                .column(COLUMN_CHECK_OUT_NAME).less(date)
+                .executeUpdate(connection);
+        ConnectionManager.closeConnection(connection);
+        return result;
+    }
 }

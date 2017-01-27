@@ -12,4 +12,6 @@ public interface IReservedRoomDao extends IDao<ReservedRoom> {
     List<ReservedRoom> findReservedInDateRange(Date checkInDate, Date checkOutDate);
 
     boolean roomIsReservedInDateRange(int roomId, Date checkInDate, Date checkOutDate);
+
+    boolean removeExpiredDateReservedRooms(Date date);
 }

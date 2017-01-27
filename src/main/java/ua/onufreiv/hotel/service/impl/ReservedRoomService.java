@@ -16,4 +16,11 @@ public class ReservedRoomService implements IReservedRoomService {
     public List<ReservedRoom> findReservedInDateRange(Date checkInDate, Date checkOutDate) {
         return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getReservedRoomDao().findReservedInDateRange(checkInDate, checkOutDate);
     }
+
+    @Override
+    public boolean removeExpiredDateReservedRooms() {
+        return DaoFactory.getDAOFactory(ConnectionManager.databaseType)
+                .getReservedRoomDao()
+                .removeExpiredDateReservedRooms(new Date());
+    }
 }
