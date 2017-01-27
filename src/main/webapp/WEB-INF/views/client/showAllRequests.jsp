@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="dateTag" uri="/WEB-INF/date.tld" %>
+<%@ taglib prefix="dateTag" uri="/WEB-INF/views/tld/dateTag.tld" %>
 <html>
 <head>
     <%@ include file="/WEB-INF/views/client/jspf/head.jspf" %>
