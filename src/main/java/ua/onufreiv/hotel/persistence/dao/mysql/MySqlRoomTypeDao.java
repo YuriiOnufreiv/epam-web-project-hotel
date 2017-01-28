@@ -88,7 +88,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
     }
 
     @Override
-    public List<String> getAllRoomTypes() {
+    public List<String> findAllRoomTypesString() {
         Connection connection = ConnectionManager.getConnection();
         List<RoomType> roomTypes = queryBuilder.select()
                 .selectAll(connection, new RoomTypeMapper());
@@ -101,7 +101,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
     }
 
     @Override
-    public Map<Integer, String> getAllInMap() {
+    public Map<Integer, String> findAllAsMap() {
         List<RoomType> roomTypes = findAll();
 
         if (roomTypes == null) {

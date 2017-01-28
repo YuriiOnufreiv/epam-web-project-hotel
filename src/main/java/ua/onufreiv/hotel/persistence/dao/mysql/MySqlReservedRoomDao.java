@@ -1,6 +1,5 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IReservedRoomDao;
@@ -15,8 +14,6 @@ import java.util.List;
  * Created by yurii on 1/5/17.
  */
 public class MySqlReservedRoomDao implements IReservedRoomDao {
-    private final static Logger logger = Logger.getLogger(MySqlReservedRoomDao.class);
-
     private static final String TABLE_NAME = "reserved_room";
     private static final String COLUMN_ID_NAME = "idReservedRoom";
     private static final String COLUMN_ROOM_FK_NAME = "roomFK";
@@ -95,7 +92,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
     }
 
     @Override
-    public List<ReservedRoom> findReservedInDateRange(Date checkInDate, Date checkOutDate) {
+    public List<ReservedRoom> findInDateRange(Date checkInDate, Date checkOutDate) {
         Connection connection = ConnectionManager.getConnection();
         List<ReservedRoom> reservedRooms = queryBuilder.select()
                 .where()
@@ -108,7 +105,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
     }
 
     @Override
-    public boolean roomIsReservedInDateRange(int roomId, Date checkInDate, Date checkOutDate) {
+    public boolean roomIsReserved(int roomId, Date checkInDate, Date checkOutDate) {
         Connection connection = ConnectionManager.getConnection();
         ReservedRoom reservedRoom = queryBuilder.select()
                 .where()
@@ -123,11 +120,11 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
     }
 
     @Override
-    public boolean removeExpiredDateReservedRooms(Date date) {
+    public boolean deleteExpired() {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_CHECK_OUT_NAME).less(date)
+                .column(COLUMN_CHECK_OUT_NAME).less(new Date())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;

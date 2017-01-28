@@ -26,6 +26,7 @@ public class PathConfig {
     public static final String PROCESS_BOOK_REQUEST_BY_ID_COMMAND_PATH = "PROCESS_BOOK_REQUEST_BY_ID_COMMAND_PATH";
     public static final String REDIRECT_TO_HOME_COMMAND_PATH = "REDIRECT_TO_HOME_COMMAND_PATH";
     public static final String SHOW_ADMIN_DASHBOARD_COMMAND_PATH = "SHOW_ADMIN_DASHBOARD_COMMAND_PATH";
+    public static final String SHOW_BILL_INFO_COMMAND_PATH = "SHOW_BILL_INFO_COMMAND_PATH";
 
     private static PathConfig instance;
 

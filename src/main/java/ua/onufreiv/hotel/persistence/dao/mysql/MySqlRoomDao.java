@@ -7,7 +7,6 @@ import ua.onufreiv.hotel.persistence.query.QueryBuilder;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.RoomMapper;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,14 +98,13 @@ public class MySqlRoomDao implements IRoomDao {
 
     @Override
     public List<Room> findAllExcept(List<Integer> exceptRoomIds) {
-        List<Room> validRooms = new ArrayList<>();
-        List<Room> allRooms = findAll();
-        for (Room room : allRooms) {
-            if (!exceptRoomIds.contains(room.getId())) {
-                validRooms.add(room);
-            }
-        }
-        return validRooms;
+        Connection connection = ConnectionManager.getConnection();
+        List<Room> bookRequests = queryBuilder.select()
+                .where()
+                .column(COLUMN_ID_NAME).notIn(exceptRoomIds)
+                .executeQuery(connection, new RoomMapper());
+        ConnectionManager.closeConnection(connection);
+        return bookRequests;
     }
 
     @Override

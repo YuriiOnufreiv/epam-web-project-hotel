@@ -1,18 +1,18 @@
 package ua.onufreiv.hotel.service;
 
+import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.Room;
-
-import java.util.List;
+import ua.onufreiv.hotel.util.roomfinder.IRoomChooser;
 
 /**
  * Created by yurii on 1/5/17.
  */
 public interface IRoomService {
-    List<Room> findAllExcept(List<Integer> exceptRoomIds);
+    boolean insertRoom(Room room);
 
-    Room getById(int id);
+    Room findById(int id);
 
-    Room getByRoomNumber(int number);
+    Room findByRoomNumber(int number);
 
-    boolean addNewRoom(Room room);
+    Room searchRoomForRequest(BookRequest bookRequest, IRoomChooser roomFinder);
 }

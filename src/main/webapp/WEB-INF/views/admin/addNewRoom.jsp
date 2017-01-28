@@ -76,7 +76,7 @@
                                             <div class="form-group">
                                                 <label>Type</label>
                                                 <select name="roomType" id="soflow">
-                                                    <c:forEach items="${sessionScope.idRoomTypeMap}" var="entry">
+                                                    <c:forEach items="${requestScope.idRoomTypeMap}" var="entry">
                                                         <option value="${entry.key}" ${entry.key == requestScope.roomType ? 'selected' : ''}>
                                                             <c:out value="${entry.value}"/></option>
                                                     </c:forEach>

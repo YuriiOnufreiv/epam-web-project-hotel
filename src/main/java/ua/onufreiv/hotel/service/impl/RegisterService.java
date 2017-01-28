@@ -12,43 +12,40 @@ import ua.onufreiv.hotel.service.IRegisterService;
  * Created by yurii on 1/1/17.
  */
 public class RegisterService implements IRegisterService {
-    public static final int PHONE_NUMBER_LENGTH = 12;
+    private static RegisterService instance;
+
+    private final IUserDao userDao;
+    private final IPasswordDao passwordDao;
+
+    private RegisterService() {
+        DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
+        userDao = daoFactory.getUserDao();
+        passwordDao = daoFactory.getPasswordDao();
+    }
+
+    public synchronized static RegisterService getInstance() {
+        if (instance == null) {
+            instance = new RegisterService();
+        }
+        return instance;
+    }
 
     @Override
-    public boolean isValidPhoneNumber(String number) {
-        if (number.length() != PHONE_NUMBER_LENGTH) {
+    public boolean insertUser(User user, PasswordHash passwordHash) {
+        int id = passwordDao.insert(passwordHash);
+
+        if (id < 0) {
             return false;
         }
-        for (int i = 0; i < PHONE_NUMBER_LENGTH; i++) {
-            if (!Character.isDigit(number.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean isValidPassword(String password) {
-        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,8}";
-        return password.matches(pattern);
-    }
-
-    @Override
-    public boolean isUniqueEmail(String email) {
-        IUserDao userDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserDao();
-        return userDao.find(email) == null;
-    }
-
-    @Override
-    public boolean registerNewUser(User user, PasswordHash passwordHash) {
-        IUserDao userDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserDao();
-        IPasswordDao passwordDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getPasswordDao();
-
-        int id = passwordDao.insert(passwordHash);
 
         user.setPwdHashId(id);
         user.setUserRoleId(2);
 
         return userDao.insert(user) > 0;
+    }
+
+    @Override
+    public boolean isUniqueEmail(String email) {
+        return userDao.findByEmail(email) == null;
     }
 }

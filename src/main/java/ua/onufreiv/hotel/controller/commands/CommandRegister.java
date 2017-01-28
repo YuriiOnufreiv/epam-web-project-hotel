@@ -7,6 +7,7 @@ import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.IRegisterService;
 import ua.onufreiv.hotel.service.impl.RegisterService;
 import ua.onufreiv.hotel.util.PasswordEncoder;
+import ua.onufreiv.hotel.util.RegisterFormValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ public class CommandRegister implements Command {
     private final IRegisterService registerService;
 
     public CommandRegister() {
-        registerService = new RegisterService();
+        registerService = RegisterService.getInstance();
         names = ParamNamesConfig.getInstance();
     }
 
@@ -34,8 +35,8 @@ public class CommandRegister implements Command {
         String password = request.getParameter(names.get(USER_PASSWORD_NAME));
 
         boolean validEmail = registerService.isUniqueEmail(email);
-        boolean validPhoneNumber = registerService.isValidPhoneNumber(telephone);
-        boolean validPassword = registerService.isValidPassword(password);
+        boolean validPhoneNumber = RegisterFormValidator.isValidPhoneNumber(telephone);
+        boolean validPassword = RegisterFormValidator.isValidPassword(password);
 
         if (!(validEmail && validPassword && validPhoneNumber)) {
             request.setAttribute(names.get(USER_FIRST_NAME_NAME), firstName);
@@ -73,7 +74,7 @@ public class CommandRegister implements Command {
         passwordHash.setPwdHash(PasswordEncoder.getInstance().encode(password));
 
         String page;
-        if (passwordHash.getPwdHash() != null && registerService.registerNewUser(user, passwordHash)) {
+        if (passwordHash.getPwdHash() != null && registerService.insertUser(user, passwordHash)) {
             request.setAttribute(names.get(SIGN_UP_SUCCESS_NAME), true);
             page = PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
         } else {

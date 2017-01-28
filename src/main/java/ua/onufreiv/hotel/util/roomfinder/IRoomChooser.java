@@ -9,6 +9,6 @@ import java.util.Map;
 /**
  * Created by yurii on 1/5/17.
  */
-public interface IRoomFinder {
-    List<Room> getMostSuitableRooms(BookRequest bookRequest, List<Room> rooms, Map<Integer, String> types);
+public interface IRoomChooser {
+    Room chooseRoom(BookRequest bookRequest, List<Room> rooms, Map<Integer, String> types);
 }

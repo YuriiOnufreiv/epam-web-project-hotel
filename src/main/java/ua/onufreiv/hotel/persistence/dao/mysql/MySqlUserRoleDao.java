@@ -20,12 +20,6 @@ public class MySqlUserRoleDao implements IUserRoleDao {
     private static MySqlUserRoleDao instance;
     private final QueryBuilder<UserRole> queryBuilder;
 
-//    private static final String QUERY_INSERT = "INSERT INTO USER_ROLE (role) VALUES (?)";
-//    private static final String QUERY_DELETE = "DELETE FROM USER_ROLE WHERE idUserRole = ?";
-//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM USER_ROLE WHERE idUserRole = ?";
-//    private static final String QUERY_SELECT_ALL = "SELECT * FROM USER_ROLE";
-//    private static final String QUERY_UPDATE = "UPDATE USER_ROLE SET role = ? WHERE idUserRole = ?";
-
     private MySqlUserRoleDao() {
         queryBuilder = new QueryBuilder<>(TABLE_NAME);
     }
@@ -91,13 +85,13 @@ public class MySqlUserRoleDao implements IUserRoleDao {
     }
 
     @Override
-    public boolean isAdmin(int id) {
+    public boolean idBelongsToAdmin(int id) {
         UserRole userRole = find(id);
         return userRole != null && userRole.getRole().equalsIgnoreCase("ADMIN");
     }
 
     @Override
-    public boolean isClient(int id) {
+    public boolean idBelongsToClient(int id) {
         UserRole userRole = find(id);
         return userRole != null && userRole.getRole().equalsIgnoreCase("CLIENT");
     }

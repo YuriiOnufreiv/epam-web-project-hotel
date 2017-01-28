@@ -25,21 +25,21 @@ public class CommandShowAdminDashboard implements Command {
     private final ParamNamesConfig names;
 
     public CommandShowAdminDashboard() {
-        roomTypeService = new RoomTypeService();
-        bookRequestService = new BookRequestService();
-        reservedRoomService = new ReservedRoomService();
+        roomTypeService = RoomTypeService.getInstance();
+        bookRequestService = BookRequestService.getInstance();
+        reservedRoomService = ReservedRoomService.getInstance();
         names = ParamNamesConfig.getInstance();
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        List<BookRequest> notProcessedRequests = bookRequestService.getNotProcessedRequests();
-        Map<Integer, String> idTypeTitleMap = roomTypeService.getAllInMap();
-        boolean result = reservedRoomService.removeExpiredDateReservedRooms();
+        List<BookRequest> notProcessedRequests = bookRequestService.findNotProcessed();
+        Map<Integer, String> idTypeTitleMap = roomTypeService.findAllAsMap();
+        boolean result = reservedRoomService.deleteExpired();
 
         request.setAttribute(names.get(NEW_ROOMS_AVAILABLE_NAME), result);
         request.setAttribute(names.get(NOT_PROCESSED_BOOK_REQUEST_LIST_NAME), notProcessedRequests);
-        request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), idTypeTitleMap);
+        request.setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), idTypeTitleMap);
 
         return PathConfig.getInstance().getProperty(PathConfig.ADMIN_DASHBOARD_PAGE_PATH);
     }

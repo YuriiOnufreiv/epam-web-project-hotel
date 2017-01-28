@@ -1,6 +1,5 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.Bill;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IBillDao;
@@ -14,8 +13,6 @@ import java.util.List;
  * Created by yurii on 1/10/17.
  */
 public class MySqlBillDao implements IBillDao {
-    private final static Logger logger = Logger.getLogger(MySqlBillDao.class);
-
     private static final String TABLE_NAME = "bill";
     private static final String COLUMN_ID_NAME = "idBill";
     private static final String COLUMN_CREATION_DATE_TIME_NAME = "creationDateTime";

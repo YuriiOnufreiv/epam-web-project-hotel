@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by yurii on 1/4/17.
  */
 public interface IRoomTypeDao extends IDao<RoomType> {
-    List<String> getAllRoomTypes();
+    List<String> findAllRoomTypesString();
 
-    Map<Integer, String> getAllInMap();
+    Map<Integer, String> findAllAsMap();
 }

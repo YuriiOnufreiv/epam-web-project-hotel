@@ -1,6 +1,5 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IUserDao;
@@ -14,8 +13,6 @@ import java.util.List;
  * Created by yurii on 12/23/16.
  */
 public class MySqlUserDao implements IUserDao {
-    private final static Logger logger = Logger.getLogger(MySqlUserDao.class);
-
     private static final String TABLE_NAME = "user";
     private static final String COLUMN_ID_NAME = "idUser";
     private static final String COLUMN_NAME_NAME = "name";
@@ -29,7 +26,7 @@ public class MySqlUserDao implements IUserDao {
     private QueryBuilder<User> queryBuilder;
 
     private MySqlUserDao() {
-        queryBuilder = new QueryBuilder(TABLE_NAME);
+        queryBuilder = new QueryBuilder<>(TABLE_NAME);
     }
 
     public static synchronized MySqlUserDao getInstance() {
@@ -105,7 +102,7 @@ public class MySqlUserDao implements IUserDao {
     }
 
     @Override
-    public User find(String email) {
+    public User findByEmail(String email) {
         Connection connection = ConnectionManager.getConnection();
         User user = queryBuilder.select()
                 .where()

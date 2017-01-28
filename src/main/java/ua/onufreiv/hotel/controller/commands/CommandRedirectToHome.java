@@ -18,7 +18,7 @@ public class CommandRedirectToHome implements Command {
     private final ParamNamesConfig names;
 
     public CommandRedirectToHome() {
-        userRoleService = new UserRoleService();
+        userRoleService = UserRoleService.getInstance();
         names = ParamNamesConfig.getInstance();
     }
 

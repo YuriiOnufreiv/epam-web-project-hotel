@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface IBookRequestDao extends IDao<BookRequest> {
     List<BookRequest> findByUserId(int id);
-    List<BookRequest> getNotProcessedRequests();
+
+    List<BookRequest> findAllNotProcessed();
 }

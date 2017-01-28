@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -170,6 +171,17 @@ public class SqlQueryWhereWrapper<T, K extends SqlQueryWhereWrappable> implement
         public SqlQueryWhereWrapper<T, K> greater(Date date) {
             values.add(date);
             whereClause.append(">").append("DATE(?)");
+            return SqlQueryWhereWrapper.this;
+        }
+
+        public SqlQueryWhereWrapper<T, K> notIn(List<Integer> exceptRoomIds) {
+            values.add(exceptRoomIds);
+            String[] questionMarks = new String[values.size()];
+            Arrays.fill(questionMarks, "?");
+            whereClause.append(" NOT IN ")
+                    .append(" (")
+                    .append(String.join(",", questionMarks))
+                    .append(")");
             return SqlQueryWhereWrapper.this;
         }
     }

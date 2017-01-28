@@ -12,13 +12,28 @@ import ua.onufreiv.hotel.util.PasswordEncoder;
  * Created by yurii on 12/27/16.
  */
 public class AuthService implements IAuthService {
+    private static AuthService instance;
+
+    private final IUserDao userDao;
+    private final IPasswordDao passwordDao;
+
+    private AuthService() {
+        DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
+        userDao = daoFactory.getUserDao();
+        passwordDao = daoFactory.getPasswordDao();
+    }
+
+    public synchronized static AuthService getInstance() {
+        if (instance == null) {
+            instance = new AuthService();
+        }
+        return instance;
+    }
+
     @Override
     public User authenticate(String email, String password) {
-        IUserDao userDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserDao();
-        IPasswordDao passwordDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getPasswordDao();
-
-        User user = userDao.find(email);
-        if(user != null && passwordDao.find(user.getPwdHashId())
+        User user = userDao.findByEmail(email);
+        if (user != null && passwordDao.find(user.getPwdHashId())
                 .getPwdHash().equals(PasswordEncoder.getInstance().encode(password))) {
             return user;
         }

@@ -8,7 +8,8 @@ import ua.onufreiv.hotel.persistence.dao.*;
 public class MySqlDaoFactory extends DaoFactory {
     private static MySqlDaoFactory instance;
 
-    private MySqlDaoFactory() {}
+    private MySqlDaoFactory() {
+    }
 
     public static synchronized MySqlDaoFactory getInstance() {
         if (instance == null) {

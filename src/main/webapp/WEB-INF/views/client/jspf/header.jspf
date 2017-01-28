@@ -23,7 +23,8 @@
                 </form>
                 <ul class="nav navbar-nav">
                     <li><a href="/hotel?command=forward&page=clientMain"><fmt:message key="header.home"/></a></li>
-                    <li><a href="/hotel?command=showBookingPage"><fmt:message key="header.reservation"/></a></li>
+                    <li><a href="/hotel?command=forward&page=newBookRequest&mapRequired=true"><fmt:message
+                            key="header.reservation"/></a></li>
                     <c:choose>
                         <c:when test="${not empty sessionScope.user}">
                             <li role="presentation" class="dropdown">

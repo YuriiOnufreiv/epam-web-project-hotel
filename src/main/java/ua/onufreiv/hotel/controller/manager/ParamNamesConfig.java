@@ -21,7 +21,6 @@ public class ParamNamesConfig {
     public static final String ADD_ROOM_TYPE_SUCCESS_NAME = "ADD_ROOM_TYPE_SUCCESS_NAME";
     public static final String BOOK_REQUEST_ID_NAME = "BOOK_REQUEST_ID_NAME";
     public static final String ROOM_ID_NAME = "ROOM_ID_NAME";
-    public static final String ROOM_TYPE_ID_NAME = "ROOM_TYPE_ID_NAME";
     public static final String CREATE_BILL_ERROR_NAME = "CREATE_BILL_ERROR_NAME";
     public static final String BOOK_REQUEST_CREATION_DATE_NAME = "BOOK_REQUEST_CREATION_DATE_NAME";
     public static final String BOOK_REQUEST_PERSONS_NAME = "BOOK_REQUEST_PERSONS_NAME";
@@ -37,8 +36,7 @@ public class ParamNamesConfig {
     public static final String INVALID_BOOK_REQUEST_DATES_ERROR_NAME = "INVALID_BOOK_REQUEST_DATES_ERROR_NAME";
     public static final String BOOK_REQUEST_NAME = "BOOK_REQUEST_NAME";
     public static final String EXACT_ROOM_NAME = "EXACT_ROOM_NAME";
-    public static final String CHEAPER_ROOM_NAME = "CHEAPER_ROOM_NAME";
-    public static final String EXPENSIVE_ROOM_NAME = "EXPENSIVE_ROOM_NAME";
+    public static final String ALTERNATIVE_ROOM_NAME = "ALTERNATIVE_ROOM_NAME";
     public static final String BOOK_REQUEST_LIST_NAME = "BOOK_REQUEST_LIST_NAME";
     public static final String NOT_PROCESSED_BOOK_REQUEST_LIST_NAME = "NOT_PROCESSED_BOOK_REQUEST_LIST_NAME";
     public static final String BILL_CREATION_DATE_NAME = "BILL_CREATION_DATE_NAME";

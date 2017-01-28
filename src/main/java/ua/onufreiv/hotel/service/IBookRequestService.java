@@ -8,11 +8,11 @@ import java.util.List;
  * Created by yurii on 1/8/17.
  */
 public interface IBookRequestService {
-    List<BookRequest> getNotProcessedRequests();
+    boolean insertBookRequest(BookRequest bookRequest);
 
-    BookRequest getById(int id);
+    BookRequest findById(int id);
 
-    boolean makeNewRequest(BookRequest bookRequest);
+    List<BookRequest> findNotProcessed();
 
-    List<BookRequest> getRequestsByUserId(int id);
+    List<BookRequest> findByUserId(int id);
 }

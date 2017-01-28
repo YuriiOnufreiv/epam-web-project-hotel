@@ -114,7 +114,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
     }
 
     @Override
-    public List<BookRequest> getNotProcessedRequests() {
+    public List<BookRequest> findAllNotProcessed() {
         Connection connection = ConnectionManager.getConnection();
         List<BookRequest> bookRequests = queryBuilder.select()
                 .where()

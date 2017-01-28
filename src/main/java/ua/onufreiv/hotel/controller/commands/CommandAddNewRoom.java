@@ -3,7 +3,6 @@ package ua.onufreiv.hotel.controller.commands;
 import ua.onufreiv.hotel.controller.manager.ParamNamesConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.Room;
-import ua.onufreiv.hotel.service.IRoomService;
 import ua.onufreiv.hotel.service.impl.RoomService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,14 +18,12 @@ public class CommandAddNewRoom implements Command {
     private final ParamNamesConfig names;
 
     public CommandAddNewRoom() {
-        roomService = new RoomService();
+        roomService = RoomService.getInstance();
         names = ParamNamesConfig.getInstance();
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        IRoomService roomService = this.roomService;
-
         int number = Integer.parseInt(request.getParameter(names.get(ROOM_NUMBER_NAME)));
         int price = Integer.parseInt(request.getParameter(names.get(ROOM_PRICE_NAME)));
         int persons = Integer.parseInt(request.getParameter(names.get(ROOM_PERSONS_TOTAL_NAME)));
@@ -34,14 +31,14 @@ public class CommandAddNewRoom implements Command {
         String description = request.getParameter(names.get(ROOM_DESCRIPTION_NAME));
 
         Room room = new Room(null, roomTypeId, number, description, price, persons);
-        if (roomService.getByRoomNumber(number) != null) {
+        if (roomService.findByRoomNumber(number) != null) {
             request.setAttribute(names.get(INVALID_ROOM_NUMBER_ERROR_NAME), true);
             request.setAttribute(names.get(ROOM_NUMBER_NAME), number);
             request.setAttribute(names.get(ROOM_PRICE_NAME), price);
             request.setAttribute(names.get(ROOM_PERSONS_TOTAL_NAME), persons);
             request.setAttribute(names.get(ROOM_TYPE_NAME), roomTypeId);
             request.setAttribute(names.get(ROOM_DESCRIPTION_NAME), description);
-        } else if (roomService.addNewRoom(room)) {
+        } else if (roomService.insertRoom(room)) {
             request.setAttribute(names.get(ADD_ROOM_SUCCESS_NAME), true);
         } else {
             request.setAttribute(names.get(ADD_ROOM_ERROR_NAME), true);

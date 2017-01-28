@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="typo-line">
                                     <h5><p class="category">Room
-                                        type</p>${sessionScope.idRoomTypeMap[requestScope.bookRequest.roomTypeId]}
+                                        type</p>${requestScope.idRoomTypeMap[requestScope.bookRequest.roomTypeId]}
                                     </h5>
                                 </div>
                                 <div class="typo-line">
@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="typo-line">
                                         <h5><p class="category">
-                                            Type</p>${sessionScope.idRoomTypeMap[requestScope.exactRoom.roomTypeId]}
+                                            Type</p>${requestScope.idRoomTypeMap[requestScope.exactRoom.roomTypeId]}
                                         </h5>
                                     </div>
                                     <div class="typo-line">
@@ -120,58 +120,28 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Cheaper Room</h4>
+                                <h4 class="title">Alternative Room</h4>
                             </div>
                             <div class="content">
-                                <c:if test="${not empty requestScope.cheaperRoom}">
-                                    <c:set var="cheaperType" scope="page"
-                                           value="${sessionScope.idRoomTypeMap[requestScope.cheaperRoom.roomTypeId]}"/>
+                                <c:if test="${not empty requestScope.alternativeRoom}">
+                                    <c:set var="alternativeType" scope="page"
+                                           value="${requestScope.idRoomTypeMap[requestScope.alternativeRoom.roomTypeId]}"/>
                                     <div class="typo-line">
-                                        <h5><p class="category">#</p>${requestScope.cheaperRoom.number}</h5>
+                                        <h5><p class="category">#</p>${requestScope.alternativeRoom.number}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Type</p>${cheaperType.type}</h5>
+                                        <h5><p class="category">Type</p>${alternativeType.type}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Price</p>$${cheaperType.price}</h5>
+                                        <h5><p class="category">Price</p>$${alternativeType.price}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Persons</p>${cheaperType.maxPerson}</h5>
+                                        <h5><p class="category">Persons</p>${alternativeType.maxPerson}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Description</p>${cheaperType.description}</h5>
+                                        <h5><p class="category">Description</p>${alternativeType.description}</h5>
                                     </div>
-                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.cheaperRoom.id}&roomTypeId=${requestScope.cheaperRoom.roomTypeId}"
-                                       class="btn btn-info btn-fill">Create Bill</a>
-                                </c:if>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Expensive Room</h4>
-                            </div>
-                            <div class="content">
-                                <c:if test="${not empty requestScope.expensiveRoom}">
-                                    <c:set var="expensiveType" scope="page"
-                                           value="${sessionScope.idRoomTypeMap[requestScope.expensiveRoom.roomTypeId]}"/>
-                                    <div class="typo-line">
-                                        <h5><p class="category">#</p>${requestScope.expensiveRoom.number}</h5>
-                                    </div>
-                                    <div class="typo-line">
-                                        <h5><p class="category">Type</p>${expensiveType.type}</h5>
-                                    </div>
-                                    <div class="typo-line">
-                                        <h5><p class="category">Price</p>$${expensiveType.price}</h5>
-                                    </div>
-                                    <div class="typo-line">
-                                        <h5><p class="category">Persons</p>${expensiveType.maxPerson}</h5>
-                                    </div>
-                                    <div class="typo-line">
-                                        <h5><p class="category">Description</p>${expensiveType.description}</h5>
-                                    </div>
-                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.expensiveRoom.id}&roomTypeId=${requestScope.expensiveRoom.roomTypeId}"
+                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.alternativeRoom.id}&roomTypeId=${requestScope.alternativeRoom.roomTypeId}"
                                        class="btn btn-info btn-fill">Create Bill</a>
                                 </c:if>
                             </div>

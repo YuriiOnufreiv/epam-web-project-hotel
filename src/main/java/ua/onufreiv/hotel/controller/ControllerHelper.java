@@ -25,7 +25,6 @@ public class ControllerHelper {
         commands.put("forward", new CommandForwardToPage());
 
         // client specific commands
-        commands.put("showBookingPage", new CommandShowBookingPage());
         commands.put("makeNewBooking", new CommandMakeNewBooking());
         commands.put("showClientRequests", new CommandShowClientRequests());
         commands.put("showBillInfo", new CommandShowBillInfo());

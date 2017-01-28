@@ -52,9 +52,12 @@ public class AuthorizationFilter implements Filter {
 
         String url = requestHttp.getRequestURL().toString();
         String queryString = requestHttp.getQueryString();
-        StringBuilder urlBuilder = new StringBuilder(url)
-                .append("?")
-                .append(queryString);
+        StringBuilder urlBuilder = new StringBuilder(url);
+
+        if (queryString != null) {
+            urlBuilder.append("?")
+                    .append(queryString);
+        }
 
         if (authenticationRequired(request) && (session == null || session.getAttribute("user") == null)) {
             logger.info("AuthorizationFilter: UNAUTHORIZED access request to " + urlBuilder.toString());

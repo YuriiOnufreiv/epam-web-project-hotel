@@ -47,7 +47,7 @@ public class SqlQueryInsert implements SqlQuery {
                 return generatedKeys.getInt(1);
             }
         } catch (SQLException e) {
-            logger.error("Failed to execute insert statement: ", e);
+            logger.error("Failed to execute insertBookRequest statement: ", e);
         } finally {
             if (generatedKeys != null) {
                 try {

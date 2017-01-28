@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li>
-                <a href="/hotel?command=forward&page=addNewRoom">
+                <a href="/hotel?command=forward&page=addNewRoom&mapRequired=true">
                     <i class="pe-7s-plus"></i>
                     <p>New Room</p>
                 </a>

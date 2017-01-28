@@ -9,9 +9,9 @@ import java.util.List;
  * Created by yurii on 1/5/17.
  */
 public interface IReservedRoomDao extends IDao<ReservedRoom> {
-    List<ReservedRoom> findReservedInDateRange(Date checkInDate, Date checkOutDate);
+    List<ReservedRoom> findInDateRange(Date checkInDate, Date checkOutDate);
 
-    boolean roomIsReservedInDateRange(int roomId, Date checkInDate, Date checkOutDate);
+    boolean roomIsReserved(int roomId, Date checkInDate, Date checkOutDate);
 
-    boolean removeExpiredDateReservedRooms(Date date);
+    boolean deleteExpired();
 }

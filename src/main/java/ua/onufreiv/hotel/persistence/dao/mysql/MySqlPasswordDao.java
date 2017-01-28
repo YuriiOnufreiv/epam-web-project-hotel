@@ -1,6 +1,5 @@
 package ua.onufreiv.hotel.persistence.dao.mysql;
 
-import org.apache.log4j.Logger;
 import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IPasswordDao;
@@ -14,14 +13,9 @@ import java.util.List;
  * Created by yurii on 12/23/16.
  */
 public class MySqlPasswordDao implements IPasswordDao {
-    private final static Logger logger = Logger.getLogger(MySqlPasswordDao.class);
-
     private static final String TABLE_NAME = "password";
     private static final String COLUMN_ID_NAME = "idPassword";
-    private static final String COLUMN_PWD_HASH_NAME = "pwdhash";
-
-//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM PASSWORD WHERE idPassword = ?";
-//    private static final String QUERY_INSERT = "INSERT INTO PASSWORD (pwdhash) VALUES (?)";
+    private static final String COLUMN_PWD_HASH_NAME = "pwdHash";
 
     private static MySqlPasswordDao instance;
     private QueryBuilder<PasswordHash> queryBuilder;

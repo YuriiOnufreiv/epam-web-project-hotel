@@ -8,11 +8,11 @@ import java.util.Map;
  * Created by yurii on 1/4/17.
  */
 public interface IRoomTypeService {
-    boolean addNewRoomType(RoomType roomType);
+    boolean insertRoomType(RoomType roomType);
 
-    boolean containsType(String type);
+    RoomType findById(int id);
 
-    RoomType find(int id);
+    Map<Integer, String> findAllAsMap();
 
-    Map<Integer, String> getAllInMap();
+    boolean typeExists(String type);
 }

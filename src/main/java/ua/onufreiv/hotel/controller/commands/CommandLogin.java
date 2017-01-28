@@ -20,7 +20,7 @@ public class CommandLogin implements Command {
 
     public CommandLogin() {
         names = ParamNamesConfig.getInstance();
-        authService = new AuthService();
+        authService = AuthService.getInstance();
     }
 
     @Override
