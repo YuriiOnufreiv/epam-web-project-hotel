@@ -8,7 +8,6 @@ import ua.onufreiv.hotel.service.impl.RoomTypeService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
 
@@ -34,12 +33,11 @@ public class CommandAddNewRoomType implements Command {
         if (roomTypeService.containsType(type)) {
             request.setAttribute(names.get(INVALID_ROOM_TYPE_ERROR_NAME), true);
             request.setAttribute(names.get(ROOM_TYPE_NAME), type);
-        } else {
-            int id = roomTypeService.addNewRoomType(roomType);
+        } else if (!roomTypeService.addNewRoomType(roomType)) {
             request.setAttribute(names.get(ADD_ROOM_TYPE_SUCCESS_NAME), true);
-            ((Map<Integer, String>) request.getSession(false)
-                    .getAttribute(names.get(ID_ROOM_TYPE_MAP_NAME)))
-                    .put(id, type);
+            request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), roomTypeService.getAllInMap());
+        } else {
+            request.setAttribute(names.get(ADD_ROOM_TYPE_ERROR_NAME), true);
         }
 
         return PathConfig.getInstance().getProperty(PathConfig.ADD_NEW_ROOM_TYPE_PAGE_PATH);

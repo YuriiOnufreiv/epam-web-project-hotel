@@ -9,7 +9,10 @@ import java.util.List;
  */
 public interface IBookRequestService {
     List<BookRequest> getNotProcessedRequests();
+
     BookRequest getById(int id);
-    void makeNewRequest(BookRequest bookRequest);
+
+    boolean makeNewRequest(BookRequest bookRequest);
+
     List<BookRequest> getRequestsByUserId(int id);
 }

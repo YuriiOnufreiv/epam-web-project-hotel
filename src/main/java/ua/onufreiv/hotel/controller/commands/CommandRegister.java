@@ -69,18 +69,16 @@ public class CommandRegister implements Command {
         user.setEmail(email);
         user.setPhoneNum(telephone);
 
+        PasswordHash passwordHash = new PasswordHash();
+        passwordHash.setPwdHash(PasswordEncoder.getInstance().encode(password));
+
         String page;
-        String passwordHashString = PasswordEncoder.getInstance().encode(password);
-        if (passwordHashString != null) {
-            PasswordHash passwordHash = new PasswordHash();
-            passwordHash.setPwdHash(passwordHashString);
-
-            registerService.registerNewUser(user, passwordHash);
-
+        if (passwordHash.getPwdHash() != null && registerService.registerNewUser(user, passwordHash)) {
             request.setAttribute(names.get(SIGN_UP_SUCCESS_NAME), true);
             page = PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
         } else {
-            page = PathConfig.getInstance().getProperty(PathConfig.ERROR_PAGE_PATH);
+            request.setAttribute(names.get(SIGN_UP_ERRORS_NAME), names.get(ACCOUNT_WAS_NOT_CREATED_ERROR_KEY_NAME));
+            page = PathConfig.getInstance().getProperty(PathConfig.CREATE_ACCOUNT_PAGE_PATH);
         }
 
         return page;

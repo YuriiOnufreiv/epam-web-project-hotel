@@ -59,7 +59,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
         boolean result = queryBuilder.delete()
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(id)
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -97,7 +97,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
                 .set(COLUMN_PROCESSED_NAME, bookRequest.getProcessed())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(bookRequest.getId())
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }

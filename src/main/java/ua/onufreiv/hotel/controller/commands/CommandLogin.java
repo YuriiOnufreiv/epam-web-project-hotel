@@ -31,13 +31,15 @@ public class CommandLogin implements Command {
         User user = authService.authenticate(login, pass);
         HttpSession session = request.getSession(false);
 
+        String page;
         if (user != null && session != null) {
             session.setAttribute(names.get(USER_NAME), user);
+            page = PathConfig.getInstance().getProperty(PathConfig.REDIRECT_TO_HOME_COMMAND_PATH);
         } else {
             request.setAttribute(names.get(INVALID_LOGIN_ERROR_NAME), true);
-            return PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
+            page = PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
         }
 
-        return PathConfig.getInstance().getProperty(PathConfig.REDIRECT_TO_HOME_COMMAND_PATH);
+        return page;
     }
 }

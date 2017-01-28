@@ -23,12 +23,6 @@ public class MySqlBillDao implements IBillDao {
     private static final String COLUMN_ROOM_FK_NAME = "roomFK";
     private static final String COLUMN_PRICE_NAME = "price";
 
-    //    private static final String QUERY_INSERT = "INSERT INTO BILL (creationDateTime, bookRequestFK, roomFK, price) VALUES (?, ?, ?, ?)";
-//    private static final String QUERY_SELECT_ALL = "SELECT * FROM BILL";
-//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM BILL WHERE idBill = ?";
-//    private static final String QUERY_SELECT_BY_BOOK_REQUEST_ID = "SELECT * FROM BILL WHERE bookRequestFK = ?";
-//    private static final String QUERY_UPDATE = "UPDATE BILL SET creationDateTime = ?, bookRequestFK = ?, roomFK = ?, price = ? WHERE idBill = ?";
-//    private static final String QUERY_DELETE = "DELETE FROM BILL WHERE idBill = ?";
     private static MySqlBillDao instance;
     private QueryBuilder<Bill> queryBuilder;
 
@@ -62,7 +56,7 @@ public class MySqlBillDao implements IBillDao {
         boolean result = queryBuilder.delete()
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(id)
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -97,7 +91,7 @@ public class MySqlBillDao implements IBillDao {
                 .set(COLUMN_PRICE_NAME, bill.getTotalPrice())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(bill.getId())
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }

@@ -27,7 +27,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void addNewRoom(Room room) {
-        DaoFactory.getDAOFactory(ConnectionManager.databaseType).getRoomDao().insert(room);
+    public boolean addNewRoom(Room room) {
+        return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getRoomDao().insert(room) >= 0;
     }
 }

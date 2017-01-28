@@ -25,6 +25,13 @@
                     </div>
                 </div>
             </c:if>
+            <c:if test="${not empty requestScope.newBookRequestError}">
+                <div class="grid_3 grid_5">
+                    <div class="alert alert-danger" role="alert">
+                        <strong><fmt:message key="error.new.book.request"/></strong>
+                    </div>
+                </div>
+            </c:if>
             <c:if test="${not empty requestScope.invalidBookRequestDatesError}">
                 <div class="grid_3 grid_5">
                     <div class="alert alert-danger" role="alert">

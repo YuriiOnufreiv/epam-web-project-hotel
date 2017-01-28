@@ -26,6 +26,11 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
+                            <c:if test="${requestScope.createBillError}">
+                                <div class="alert alert-danger">
+                                    <span><b> Error - </b>Unable to create bill. Try again</span>
+                                </div>
+                            </c:if>
                             <div class="header">
                                 <h4 class="title">Request #${requestScope.bookRequest.id}</h4>
                                 <hr>

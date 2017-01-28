@@ -50,7 +50,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         boolean result = queryBuilder.delete()
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(id)
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -82,7 +82,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
                 .set(COLUMN_TYPE_NAME, roomType.getType())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(roomType.getId())
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return update;
     }

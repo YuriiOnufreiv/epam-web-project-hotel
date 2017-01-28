@@ -40,7 +40,7 @@ public class RegisterService implements IRegisterService {
     }
 
     @Override
-    public void registerNewUser(User user, PasswordHash passwordHash) {
+    public boolean registerNewUser(User user, PasswordHash passwordHash) {
         IUserDao userDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getUserDao();
         IPasswordDao passwordDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getPasswordDao();
 
@@ -49,6 +49,6 @@ public class RegisterService implements IRegisterService {
         user.setPwdHashId(id);
         user.setUserRoleId(2);
 
-        userDao.insert(user);
+        return userDao.insert(user) > 0;
     }
 }

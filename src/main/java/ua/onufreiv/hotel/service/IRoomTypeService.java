@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by yurii on 1/4/17.
  */
 public interface IRoomTypeService {
-    int addNewRoomType(RoomType roomType);
+    boolean addNewRoomType(RoomType roomType);
 
     boolean containsType(String type);
 

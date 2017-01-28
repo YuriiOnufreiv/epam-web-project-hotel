@@ -53,7 +53,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
         boolean result = queryBuilder.delete()
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(id)
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -85,7 +85,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
                 .set(COLUMN_ROLE_NAME, userRole.getRole())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(userRole.getId())
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return update;
     }

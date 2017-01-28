@@ -31,6 +31,11 @@
                                     <span><b> Success - </b>New room type was added</span>
                                 </div>
                             </c:if>
+                            <c:if test="${requestScope.addRoomTypeError}">
+                                <div class="alert alert-danger">
+                                    <span><fmt:message key="error.new.room.type"/></span>
+                                </div>
+                            </c:if>
                             <c:if test="${requestScope.invalidRoomTypeError}">
                                 <div class="alert alert-danger">
                                     <span><b> Error - </b>Type '${requestScope.roomType}' already exists</span>

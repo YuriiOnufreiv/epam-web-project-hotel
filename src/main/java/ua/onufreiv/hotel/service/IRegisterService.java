@@ -8,9 +8,10 @@ import ua.onufreiv.hotel.entity.User;
  */
 public interface IRegisterService {
     boolean isValidPhoneNumber(String number);
+
     boolean isValidPassword(String password);
 
     boolean isUniqueEmail(String email);
 
-    void registerNewUser(User user, PasswordHash passwordHash);
+    boolean registerNewUser(User user, PasswordHash passwordHash);
 }

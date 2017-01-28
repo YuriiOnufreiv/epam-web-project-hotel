@@ -26,6 +26,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card">
+                            <c:if test="${requestScope.createBillSuccess}">
+                                <div class="alert alert-success">
+                                    <span><b> Success - </b>Bill was created</span>
+                                </div>
+                            </c:if>
                             <div class="header">
                                 <h4 class="title">Bill for Request #${requestScope.bookRequestId}</h4>
                                 <hr>

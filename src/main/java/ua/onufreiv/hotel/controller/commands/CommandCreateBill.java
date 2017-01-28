@@ -54,7 +54,7 @@ public class CommandCreateBill implements Command {
         bill.setTotalPrice(price);
 
         if(!billService.createNewBill(bill)) {
-            request.setAttribute(names.get(CREATE_BILL_ERROR_NAME), "true");
+            request.setAttribute(names.get(CREATE_BILL_ERROR_NAME), true);
             return PathConfig.getInstance()
                     .getProperty(PathConfig.PROCESS_BOOK_REQUEST_BY_ID_COMMAND_PATH) + bookRequestId;
         }
@@ -66,6 +66,7 @@ public class CommandCreateBill implements Command {
         request.setAttribute(names.get(CHECK_IN_DATE_NAME), bookRequest.getCheckIn());
         request.setAttribute(names.get(CHECK_OUT_DATE_NAME), bookRequest.getCheckOut());
         request.setAttribute(names.get(BILL_TOTAL_PRICE_NAME), price);
+        request.setAttribute(names.get(CREATE_BILL_SUCCESS_NAME), true);
 
         return PathConfig.getInstance().getProperty(PathConfig.ADMIN_BILL_INFO_PAGE_PATH);
     }

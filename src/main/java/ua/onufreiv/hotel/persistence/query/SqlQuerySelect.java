@@ -33,6 +33,11 @@ public class SqlQuerySelect<T> implements SqlQueryWhereWrappable {
         return this;
     }
 
+    /**
+     * @param connection
+     * @param mapper
+     * @return object of type T; null in case of exceptions
+     */
     public T selectObject(Connection connection, ResultSetMapper<T> mapper) {
         ResultSet resultSet = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement())) {

@@ -62,7 +62,7 @@ public class MySqlUserDao implements IUserDao {
         boolean result = queryBuilder.delete()
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(id)
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -99,7 +99,7 @@ public class MySqlUserDao implements IUserDao {
                 .set(COLUMN_PWD_FK_NAME, user.getPwdHashId())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(user.getId())
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }

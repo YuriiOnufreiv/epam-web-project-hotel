@@ -36,6 +36,11 @@
                                     <span><b> Error - </b>Room #'${requestScope.roomNumber}' already exists</span>
                                 </div>
                             </c:if>
+                            <c:if test="${requestScope.addRoomError}">
+                                <div class="alert alert-danger">
+                                    <span><fmt:message key="error.new.room"/></span>
+                                </div>
+                            </c:if>
 
                             <div class="header">
                                 <h4 class="title">Room Info</h4>

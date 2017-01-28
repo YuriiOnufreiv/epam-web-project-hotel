@@ -56,7 +56,7 @@ public class MySqlRoomDao implements IRoomDao {
         boolean result = queryBuilder.delete()
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(id)
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -92,7 +92,7 @@ public class MySqlRoomDao implements IRoomDao {
                 .set(COLUMN_MAX_PERSON_NAME, room.getMaxPerson())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(room.getId())
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return update;
     }

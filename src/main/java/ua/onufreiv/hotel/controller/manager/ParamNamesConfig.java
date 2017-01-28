@@ -33,6 +33,7 @@ public class ParamNamesConfig {
     public static final String USER_NAME = "USER_NAME";
     public static final String INVALID_LOGIN_ERROR_NAME = "INVALID_LOGIN_ERROR_NAME";
     public static final String RESERVE_SUCCESS_NAME = "RESERVE_SUCCESS_NAME";
+    public static final String RESERVE_ERROR_NAME = "RESERVE_ERROR_NAME";
     public static final String INVALID_BOOK_REQUEST_DATES_ERROR_NAME = "INVALID_BOOK_REQUEST_DATES_ERROR_NAME";
     public static final String BOOK_REQUEST_NAME = "BOOK_REQUEST_NAME";
     public static final String EXACT_ROOM_NAME = "EXACT_ROOM_NAME";
@@ -48,11 +49,15 @@ public class ParamNamesConfig {
     public static final String SIGN_UP_ERRORS_NAME = "SIGN_UP_ERRORS_NAME";
     public static final String NEW_ROOMS_AVAILABLE_NAME = "NEW_ROOMS_AVAILABLE_NAME";
 
-
+    public static final String ACCOUNT_WAS_NOT_CREATED_ERROR_KEY_NAME = "ACCOUNT_WAS_NOT_CREATED_ERROR_KEY_NAME";
     public static final String EMAIL_EXISTS_ERROR_KEY_NAME = "EMAIL_EXISTS_ERROR_KEY_NAME";
     public static final String INVALID_NUMBER_ERROR_KEY_NAME = "INVALID_NUMBER_ERROR_KEY_NAME";
     public static final String INVALID_PASSWORD_ERROR_KEY_NAME = "INVALID_PASSWORD_ERROR_KEY_NAME";
     public static final String ERROR_DELIMITER = "ERROR_DELIMITER";
+
+    public static final String ADD_ROOM_ERROR_NAME = "ADD_ROOM_ERROR_NAME";
+    public static final String ADD_ROOM_TYPE_ERROR_NAME = "ADD_ROOM_TYPE_ERROR_NAME";
+    public static final String CREATE_BILL_SUCCESS_NAME = "CREATE_BILL_SUCCESS_NAME";
 
     private static ParamNamesConfig instance;
 

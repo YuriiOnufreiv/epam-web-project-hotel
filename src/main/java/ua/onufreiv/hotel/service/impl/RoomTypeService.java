@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class RoomTypeService implements IRoomTypeService {
     @Override
-    public int addNewRoomType(RoomType roomType) {
-        return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getRoomTypeDao().insert(roomType);
+    public boolean addNewRoomType(RoomType roomType) {
+        return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getRoomTypeDao().insert(roomType) >= 0;
     }
 
     @Override

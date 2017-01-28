@@ -53,9 +53,12 @@ public class CommandMakeNewBooking implements Command {
         }
 
         BookRequest form = new BookRequest(0, new Date(), user.getId(), totalPersons, roomTypeId, checkInDate, checkOutDate, false);
-        reservationService.makeNewRequest(form);
+        if (reservationService.makeNewRequest(form)) {
+            request.setAttribute(names.get(RESERVE_SUCCESS_NAME), "true");
+        } else {
+            request.setAttribute(names.get(RESERVE_ERROR_NAME), "true");
+        }
 
-        request.setAttribute(names.get(RESERVE_SUCCESS_NAME), "true");
         return PathConfig.getInstance().getProperty(PathConfig.NEW_BOOK_REQUEST_PAGE_PATH);
     }
 }

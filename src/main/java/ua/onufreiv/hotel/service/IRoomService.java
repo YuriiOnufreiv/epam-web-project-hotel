@@ -14,5 +14,5 @@ public interface IRoomService {
 
     Room getByRoomNumber(int number);
 
-    void addNewRoom(Room room);
+    boolean addNewRoom(Room room);
 }

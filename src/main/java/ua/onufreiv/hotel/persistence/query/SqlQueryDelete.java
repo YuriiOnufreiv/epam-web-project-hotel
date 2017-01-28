@@ -23,14 +23,13 @@ public class SqlQueryDelete<T> implements SqlQueryWhereWrappable {
         return this;
     }
 
-    public boolean execute(Connection connection) {
-        boolean result = false;
+    public int execute(Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement())) {
-            result = (preparedStatement.executeUpdate() > 0);
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed to execute delete statement: ", e);
+            return -1;
         }
-        return result;
     }
 
     @Override

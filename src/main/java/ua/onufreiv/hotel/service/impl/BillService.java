@@ -2,6 +2,7 @@ package ua.onufreiv.hotel.service.impl;
 
 import ua.onufreiv.hotel.entity.Bill;
 import ua.onufreiv.hotel.entity.BookRequest;
+import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.DaoFactory;
 import ua.onufreiv.hotel.service.IBillService;
@@ -19,11 +20,19 @@ public class BillService implements IBillService {
         if (bookRequest.getProcessed() || roomIsReserved) {
             return false;
         }
-        ConnectionManager.startTransaction();
-        daoFactory.getBillDao().insert(bill);
+        ReservedRoom reservedRoom = new ReservedRoom(null, bill.getRoomId(), bookRequest.getCheckIn(), bookRequest.getCheckOut());
         bookRequest.setProcessed(true);
-        daoFactory.getBookRequestDao().update(bookRequest);
+
+        ConnectionManager.startTransaction();
+        if (daoFactory.getReservedRoomDao().insert(reservedRoom) < 0
+                || daoFactory.getBillDao().insert(bill) < 0
+                || !daoFactory.getBookRequestDao().update(bookRequest)) {
+            ConnectionManager.rollback();
+            bookRequest.setProcessed(false);
+            return false;
+        }
         ConnectionManager.commit();
+
         return true;
     }
 

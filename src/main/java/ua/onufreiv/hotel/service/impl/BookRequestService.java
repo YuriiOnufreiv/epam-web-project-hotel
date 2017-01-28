@@ -23,9 +23,9 @@ public class BookRequestService implements IBookRequestService {
     }
 
     @Override
-    public void makeNewRequest(BookRequest bookRequest) {
+    public boolean makeNewRequest(BookRequest bookRequest) {
         IBookRequestDao formDao = DaoFactory.getDAOFactory(ConnectionManager.databaseType).getBookRequestDao();
-        formDao.insert(bookRequest);
+        return formDao.insert(bookRequest) != -1;
     }
 
     @Override

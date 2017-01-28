@@ -55,7 +55,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
         boolean result = queryBuilder.delete()
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(id)
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -89,7 +89,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
                 .set(COLUMN_CHECK_OUT_NAME, reservedRoom.getCheckOutDate())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(reservedRoom.getId())
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }
@@ -128,7 +128,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
         boolean result = queryBuilder.delete()
                 .where()
                 .column(COLUMN_CHECK_OUT_NAME).less(date)
-                .executeUpdate(connection);
+                .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
     }

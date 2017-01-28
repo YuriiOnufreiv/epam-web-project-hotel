@@ -34,16 +34,17 @@ public class CommandAddNewRoom implements Command {
         String description = request.getParameter(names.get(ROOM_DESCRIPTION_NAME));
 
         Room room = new Room(null, roomTypeId, number, description, price, persons);
-        if (roomService.getByRoomNumber(number) == null) {
-            roomService.addNewRoom(room);
-            request.setAttribute(names.get(ADD_ROOM_SUCCESS_NAME), true);
-        } else {
+        if (roomService.getByRoomNumber(number) != null) {
             request.setAttribute(names.get(INVALID_ROOM_NUMBER_ERROR_NAME), true);
             request.setAttribute(names.get(ROOM_NUMBER_NAME), number);
             request.setAttribute(names.get(ROOM_PRICE_NAME), price);
             request.setAttribute(names.get(ROOM_PERSONS_TOTAL_NAME), persons);
             request.setAttribute(names.get(ROOM_TYPE_NAME), roomTypeId);
             request.setAttribute(names.get(ROOM_DESCRIPTION_NAME), description);
+        } else if (roomService.addNewRoom(room)) {
+            request.setAttribute(names.get(ADD_ROOM_SUCCESS_NAME), true);
+        } else {
+            request.setAttribute(names.get(ADD_ROOM_ERROR_NAME), true);
         }
 
         return PathConfig.getInstance().getProperty(PathConfig.ADD_NEW_ROOM_PAGE_PATH);

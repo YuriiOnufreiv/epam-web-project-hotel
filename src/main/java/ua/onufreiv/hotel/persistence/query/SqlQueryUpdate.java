@@ -33,19 +33,18 @@ public class SqlQueryUpdate<T> implements SqlQueryWhereWrappable {
         return this;
     }
 
-    public boolean executeUpdate(Connection connection) {
+    public int executeUpdate(Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement())) {
             int i = 1;
             for (Object value : values.values()) {
                 preparedStatement.setObject(i++, value);
             }
 
-            return preparedStatement.executeUpdate() > 0;
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed to execute update statement: ", e);
+            return -1;
         }
-
-        return false;
     }
 
     @Override

@@ -39,14 +39,14 @@ public class SqlQueryWhereWrapper<T, K extends SqlQueryWhereWrappable> implement
         return this;
     }
 
-    public boolean executeUpdate(Connection connection) {
+    public int executeUpdate(Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement())) {
             fillPreparedStatement(preparedStatement);
-            return preparedStatement.executeUpdate() > 0;
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed to execute statement with 'where' clause: ", e);
+            return -1;
         }
-        return false;
     }
 
     public List<T> executeQuery(Connection connection, ResultSetMapper<T> mapper) {
