@@ -29,6 +29,10 @@
     <filter>
         <filter-name>authorizationFilter</filter-name>
         <filter-class>ua.onufreiv.hotel.filter.AuthorizationFilter</filter-class>
+        <init-param>
+            <param-name>allowed</param-name>
+            <param-value>forward,login,register</param-value>
+        </init-param>
     </filter>
 
     <!--<filter>-->

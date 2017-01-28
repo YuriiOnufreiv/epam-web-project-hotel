@@ -8,21 +8,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by yurii on 1/4/17.
  */
 public class AuthorizationFilter implements Filter {
     private final static Logger logger = Logger.getLogger(AuthorizationFilter.class);
+    private static final String ALLOWED_PARAM_NAME = "allowed";
+
+    private Set<String> authNoRequiredCommands;
 
     private boolean authenticationRequired(ServletRequest request) {
         String command = request.getParameter("command");
-        return command != null && !command.equals("forward") && !command.equals("login");
+        return !authNoRequiredCommands.contains(command);
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        logger.info("AuthorizationFilter: initialized");
+        authNoRequiredCommands = new HashSet<>();
+
+        String allowedCommandsParam = filterConfig.getInitParameter(ALLOWED_PARAM_NAME);
+        if (allowedCommandsParam == null || allowedCommandsParam.length() == 0) {
+            logger.info("AuthorizationFilter: no allowed commands added");
+            return;
+        }
+
+        String[] allowedCommands = allowedCommandsParam.split(",");
+        for (String command : allowedCommands) {
+            String formattedCommand = command.toLowerCase().trim();
+            if (formattedCommand.length() > 0) {
+                authNoRequiredCommands.add(formattedCommand);
+                logger.info("AuthorizationFilter: allowed command added - " + formattedCommand);
+            }
+        }
     }
 
     @Override
