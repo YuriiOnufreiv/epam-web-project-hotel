@@ -34,12 +34,7 @@ public class RoomTypeService implements IRoomTypeService {
     }
 
     @Override
-    public Map<Integer, String> getIdTypeTitleMap() {
-        return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getRoomTypeDao().getIdTypeTitleMap();
-    }
-
-    @Override
-    public Map<Integer, RoomType> getIdTypeMap() {
-        return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getRoomTypeDao().getIdTypeMap();
+    public Map<Integer, String> getAllInMap() {
+        return DaoFactory.getDAOFactory(ConnectionManager.databaseType).getRoomTypeDao().getAllInMap();
     }
 }

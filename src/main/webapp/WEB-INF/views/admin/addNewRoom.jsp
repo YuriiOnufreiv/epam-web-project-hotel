@@ -13,7 +13,7 @@
 <head>
     <%@ include file="/WEB-INF/views/admin/jspf/head.jspf" %>
     <meta charset="utf-8"/>
-    <title>New Room Type</title>
+    <title>Add New Room</title>
 </head>
 <body>
 
@@ -36,28 +36,55 @@
                                     <span><b> Error - </b>Room #'${requestScope.roomNumber}' already exists</span>
                                 </div>
                             </c:if>
+
                             <div class="header">
                                 <h4 class="title">Room Info</h4>
                             </div>
                             <div class="content">
                                 <form action="/hotel?command=addNewRoom" method="post">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Number</label>
+                                                <input name="roomNumber" type="number" class="form-control" min="0"
+                                                       max="999">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Price, $</label>
+                                                <input name="roomPrice" type="number" class="form-control" min="1"
+                                                       value="${requestScope.roomPrice}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Persons</label>
+                                                <input name="roomPersonsTotal" type="number" class="form-control"
+                                                       min="1"
+                                                       value="${requestScope.roomPersonsTotal}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Type</label>
                                                 <select name="roomType" id="soflow">
-                                                    <c:forEach items="${sessionScope.idRoomTypeTitleMap}" var="entry">
+                                                    <c:forEach items="${sessionScope.idRoomTypeMap}" var="entry">
                                                         <option value="${entry.key}" ${entry.key == requestScope.roomType ? 'selected' : ''}>
                                                             <c:out value="${entry.value}"/></option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Number</label>
-                                                <input name="roomNumber" type="number" class="form-control" min="0"
-                                                       max="999">
+                                                <label>Description</label>
+                                                <textarea name="roomDescription" rows="5" class="form-control"
+                                                          placeholder="Here can be new room type description">${requestScope.roomDescription}</textarea>
                                             </div>
                                         </div>
                                     </div>

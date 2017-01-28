@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.ID_ROOM_TYPE_TITLE_MAP_NAME;
+import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.ID_ROOM_TYPE_MAP_NAME;
 
 /**
  * Created by yurii on 1/4/17.
@@ -25,8 +25,8 @@ public class CommandShowBookingPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        Map<Integer, String> idTypeTitleMap = roomTypeService.getIdTypeTitleMap();
-        request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_TITLE_MAP_NAME), idTypeTitleMap);
+        Map<Integer, String> idTypeTitleMap = roomTypeService.getAllInMap();
+        request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), idTypeTitleMap);
 
         return PathConfig.getInstance().getProperty(PathConfig.NEW_BOOK_REQUEST_PAGE_PATH);
     }

@@ -13,7 +13,7 @@
 <head>
     <%@ include file="/WEB-INF/views/admin/jspf/head.jspf" %>
     <meta charset="utf-8"/>
-    <title>New Room Type</title>
+    <title>Add New Room Type</title>
 </head>
 <body>
 
@@ -42,38 +42,16 @@
                             <div class="content">
                                 <form action="/hotel?command=addNewRoomType" method="post">
                                     <div class="row">
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Type</label>
-                                                <input name="roomType" type="text" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Price, $</label>
-                                                <input name="roomPrice" type="number" class="form-control" min="1"
-                                                       value="${requestScope.roomPrice}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Persons</label>
-                                                <input name="roomPersonsTotal" type="number" class="form-control"
-                                                       min="1"
-                                                       value="${requestScope.roomPersonsTotal}">
+                                                <input name="roomType" type="text" class="form-control" min="0"
+                                                       max="999">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Description</label>
-                                                <textarea name="roomDescription" rows="5" class="form-control"
-                                                          placeholder="Here can be new room type description">${requestScope.roomDescription}</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Add new Room</button>
+                                    <button type="submit" class="btn btn-info btn-fill pull-right">Add new Room Type
+                                    </button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>

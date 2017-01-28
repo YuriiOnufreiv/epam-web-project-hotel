@@ -18,16 +18,12 @@ public class MySqlRoomDao implements IRoomDao {
     private static final String COLUMN_ID_NAME = "idRoom";
     private static final String COLUMN_ROOM_TYPE_FK_NAME = "typeFK";
     private static final String COLUMN_NUMBER_NAME = "number";
+    private static final String COLUMN_DESCR_NAME = "descr";
+    private static final String COLUMN_PRICE_NAME = "price";
+    private static final String COLUMN_MAX_PERSON_NAME = "maxPerson";
 
     private static MySqlRoomDao instance;
     private QueryBuilder<Room> queryBuilder;
-
-//    private static final String QUERY_INSERT = "INSERT INTO ROOM (typeFK, number) VALUES (?, ?)";
-//    private static final String QUERY_SELECT_ALL = "SELECT * FROM ROOM";
-//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM ROOM WHERE idRoom = ?";
-//    private static final String QUERY_SELECT_BY_ROOM_NUM = "SELECT * FROM ROOM WHERE number = ?";
-//    private static final String QUERY_UPDATE = "UPDATE ROOM SET typeFK = ?, number = ? WHERE idRoom = ?";
-//    private static final String QUERY_DELETE = "DELETE FROM ROOM WHERE idRoom = ?";
 
     private MySqlRoomDao() {
         queryBuilder = new QueryBuilder<>(TABLE_NAME);
@@ -46,6 +42,9 @@ public class MySqlRoomDao implements IRoomDao {
         int id = queryBuilder.insert()
                 .value(COLUMN_ROOM_TYPE_FK_NAME, room.getRoomTypeId())
                 .value(COLUMN_NUMBER_NAME, room.getNumber())
+                .value(COLUMN_DESCR_NAME, room.getDescription())
+                .value(COLUMN_PRICE_NAME, room.getPrice())
+                .value(COLUMN_MAX_PERSON_NAME, room.getMaxPerson())
                 .execute(connection);
         ConnectionManager.closeConnection(connection);
         return id;
@@ -88,6 +87,9 @@ public class MySqlRoomDao implements IRoomDao {
         boolean update = queryBuilder.update()
                 .set(COLUMN_ROOM_TYPE_FK_NAME, room.getRoomTypeId())
                 .set(COLUMN_NUMBER_NAME, room.getNumber())
+                .set(COLUMN_DESCR_NAME, room.getDescription())
+                .set(COLUMN_PRICE_NAME, room.getPrice())
+                .set(COLUMN_MAX_PERSON_NAME, room.getMaxPerson())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(room.getId())
                 .executeUpdate(connection);

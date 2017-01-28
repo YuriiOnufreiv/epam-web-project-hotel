@@ -19,19 +19,9 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
     private static final String TABLE_NAME = "room_type";
     private static final String COLUMN_ID_NAME = "idRoomType";
     private static final String COLUMN_TYPE_NAME = "type";
-    private static final String COLUMN_DESCR_NAME = "descr";
-    private static final String COLUMN_PRICE_NAME = "price";
-    private static final String COLUMN_MAX_PERSON_NAME = "maxPerson";
 
     private static MySqlRoomTypeDao instance;
     private final QueryBuilder<RoomType> queryBuilder;
-
-//    private static final String QUERY_INSERT = "INSERT INTO ROOM_TYPE (type, descr, price, maxPerson) VALUES (?, ?, ?, ?)";
-//    private static final String QUERY_SELECT_ALL = "SELECT * FROM ROOM_TYPE";
-//    private static final String QUERY_SELECT_ALL_ROOM_TYPES = "SELECT type FROM ROOM_TYPE";
-//    private static final String QUERY_SELECT_BY_ID = "SELECT * FROM ROOM_TYPE WHERE idRoomType = ?";
-//    private static final String QUERY_UPDATE = "UPDATE ROOM_TYPE SET type = ?, descr = ?, price = ?, maxPerson = ? WHERE idRoomType = ?";
-//    private static final String QUERY_DELETE = "DELETE FROM ROOM_TYPE WHERE idRoomType = ?";
 
     private MySqlRoomTypeDao() {
         queryBuilder = new QueryBuilder<>(TABLE_NAME);
@@ -49,9 +39,6 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         Connection connection = ConnectionManager.getConnection();
         int id = queryBuilder.insert()
                 .value(COLUMN_TYPE_NAME, roomType.getType())
-                .value(COLUMN_DESCR_NAME, roomType.getDescription())
-                .value(COLUMN_PRICE_NAME, roomType.getPrice())
-                .value(COLUMN_MAX_PERSON_NAME, roomType.getMaxPerson())
                 .execute(connection);
         ConnectionManager.closeConnection(connection);
         return id;
@@ -93,9 +80,6 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         Connection connection = ConnectionManager.getConnection();
         boolean update = queryBuilder.update()
                 .set(COLUMN_TYPE_NAME, roomType.getType())
-                .set(COLUMN_DESCR_NAME, roomType.getDescription())
-                .set(COLUMN_PRICE_NAME, roomType.getPrice())
-                .set(COLUMN_MAX_PERSON_NAME, roomType.getMaxPerson())
                 .where()
                 .column(COLUMN_ID_NAME).isEqual(roomType.getId())
                 .executeUpdate(connection);
@@ -117,7 +101,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
     }
 
     @Override
-    public Map<Integer, String> getIdTypeTitleMap() {
+    public Map<Integer, String> getAllInMap() {
         List<RoomType> roomTypes = findAll();
 
         if (roomTypes == null) {
@@ -127,21 +111,6 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         Map<Integer, String> idTypeTitleMap = new HashMap<>(roomTypes.size());
         for (RoomType roomType : roomTypes) {
             idTypeTitleMap.put(roomType.getId(), roomType.getType());
-        }
-        return idTypeTitleMap;
-    }
-
-    @Override
-    public Map<Integer, RoomType> getIdTypeMap() {
-        List<RoomType> roomTypes = findAll();
-
-        if (roomTypes == null) {
-            return null;
-        }
-
-        Map<Integer, RoomType> idTypeTitleMap = new HashMap<>(roomTypes.size());
-        for (RoomType roomType : roomTypes) {
-            idTypeTitleMap.put(roomType.getId(), roomType);
         }
         return idTypeTitleMap;
     }

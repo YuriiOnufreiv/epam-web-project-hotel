@@ -31,7 +31,7 @@ public class CommandMakeNewBooking implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Integer totalPersons = Integer.valueOf(request.getParameter(names.get(BOOK_REQUEST_PERSONS_NAME)));
-        Integer roomType = Integer.valueOf(request.getParameter(names.get(ROOM_TYPE_NAME)));
+        Integer roomTypeId = Integer.valueOf(request.getParameter(names.get(ROOM_TYPE_NAME)));
         String checkInDateString = request.getParameter(names.get(CHECK_IN_DATE_NAME));
         String checkOutDateString = request.getParameter(names.get(CHECK_OUT_DATE_NAME));
 
@@ -44,7 +44,7 @@ public class CommandMakeNewBooking implements Command {
             checkOutDate = df.parse(checkOutDateString);
             if (checkInDate.before(new Date()) || checkInDate.after(checkOutDate)) {
                 request.setAttribute(names.get(INVALID_BOOK_REQUEST_DATES_ERROR_NAME), "true");
-                request.setAttribute(names.get(ROOM_TYPE_NAME), roomType.toString());
+                request.setAttribute(names.get(ROOM_TYPE_NAME), roomTypeId.toString());
                 request.setAttribute(names.get(BOOK_REQUEST_PERSONS_NAME), totalPersons);
                 return PathConfig.getInstance().getProperty(PathConfig.NEW_BOOK_REQUEST_PAGE_PATH);
             }
@@ -52,7 +52,7 @@ public class CommandMakeNewBooking implements Command {
             e.printStackTrace();
         }
 
-        BookRequest form = new BookRequest(0, new Date(), user.getId(), totalPersons, roomType, checkInDate, checkOutDate, false);
+        BookRequest form = new BookRequest(0, new Date(), user.getId(), totalPersons, roomTypeId, checkInDate, checkOutDate, false);
         reservationService.makeNewRequest(form);
 
         request.setAttribute(names.get(RESERVE_SUCCESS_NAME), "true");

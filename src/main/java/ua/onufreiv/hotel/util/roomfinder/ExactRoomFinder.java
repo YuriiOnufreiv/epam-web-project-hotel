@@ -2,7 +2,6 @@ package ua.onufreiv.hotel.util.roomfinder;
 
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.Room;
-import ua.onufreiv.hotel.entity.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.Map;
 public class ExactRoomFinder implements IRoomFinder {
 
     @Override
-    public List<Room> getMostSuitableRooms(BookRequest bookRequest, List<Room> rooms, Map<Integer, RoomType> types) {
+    public List<Room> getMostSuitableRooms(BookRequest bookRequest, List<Room> rooms, Map<Integer, String> types) {
         int neededTypeId = bookRequest.getRoomTypeId();
         int neededPersonsAmount = bookRequest.getPersons();
 
@@ -22,7 +21,7 @@ public class ExactRoomFinder implements IRoomFinder {
 
         for (Room room : rooms) {
             if (room.getRoomTypeId().equals(neededTypeId)
-                    && types.get(room.getRoomTypeId()).getMaxPerson() >= neededPersonsAmount) {
+                    && room.getMaxPerson() >= neededPersonsAmount) {
                 suitableRooms.add(room);
             }
         }

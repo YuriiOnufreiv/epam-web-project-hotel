@@ -34,12 +34,12 @@ public class CommandShowAdminDashboard implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         List<BookRequest> notProcessedRequests = bookRequestService.getNotProcessedRequests();
-        Map<Integer, String> idTypeTitleMap = roomTypeService.getIdTypeTitleMap();
+        Map<Integer, String> idTypeTitleMap = roomTypeService.getAllInMap();
         boolean result = reservedRoomService.removeExpiredDateReservedRooms();
 
         request.setAttribute(names.get(NEW_ROOMS_AVAILABLE_NAME), result);
         request.setAttribute(names.get(NOT_PROCESSED_BOOK_REQUEST_LIST_NAME), notProcessedRequests);
-        request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_TITLE_MAP_NAME), idTypeTitleMap);
+        request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), idTypeTitleMap);
 
         return PathConfig.getInstance().getProperty(PathConfig.ADMIN_DASHBOARD_PAGE_PATH);
     }

@@ -14,9 +14,6 @@ public class RoomTypeMapper implements ResultSetMapper<RoomType> {
         RoomType roomType = new RoomType();
         roomType.setId(rs.getInt("idRoomType"));
         roomType.setType(rs.getString("type"));
-        roomType.setDescription(rs.getString("descr"));
-        roomType.setPrice(rs.getInt("price"));
-        roomType.setMaxPerson(rs.getInt("maxPerson"));
         return roomType;
     }
 }

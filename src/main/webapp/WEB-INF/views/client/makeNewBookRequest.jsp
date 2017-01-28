@@ -71,7 +71,7 @@
                     <div class="wow fadeInRight" data-wow-delay="0.4s">
                         <span><fmt:message key="bookRequest.room_type"/></span>
                         <select name="roomType" class="frm-field required">
-                            <c:forEach items="${sessionScope.idRoomTypeTitleMap}" var="entry">
+                            <c:forEach items="${sessionScope.idRoomTypeMap}" var="entry">
                                 <option value="${entry.key}" ${entry.key == requestScope.roomType ? 'selected' : ''}>
                                     <c:out value="${entry.value}"/></option>
                             </c:forEach>

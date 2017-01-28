@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 public class ParamNamesConfig {
     private static final String BUNDLE_NAME = "param_names";
 
-    public static final String ID_ROOM_TYPE_TITLE_MAP_NAME = "ID_ROOM_TYPE_TITLE_MAP_NAME";
     public static final String ID_ROOM_TYPE_MAP_NAME = "ID_ROOM_TYPE_MAP_NAME";
 
     public static final String ROOM_TYPE_NAME = "ROOM_TYPE_NAME";

@@ -2,7 +2,10 @@ package ua.onufreiv.hotel.controller.commands;
 
 import ua.onufreiv.hotel.controller.manager.ParamNamesConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
-import ua.onufreiv.hotel.entity.*;
+import ua.onufreiv.hotel.entity.BookRequest;
+import ua.onufreiv.hotel.entity.ReservedRoom;
+import ua.onufreiv.hotel.entity.Room;
+import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.IBookRequestService;
 import ua.onufreiv.hotel.service.IUserService;
 import ua.onufreiv.hotel.service.impl.*;
@@ -54,7 +57,7 @@ public class CommandProcessBookRequest implements Command {
             roomIds.add(reservedRoom.getId());
         }
         List<Room> possibleRooms = roomService.findAllExcept(roomIds);
-        Map<Integer, RoomType> idTypeMap = roomTypeService.getIdTypeMap();
+        Map<Integer, String> idTypeMap = roomTypeService.getAllInMap();
         List<Room> exact = new ExactRoomFinder().getMostSuitableRooms(bookRequest, possibleRooms, idTypeMap);
         List<Room> cheaper = new CheaperRoomFinder().getMostSuitableRooms(bookRequest, possibleRooms, idTypeMap);
         List<Room> expensive = new ExpensiveRoomFinder().getMostSuitableRooms(bookRequest, possibleRooms, idTypeMap);

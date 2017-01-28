@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="typo-line">
                                     <h5><p class="category">Room
-                                        type</p>${sessionScope.idRoomTypeMap[requestScope.bookRequest.roomTypeId].type}
+                                        type</p>${sessionScope.idRoomTypeMap[requestScope.bookRequest.roomTypeId]}
                                     </h5>
                                 </div>
                                 <div class="typo-line">
@@ -88,22 +88,23 @@
                             </div>
                             <div class="content">
                                 <c:if test="${not empty requestScope.exactRoom}">
-                                    <c:set var="exactType" scope="page"
-                                           value="${sessionScope.idRoomTypeMap[requestScope.exactRoom.roomTypeId]}"/>
                                     <div class="typo-line">
                                         <h5><p class="category">#</p>${requestScope.exactRoom.number}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Type</p>${exactType.type}</h5>
+                                        <h5><p class="category">
+                                            Type</p>${sessionScope.idRoomTypeMap[requestScope.exactRoom.roomTypeId]}
+                                        </h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Price</p>$${exactType.price}</h5>
+                                        <h5><p class="category">Price</p>$${requestScope.exactRoom.price}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Persons</p>${exactType.maxPerson}</h5>
+                                        <h5><p class="category">Persons</p>${requestScope.exactRoom.maxPerson}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Description</p>${exactType.description}</h5>
+                                        <h5><p class="category">Description</p>${requestScope.exactRoom.description}
+                                        </h5>
                                     </div>
                                     <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.exactRoom.id}&roomTypeId=${requestScope.exactRoom.roomTypeId}"
                                        class="btn btn-info btn-fill">Create Bill</a>

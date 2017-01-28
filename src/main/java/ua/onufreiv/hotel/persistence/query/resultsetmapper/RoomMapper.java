@@ -15,6 +15,9 @@ public class RoomMapper implements ResultSetMapper<Room> {
         room.setId(rs.getInt("idRoom"));
         room.setRoomTypeId(rs.getInt("typeFK"));
         room.setNumber(rs.getInt("number"));
+        room.setDescription(rs.getString("descr"));
+        room.setPrice(rs.getInt("price"));
+        room.setMaxPerson(rs.getInt("maxPerson"));
         return room;
     }
 }

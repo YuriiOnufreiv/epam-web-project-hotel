@@ -9,8 +9,10 @@ import java.util.Map;
  */
 public interface IRoomTypeService {
     int addNewRoomType(RoomType roomType);
+
     boolean containsType(String type);
+
     RoomType find(int id);
-    Map<Integer, String> getIdTypeTitleMap();
-    Map<Integer, RoomType> getIdTypeMap();
+
+    Map<Integer, String> getAllInMap();
 }

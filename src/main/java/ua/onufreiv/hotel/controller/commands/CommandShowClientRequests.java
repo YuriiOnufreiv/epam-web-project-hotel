@@ -34,8 +34,8 @@ public class CommandShowClientRequests implements Command {
         User user = (User) session.getAttribute(names.get(USER_NAME));
         List<BookRequest> bookRequests = bookRequestService.getRequestsByUserId(user.getId());
 
-        if (session.getAttribute(names.get(ID_ROOM_TYPE_TITLE_MAP_NAME)) == null) {
-            session.setAttribute(names.get(ID_ROOM_TYPE_TITLE_MAP_NAME), roomTypeService.getIdTypeTitleMap());
+        if (session.getAttribute(names.get(ID_ROOM_TYPE_MAP_NAME)) == null) {
+            session.setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), roomTypeService.getAllInMap());
         }
 
         request.setAttribute(names.get(BOOK_REQUEST_LIST_NAME), bookRequests);

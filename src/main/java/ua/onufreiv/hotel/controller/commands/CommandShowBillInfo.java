@@ -19,21 +19,11 @@ import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
  * Created by yurii on 1/14/17.
  */
 public class CommandShowBillInfo implements Command {
-//    private static final String USER_NAME = "user";
-//    private static final String BOOK_REQUEST_ID_NAME = "bookRequestId";
-//    private static final String BILL_TOTAL_PRICE_NAME = "totalPrice";
-//    private static final String ROOM_NO_NAME = "roomNo";
-//    private static final String ROOM_TYPE_NAME = "roomType";
-//    private static final String ROOM_PRICE_NAME = "roomPrice";
-//    private static final String CHECK_IN_NAME = "checkIn";
-//    private static final String CHECK_OUT_NAME = "checkOut";
-//    private static final String BILL_CREATION_DATE_NAME = "billCreationDate";
-
     private final ParamNamesConfig names;
-    private IBookRequestService bookRequestService;
-    private BillService billService;
-    private RoomService roomService;
-    private IRoomTypeService roomTypeService;
+    private final IBookRequestService bookRequestService;
+    private final BillService billService;
+    private final RoomService roomService;
+    private final IRoomTypeService roomTypeService;
 
     public CommandShowBillInfo() {
         bookRequestService = new BookRequestService();
@@ -57,7 +47,7 @@ public class CommandShowBillInfo implements Command {
         request.setAttribute(names.get(BILL_TOTAL_PRICE_NAME), bill.getTotalPrice());
         request.setAttribute(names.get(ROOM_NUMBER_NAME), room.getNumber());
         request.setAttribute(names.get(ROOM_TYPE_NAME), roomType.getType());
-        request.setAttribute(names.get(ROOM_PRICE_NAME), roomType.getPrice());
+        request.setAttribute(names.get(ROOM_PRICE_NAME), room.getPrice());
         request.setAttribute(names.get(CHECK_IN_DATE_NAME), bookRequest.getCheckIn());
         request.setAttribute(names.get(CHECK_OUT_DATE_NAME), bookRequest.getCheckOut());
         request.setAttribute(names.get(BILL_CREATION_DATE_NAME), bill.getCreationDate());

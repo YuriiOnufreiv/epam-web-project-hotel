@@ -40,7 +40,7 @@
                                     <h5><p class="category">Persons</p>${requestScope.bookRequestPersons}</h5>
                                 </div>
                                 <div class="typo-line">
-                                    <h5><p class="category">Room type</p>${requestScope.roomType}</h5>
+                                    <h5><p class="category">Room</p>${requestScope.roomType}</h5>
                                 </div>
                                 <div class="typo-line">
                                     <h5><p class="category">Check In</p>${requestScope.checkInDate}</h5>
