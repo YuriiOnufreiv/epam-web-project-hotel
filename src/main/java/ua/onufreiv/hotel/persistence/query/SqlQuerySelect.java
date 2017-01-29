@@ -85,6 +85,11 @@ public class SqlQuerySelect<T> implements SqlQueryWhereWrappable {
     }
 
     @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    @Override
     public SqlQueryWhereWrapper<T, SqlQuerySelect<T>> where() {
         return new SqlQueryWhereWrapper<>(this);
     }

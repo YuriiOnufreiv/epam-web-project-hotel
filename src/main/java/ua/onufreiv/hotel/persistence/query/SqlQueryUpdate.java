@@ -48,6 +48,11 @@ public class SqlQueryUpdate<T> implements SqlQueryWhereWrappable {
     }
 
     @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    @Override
     public SqlQueryWhereWrapper<T, SqlQueryUpdate<T>> where() {
         return new SqlQueryWhereWrapper<>(this);
     }

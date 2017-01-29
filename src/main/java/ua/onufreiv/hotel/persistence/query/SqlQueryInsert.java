@@ -25,6 +25,10 @@ public class SqlQueryInsert implements SqlQuery {
         this.tableName = tableName;
     }
 
+    public Map<String, Object> getValues() {
+        return values;
+    }
+
     public SqlQueryInsert into(String tableName) {
         this.tableName = tableName;
         return this;
@@ -61,14 +65,19 @@ public class SqlQueryInsert implements SqlQuery {
     }
 
     @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    @Override
     public String getSqlStatement() {
         String[] questionMarks = new String[values.size()];
         Arrays.fill(questionMarks, "?");
 
         StringBuilder builder = new StringBuilder("INSERT INTO ");
         builder.append(tableName.toUpperCase())
-                .append(" (").append(String.join(",", values.keySet())).append(")")
-                .append(" VALUES").append(" (").append(String.join(",", questionMarks)).append(")")
+                .append(" (").append(String.join(", ", values.keySet())).append(")")
+                .append(" VALUES").append(" (").append(String.join(", ", questionMarks)).append(")")
                 .append(";");
 
         return builder.toString();

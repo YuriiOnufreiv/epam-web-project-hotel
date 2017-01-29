@@ -97,6 +97,11 @@ public class SqlQueryWhereWrapper<T, K extends SqlQueryWhereWrappable> implement
     }
 
     @Override
+    public String getTableName() {
+        return baseQuery.getTableName();
+    }
+
+    @Override
     public String getSqlStatement() {
         String sqlStatement = baseQuery.getSqlStatement();
         int semicolon = sqlStatement.lastIndexOf(";");

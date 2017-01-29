@@ -33,6 +33,11 @@ public class SqlQueryDelete<T> implements SqlQueryWhereWrappable {
     }
 
     @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    @Override
     public SqlQueryWhereWrapper<T, SqlQueryDelete<T>> where() {
         return new SqlQueryWhereWrapper<>(this);
     }
