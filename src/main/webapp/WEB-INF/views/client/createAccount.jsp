@@ -55,7 +55,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <c:if test="${not empty requestScope.signUpErrors}">
                     <div class="grid_3 grid_5">
                         <div class="alert alert-danger" role="alert">
-                            <ul style="padding-left: 25px;">
+                            <ul class="pad-left-25">
                                 <c:forTokens items="${requestScope.signUpErrors}" var="error" delims="|">
                                     <li><strong><fmt:message key="${error}"/></strong></li>
                                 </c:forTokens>

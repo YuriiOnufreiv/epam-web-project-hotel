@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@ include file="/WEB-INF/views/client/jspf/head.jspf" %>
-    <title><fmt:message key="header.reservation"/></title>
+    <title><fmt:message key="header.not_signed_in"/></title>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/client/jspf/header.jspf" %>
@@ -19,7 +19,7 @@
         <div class="account_grid">
             <div class="col-md-6 login-left wow fadeInLeft big-padding" data-wow-delay="0.4s">
                 <h3><fmt:message key="reservation.oops"/></h3>
-                <p><fmt:message key="reservation.sign_in_message"/></p>
+                <p><fmt:message key="general.sign_in_message"/></p>
                 <a class="acount-btn" href="/hotel?command=forward&page=login"><fmt:message key="general.sign.in"/></a>
             </div>
             <div class="clearfix"></div>

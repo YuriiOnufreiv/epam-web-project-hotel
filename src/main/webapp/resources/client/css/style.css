@@ -2608,3 +2608,15 @@ h2.typoh2 {
         padding: 3em 0 0;
     }
 }
+
+.float-right {
+    float: right;
+}
+
+.pad-left {
+    padding-left: 50px;
+}
+
+.pad-left-25 {
+    padding-left: 25px;
+}

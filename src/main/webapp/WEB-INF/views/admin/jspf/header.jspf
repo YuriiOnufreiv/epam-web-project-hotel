@@ -32,11 +32,11 @@
                     <ul class="dropdown-menu">
                         <c:choose>
                             <c:when test="${fn:length(requestScope.notProcessedBookRequestList) > 0}">
-                                <li><a href="" style="pointer-events: none; cursor: default;"><b>New book requests</b></a></li>
+                                <li><a class="no_href" href=""><b>New book requests</b></a></li>
                                 <li><a href="/hotel?command=showAdminDashboard">See all</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="" style="pointer-events: none; cursor: default;"><b>No new book requests</b></a></li>
+                                <li><a class="no_href" href=""><b>No new book requests</b></a></li>
                             </c:otherwise>
                         </c:choose>
 

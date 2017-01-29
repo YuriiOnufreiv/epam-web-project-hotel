@@ -15,7 +15,7 @@
         </div>
         <nav class="navbar navbar-default" role="navigation">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form style="float: right; padding-left: 50px">
+                <form class="float-right pad-left">
                     <select id="language" name="language" onchange="submit()">
                         <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
                         <option value="ua" ${language == 'ua' ? 'selected' : ''}>Українська</option>
@@ -41,7 +41,7 @@
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li style="float: right;"><a href="/hotel?command=forward&page=login"><fmt:message
+                            <li class="float-right"><a href="/hotel?command=forward&page=login"><fmt:message
                                     key="general.sign.in"/></a></li>
                         </c:otherwise>
                     </c:choose>
