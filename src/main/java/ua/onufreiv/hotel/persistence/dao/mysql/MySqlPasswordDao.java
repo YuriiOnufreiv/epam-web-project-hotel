@@ -43,7 +43,13 @@ public class MySqlPasswordDao implements IPasswordDao {
 
     @Override
     public boolean delete(int id) {
-        return false;
+        Connection connection = ConnectionManager.getConnection();
+        boolean result = queryBuilder.delete()
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(id)
+                .executeUpdate(connection) > 0;
+        ConnectionManager.closeConnection(connection);
+        return result;
     }
 
     @Override
@@ -64,6 +70,13 @@ public class MySqlPasswordDao implements IPasswordDao {
 
     @Override
     public boolean update(PasswordHash passwordHash) {
-        return false;
+        Connection connection = ConnectionManager.getConnection();
+        boolean update = queryBuilder.update()
+                .set(COLUMN_PWD_HASH_NAME, passwordHash.getPwdHash())
+                .where()
+                .column(COLUMN_ID_NAME).isEqual(passwordHash.getId())
+                .executeUpdate(connection) > 0;
+        ConnectionManager.closeConnection(connection);
+        return update;
     }
 }
