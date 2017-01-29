@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="dateTag" uri="/WEB-INF/views/tld/dateTag.tld" %>
 <!DOCTYPE HTML>
 <!doctype html>
 <html lang="en">
@@ -37,8 +38,10 @@
                             </div>
                             <div class="content">
                                 <div class="typo-line">
-                                    <h5><p class="category">Request Date</p><fmt:formatDate pattern="MM/dd/yyyy hh:mm"
-                                                                                            value="${requestScope.bookRequestCreationDate}"/>
+                                    <h5>
+                                        <p class="category">Request Date</p>
+                                        <dateTag:date date="${requestScope.bookRequestCreationDate}"
+                                                      locale="${sessionScope.language}" showTime="true"/>
                                     </h5>
                                 </div>
                                 <div class="typo-line">
@@ -48,10 +51,18 @@
                                     <h5><p class="category">Room</p>${requestScope.roomType}</h5>
                                 </div>
                                 <div class="typo-line">
-                                    <h5><p class="category">Check In</p>${requestScope.checkInDate}</h5>
+                                    <h5>
+                                        <p class="category">Check In</p>
+                                        <dateTag:date date="${requestScope.checkInDate}"
+                                                      locale="${sessionScope.language}"/>
+                                    </h5>
                                 </div>
                                 <div class="typo-line">
-                                    <h5><p class="category">Check Out</p>${requestScope.checkOutDate}</h5>
+                                    <h5>
+                                        <p class="category">Check Out</p>
+                                        <dateTag:date date="${requestScope.checkOutDate}"
+                                                      locale="${sessionScope.language}"/>
+                                    </h5>
                                 </div>
                                 <hr>
                                 <div class="typo-line">

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="/WEB-INF/views/tld/autoPageRefresh.tld" prefix="autoPageRefresh" %>
+<%@ taglib prefix="dateTag" uri="/WEB-INF/views/tld/dateTag.tld" %>
 <!DOCTYPE HTML>
 <!doctype html>
 <html lang="en">
@@ -50,9 +51,8 @@
                                     <c:forEach var="bookRequest" items="${requestScope.notProcessedBookRequestList}">
                                         <tr>
                                             <td><c:out value="${bookRequest.id}"/></td>
-                                            <td><fmt:formatDate pattern="MM/dd/yyyy hh:mm"
-                                                                value="${bookRequest.creationDate}"/>
-                                            </td>
+                                            <td><dateTag:date date="${bookRequest.creationDate}"
+                                                              locale="${sessionScope.language}" showTime="true"/></td>
                                             <td>
                                                 <a href="/hotel?command=processBookRequest&bookRequestId=${bookRequest.id}"
                                                    class="btn btn-info btn-fill">Process</a>
