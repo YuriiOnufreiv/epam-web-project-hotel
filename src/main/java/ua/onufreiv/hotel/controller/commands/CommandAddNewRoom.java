@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.ParamNamesConfig;
+import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.service.impl.RoomService;
@@ -8,18 +8,18 @@ import ua.onufreiv.hotel.service.impl.RoomService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
+import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
  * Created by yurii on 1/14/17.
  */
 public class CommandAddNewRoom implements Command {
     private final RoomService roomService;
-    private final ParamNamesConfig names;
+    private final JspConfig names;
 
     public CommandAddNewRoom() {
         roomService = RoomService.getInstance();
-        names = ParamNamesConfig.getInstance();
+        names = JspConfig.getInstance();
     }
 
     @Override

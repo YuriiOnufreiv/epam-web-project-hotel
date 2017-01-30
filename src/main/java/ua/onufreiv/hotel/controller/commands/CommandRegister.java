@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.ParamNamesConfig;
+import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.entity.User;
@@ -12,55 +12,55 @@ import ua.onufreiv.hotel.util.RegisterFormValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
+import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
  * Created by yurii on 12/29/16.
  */
 public class CommandRegister implements Command {
-    private final ParamNamesConfig names;
     private final IRegisterService registerService;
+    private final JspConfig jspConfig;
 
     public CommandRegister() {
         registerService = RegisterService.getInstance();
-        names = ParamNamesConfig.getInstance();
+        jspConfig = JspConfig.getInstance();
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String firstName = request.getParameter(names.get(USER_FIRST_NAME_NAME));
-        String lastName = request.getParameter(names.get(USER_LAST_NAME_NAME));
-        String email = request.getParameter(names.get(USER_EMAIL_NAME));
-        String telephone = request.getParameter(names.get(USER_TELEPHONE_NUMBER_NAME));
-        String password = request.getParameter(names.get(USER_PASSWORD_NAME));
+        String firstName = request.getParameter(jspConfig.get(USER_FIRST_NAME_NAME));
+        String lastName = request.getParameter(jspConfig.get(USER_LAST_NAME_NAME));
+        String email = request.getParameter(jspConfig.get(USER_EMAIL_NAME));
+        String telephone = request.getParameter(jspConfig.get(USER_TELEPHONE_NUMBER_NAME));
+        String password = request.getParameter(jspConfig.get(USER_PASSWORD_NAME));
 
         boolean validEmail = registerService.isUniqueEmail(email);
         boolean validPhoneNumber = RegisterFormValidator.isValidPhoneNumber(telephone);
         boolean validPassword = RegisterFormValidator.isValidPassword(password);
 
         if (!(validEmail && validPassword && validPhoneNumber)) {
-            request.setAttribute(names.get(USER_FIRST_NAME_NAME), firstName);
-            request.setAttribute(names.get(USER_LAST_NAME_NAME), lastName);
+            request.setAttribute(jspConfig.get(USER_FIRST_NAME_NAME), firstName);
+            request.setAttribute(jspConfig.get(USER_LAST_NAME_NAME), lastName);
 
             StringBuilder errorsBuilder = new StringBuilder();
 
             if (validEmail) {
-                request.setAttribute(names.get(USER_EMAIL_NAME), email);
+                request.setAttribute(jspConfig.get(USER_EMAIL_NAME), email);
             } else {
-                errorsBuilder.append(names.get(EMAIL_EXISTS_ERROR_KEY_NAME)).append(names.get(ERROR_DELIMITER));
+                errorsBuilder.append(jspConfig.get(EMAIL_EXISTS_ERROR_KEY_NAME)).append(jspConfig.get(ERRORS_KEY_DELIMITER));
             }
 
             if (validPhoneNumber) {
-                request.setAttribute(names.get(USER_TELEPHONE_NUMBER_NAME), telephone);
+                request.setAttribute(jspConfig.get(USER_TELEPHONE_NUMBER_NAME), telephone);
             } else {
-                errorsBuilder.append(names.get(INVALID_NUMBER_ERROR_KEY_NAME)).append(names.get(ERROR_DELIMITER));
+                errorsBuilder.append(jspConfig.get(INVALID_NUMBER_ERROR_KEY_NAME)).append(jspConfig.get(ERRORS_KEY_DELIMITER));
             }
 
             if (!validPassword) {
-                errorsBuilder.append(names.get(INVALID_PASSWORD_ERROR_KEY_NAME)).append(names.get(ERROR_DELIMITER));
+                errorsBuilder.append(jspConfig.get(INVALID_PASSWORD_ERROR_KEY_NAME)).append(jspConfig.get(ERRORS_KEY_DELIMITER));
             }
 
-            request.setAttribute(names.get(SIGN_UP_ERRORS_NAME), errorsBuilder.toString());
+            request.setAttribute(jspConfig.get(SIGN_UP_ERRORS_NAME), errorsBuilder.toString());
             return PathConfig.getInstance().getProperty(PathConfig.CREATE_ACCOUNT_PAGE_PATH);
         }
 
@@ -75,10 +75,10 @@ public class CommandRegister implements Command {
 
         String page;
         if (passwordHash.getPwdHash() != null && registerService.insertUser(user, passwordHash)) {
-            request.setAttribute(names.get(SIGN_UP_SUCCESS_NAME), true);
+            request.setAttribute(jspConfig.get(SIGN_UP_SUCCESS_NAME), true);
             page = PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
         } else {
-            request.setAttribute(names.get(SIGN_UP_ERRORS_NAME), names.get(ACCOUNT_WAS_NOT_CREATED_ERROR_KEY_NAME));
+            request.setAttribute(jspConfig.get(SIGN_UP_ERRORS_NAME), jspConfig.get(ACCOUNT_WAS_NOT_CREATED_ERROR_KEY_NAME));
             page = PathConfig.getInstance().getProperty(PathConfig.CREATE_ACCOUNT_PAGE_PATH);
         }
 

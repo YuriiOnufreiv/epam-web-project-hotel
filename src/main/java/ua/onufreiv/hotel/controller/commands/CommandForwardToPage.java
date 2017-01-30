@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.ParamNamesConfig;
+import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.service.IRoomTypeService;
 import ua.onufreiv.hotel.service.impl.RoomTypeService;
@@ -9,18 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.ID_ROOM_TYPE_MAP_NAME;
+import static ua.onufreiv.hotel.controller.manager.JspConfig.ID_ROOM_TYPE_MAP_NAME;
 
 /**
  * Created by yurii on 1/26/17.
  */
 public class CommandForwardToPage implements Command {
     private final IRoomTypeService roomTypeService;
-    private final ParamNamesConfig names;
+    private final JspConfig jspConfig;
 
     public CommandForwardToPage() {
         roomTypeService = RoomTypeService.getInstance();
-        names = ParamNamesConfig.getInstance();
+        jspConfig = JspConfig.getInstance();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CommandForwardToPage implements Command {
         Map<Integer, String> idTypeTitleMap = roomTypeService.findAllAsMap();
 
         if (mapRequired) {
-            request.setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), idTypeTitleMap);
+            request.setAttribute(jspConfig.get(ID_ROOM_TYPE_MAP_NAME), idTypeTitleMap);
         }
 
         return getPagePath(pageType);

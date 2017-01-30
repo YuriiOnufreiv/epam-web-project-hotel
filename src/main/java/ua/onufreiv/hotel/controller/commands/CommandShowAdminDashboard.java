@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.ParamNamesConfig;
+import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.service.IRoomTypeService;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-import static ua.onufreiv.hotel.controller.manager.ParamNamesConfig.*;
+import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
  * Created by yurii on 1/5/17.
@@ -22,13 +22,13 @@ public class CommandShowAdminDashboard implements Command {
     private final IRoomTypeService roomTypeService;
     private final BookRequestService bookRequestService;
     private final ReservedRoomService reservedRoomService;
-    private final ParamNamesConfig names;
+    private final JspConfig jspConfig;
 
     public CommandShowAdminDashboard() {
         roomTypeService = RoomTypeService.getInstance();
         bookRequestService = BookRequestService.getInstance();
         reservedRoomService = ReservedRoomService.getInstance();
-        names = ParamNamesConfig.getInstance();
+        jspConfig = JspConfig.getInstance();
     }
 
     @Override
@@ -37,9 +37,9 @@ public class CommandShowAdminDashboard implements Command {
         Map<Integer, String> idTypeTitleMap = roomTypeService.findAllAsMap();
         boolean result = reservedRoomService.deleteExpired();
 
-        request.setAttribute(names.get(NEW_ROOMS_AVAILABLE_NAME), result);
-        request.setAttribute(names.get(NOT_PROCESSED_BOOK_REQUEST_LIST_NAME), notProcessedRequests);
-        request.setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), idTypeTitleMap);
+        request.setAttribute(jspConfig.get(NEW_ROOMS_AVAILABLE_NAME), result);
+        request.setAttribute(jspConfig.get(NOT_PROCESSED_BOOK_REQUEST_LIST_NAME), notProcessedRequests);
+        request.setAttribute(jspConfig.get(ID_ROOM_TYPE_MAP_NAME), idTypeTitleMap);
 
         return PathConfig.getInstance().getProperty(PathConfig.ADMIN_DASHBOARD_PAGE_PATH);
     }
