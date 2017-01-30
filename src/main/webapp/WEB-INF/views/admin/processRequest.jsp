@@ -99,71 +99,112 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Exact Room</h4>
+                                <h4 class="title">Exact Type Room</h4>
                             </div>
                             <div class="content">
-                                <c:if test="${not empty requestScope.exactRoom}">
+                                <c:if test="${not empty requestScope.exactTypeRoom}">
                                     <div class="typo-line">
-                                        <h5><p class="category">#</p>${requestScope.exactRoom.number}</h5>
+                                        <h5><p class="category">#</p>${requestScope.exactTypeRoom.number}</h5>
                                     </div>
                                     <div class="typo-line">
                                         <h5><p class="category">
-                                            Type</p>${requestScope.idRoomTypeMap[requestScope.exactRoom.roomTypeId]}
+                                            Type</p>${requestScope.idRoomTypeMap[requestScope.exactTypeRoom.roomTypeId]}
                                         </h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Price</p>$${requestScope.exactRoom.price}</h5>
+                                        <h5><p class="category">Price</p>$${requestScope.exactTypeRoom.price}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Persons</p>${requestScope.exactRoom.maxPerson}</h5>
+                                        <h5><p class="category">Persons</p>${requestScope.exactTypeRoom.maxPerson}</h5>
                                     </div>
                                     <div class="typo-line">
-                                        <h5><p class="category">Description</p>${requestScope.exactRoom.description}
+                                        <h5><p class="category">Description</p>${requestScope.exactTypeRoom.description}
                                         </h5>
                                     </div>
-                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.exactRoom.id}&roomTypeId=${requestScope.exactRoom.roomTypeId}"
+                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.exactTypeRoom.id}&roomTypeId=${requestScope.exactTypeRoom.roomTypeId}"
                                        class="btn btn-info btn-fill">Create Bill</a>
                                 </c:if>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Alternative Room</h4>
-                            </div>
-                            <div class="content">
-                                <c:if test="${not empty requestScope.alternativeRoom}">
-                                    <c:set var="alternativeType" scope="page"
-                                           value="${requestScope.idRoomTypeMap[requestScope.alternativeRoom.roomTypeId]}"/>
-                                    <div class="typo-line">
-                                        <h5><p class="category">#</p>${requestScope.alternativeRoom.number}</h5>
-                                    </div>
-                                    <div class="typo-line">
-                                        <h5><p class="category">Type</p>${alternativeType.type}</h5>
-                                    </div>
-                                    <div class="typo-line">
-                                        <h5><p class="category">Price</p>$${alternativeType.price}</h5>
-                                    </div>
-                                    <div class="typo-line">
-                                        <h5><p class="category">Persons</p>${alternativeType.maxPerson}</h5>
-                                    </div>
-                                    <div class="typo-line">
-                                        <h5><p class="category">Description</p>${alternativeType.description}</h5>
-                                    </div>
-                                    <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.alternativeRoom.id}&roomTypeId=${requestScope.alternativeRoom.roomTypeId}"
-                                       class="btn btn-info btn-fill">Create Bill</a>
-                                </c:if>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Favourite Type Room</h4>
+                                </div>
+                                <div class="content">
+                                    <c:if test="${not empty requestScope.favouriteTypeRoom}">
+                                        <div class="typo-line">
+                                            <h5><p class="category">#</p>${requestScope.favouriteTypeRoom.number}</h5>
+                                        </div>
+                                        <div class="typo-line">
+                                            <h5><p class="category">
+                                                Type</p>${requestScope.idRoomTypeMap[requestScope.favouriteTypeRoom.roomTypeId]}
+                                            </h5>
+                                        </div>
+                                        <div class="typo-line">
+                                            <h5><p class="category">Price</p>$${requestScope.favouriteTypeRoom.price}
+                                            </h5>
+                                        </div>
+                                        <div class="typo-line">
+                                            <h5><p class="category">
+                                                Persons</p>${requestScope.favouriteTypeRoom.maxPerson}</h5>
+                                        </div>
+                                        <div class="typo-line">
+                                            <h5><p class="category">
+                                                Description</p>${requestScope.favouriteTypeRoom.description}
+                                            </h5>
+                                        </div>
+                                        <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.favouriteTypeRoom.id}&roomTypeId=${requestScope.favouriteTypeRoom.roomTypeId}"
+                                           class="btn btn-info btn-fill">Create Bill</a>
+                                    </c:if>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Any Type Room</h4>
+                                </div>
+                                <div class="content">
+                                    <c:if test="${not empty requestScope.anyTypeRoom}">
+                                        <div class="typo-line">
+                                            <h5><p class="category">#</p>${requestScope.anyTypeRoom.number}</h5>
+                                        </div>
+                                        <div class="typo-line">
+                                            <h5><p class="category">
+                                                Type</p>${requestScope.idRoomTypeMap[requestScope.anyTypeRoom.roomTypeId]}
+                                            </h5>
+                                        </div>
+                                        <div class="typo-line">
+                                            <h5><p class="category">Price</p>$${requestScope.anyTypeRoom.price}</h5>
+                                        </div>
+                                        <div class="typo-line">
+                                            <h5><p class="category">Persons</p>${requestScope.anyTypeRoom.maxPerson}
+                                            </h5>
+                                        </div>
+                                        <div class="typo-line">
+                                            <h5><p class="category">
+                                                Description</p>${requestScope.anyTypeRoom.description}
+                                            </h5>
+                                        </div>
+                                        <a href="/hotel?command=createBill&bookRequestId=${bookRequest.id}&roomId=${requestScope.anyTypeRoom.id}&roomTypeId=${requestScope.anyTypeRoom.roomTypeId}"
+                                           class="btn btn-info btn-fill">Create Bill</a>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-
-
             </div>
+            <%@ include file="/WEB-INF/views/admin/jspf/footer.jspf" %>
         </div>
-        <%@ include file="/WEB-INF/views/admin/jspf/footer.jspf" %>
     </div>
-</div>
 </body>
 </html>

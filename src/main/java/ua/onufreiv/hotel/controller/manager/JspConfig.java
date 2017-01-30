@@ -26,8 +26,9 @@ public class JspConfig {
     public static final String ROOM_PRICE_NAME = "room.price.name";
     public static final String ROOM_PERSONS_TOTAL_NAME = "room.persons.total.name";
     public static final String ROOM_DESCRIPTION_NAME = "room.description.name";
-    public static final String EXACT_ROOM_NAME = "exact.room.name";
-    public static final String ALTERNATIVE_ROOM_NAME = "alternative.room.name";
+    public static final String EXACT_TYPE_ROOM_NAME = "exact.type.room.name";
+    public static final String FAVOURITE_TYPE_ROOM_NAME = "favourite.type.room.name";
+    public static final String ANY_TYPE_ROOM_NAME = "any.type.room.name";
 
     public static final String BOOK_REQUEST_NAME = "book.request.name";
     public static final String BOOK_REQUEST_ID_NAME = "book.request.id.name";

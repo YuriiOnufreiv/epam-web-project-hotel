@@ -5,6 +5,9 @@ import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.entity.User;
+import ua.onufreiv.hotel.roomfinder.AnyTypeRoomChooser;
+import ua.onufreiv.hotel.roomfinder.ExactTypeRoomChooser;
+import ua.onufreiv.hotel.roomfinder.FavouriteTypeRoomChooser;
 import ua.onufreiv.hotel.service.BookRequestService;
 import ua.onufreiv.hotel.service.RoomService;
 import ua.onufreiv.hotel.service.RoomTypeService;
@@ -13,8 +16,6 @@ import ua.onufreiv.hotel.service.impl.BookRequestServiceImpl;
 import ua.onufreiv.hotel.service.impl.RoomServiceImpl;
 import ua.onufreiv.hotel.service.impl.RoomTypeServiceImpl;
 import ua.onufreiv.hotel.service.impl.UserServiceImpl;
-import ua.onufreiv.hotel.util.roomfinder.AlternativeRoomFinder;
-import ua.onufreiv.hotel.util.roomfinder.ExactRoomChooser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,13 +46,15 @@ public class CommandProcessBookRequest implements Command {
 
         BookRequest bookRequest = bookRequestService.findById(bookRequestId);
         User user = userService.findById(bookRequest.getUserId());
-        Room exactRoom = roomServiceImpl.searchRoomForRequest(bookRequest, new ExactRoomChooser());
-        Room alternateRoom = roomServiceImpl.searchRoomForRequest(bookRequest, new AlternativeRoomFinder());
+        Room exactTypeRoom = roomServiceImpl.searchRoomForRequest(bookRequest, new ExactTypeRoomChooser());
+        Room favouriteTypeRoom = roomServiceImpl.searchRoomForRequest(bookRequest, new FavouriteTypeRoomChooser());
+        Room anyTypeRoom = roomServiceImpl.searchRoomForRequest(bookRequest, new AnyTypeRoomChooser());
 
         request.setAttribute(jspConfig.get(USER_NAME), user);
         request.setAttribute(jspConfig.get(BOOK_REQUEST_NAME), bookRequest);
-        request.setAttribute(jspConfig.get(EXACT_ROOM_NAME), exactRoom);
-        request.setAttribute(jspConfig.get(ALTERNATIVE_ROOM_NAME), alternateRoom);
+        request.setAttribute(jspConfig.get(EXACT_TYPE_ROOM_NAME), exactTypeRoom);
+        request.setAttribute(jspConfig.get(FAVOURITE_TYPE_ROOM_NAME), favouriteTypeRoom);
+        request.setAttribute(jspConfig.get(ANY_TYPE_ROOM_NAME), anyTypeRoom);
         request.setAttribute(jspConfig.get(ID_ROOM_TYPE_MAP_NAME), roomTypeServiceImpl.findAllAsMap());
 
         return PathConfig.getInstance().getProperty(PathConfig.PROCESS_REQUEST_PAGE_PATH);

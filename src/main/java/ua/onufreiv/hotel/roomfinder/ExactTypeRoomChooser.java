@@ -1,8 +1,8 @@
-package ua.onufreiv.hotel.util.roomfinder;
+package ua.onufreiv.hotel.roomfinder;
 
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.Room;
-import ua.onufreiv.hotel.util.roomfinder.comparator.RoomPriceComparator;
+import ua.onufreiv.hotel.roomfinder.comparator.RoomPriceComparator;
 
 import java.util.Comparator;
 import java.util.List;
@@ -11,16 +11,16 @@ import java.util.Map;
 /**
  * Created by yurii on 1/7/17.
  */
-public class ExactRoomChooser implements IRoomChooser {
+public class ExactTypeRoomChooser implements RoomChooser {
 
     @Override
-    public Room chooseRoom(BookRequest bookRequest, List<Room> rooms, Map<Integer, String> types) {
-        int neededTypeId = bookRequest.getRoomTypeId();
-        int neededPersonsAmount = bookRequest.getPersons();
+    public Room chooseRoom(BookRequest requestToProcess, List<BookRequest> prevRequests,
+                           List<Room> rooms, Map<Integer, String> types) {
+        int neededTypeId = requestToProcess.getRoomTypeId();
+        int neededPersonsAmount = requestToProcess.getPersons();
+        Comparator<Room> roomComparator = new RoomPriceComparator();
 
         Room exactRoom = null;
-
-        Comparator<Room> roomComparator = new RoomPriceComparator();
         for (Room room : rooms) {
             if (room.getRoomTypeId().equals(neededTypeId)
                     && room.getMaxPerson() >= neededPersonsAmount
