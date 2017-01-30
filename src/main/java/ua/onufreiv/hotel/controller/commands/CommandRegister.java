@@ -4,8 +4,8 @@ import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.entity.User;
-import ua.onufreiv.hotel.service.RegisterService;
-import ua.onufreiv.hotel.service.impl.RegisterServiceImpl;
+import ua.onufreiv.hotel.service.UserService;
+import ua.onufreiv.hotel.service.impl.UserServiceImpl;
 import ua.onufreiv.hotel.util.PasswordEncoder;
 import ua.onufreiv.hotel.util.RegisterFormValidator;
 
@@ -18,11 +18,11 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
  * Created by yurii on 12/29/16.
  */
 public class CommandRegister implements Command {
-    private final RegisterService registerService;
+    private final UserService userService;
     private final JspConfig jspConfig;
 
     public CommandRegister() {
-        registerService = RegisterServiceImpl.getInstance();
+        userService = UserServiceImpl.getInstance();
         jspConfig = JspConfig.getInstance();
     }
 
@@ -34,7 +34,7 @@ public class CommandRegister implements Command {
         String telephone = request.getParameter(jspConfig.get(USER_TELEPHONE_NUMBER_NAME));
         String password = request.getParameter(jspConfig.get(USER_PASSWORD_NAME));
 
-        boolean validEmail = registerService.isUniqueEmail(email);
+        boolean validEmail = userService.isUniqueEmail(email);
         boolean validPhoneNumber = RegisterFormValidator.isValidPhoneNumber(telephone);
         boolean validPassword = RegisterFormValidator.isValidPassword(password);
 
@@ -74,7 +74,7 @@ public class CommandRegister implements Command {
         passwordHash.setPwdHash(PasswordEncoder.getInstance().encode(password));
 
         String page;
-        if (passwordHash.getPwdHash() != null && registerService.insertUser(user, passwordHash)) {
+        if (passwordHash.getPwdHash() != null && userService.insertUser(user, passwordHash)) {
             request.setAttribute(jspConfig.get(SIGN_UP_SUCCESS_NAME), true);
             page = PathConfig.getInstance().getProperty(PathConfig.LOGIN_PAGE_PATH);
         } else {
