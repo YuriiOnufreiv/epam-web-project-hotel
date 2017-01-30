@@ -52,7 +52,7 @@ public class MySqlBillDao implements IBillDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -63,7 +63,7 @@ public class MySqlBillDao implements IBillDao {
         Connection connection = ConnectionManager.getConnection();
         Bill bill = queryBuilder.select()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new BillMapper());
         ConnectionManager.closeConnection(connection);
         return bill;
@@ -87,7 +87,7 @@ public class MySqlBillDao implements IBillDao {
                 .set(COLUMN_ROOM_FK_NAME, bill.getRoomId())
                 .set(COLUMN_PRICE_NAME, bill.getTotalPrice())
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(bill.getId())
+                .column(COLUMN_ID_NAME).isEqualTo(bill.getId())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -98,7 +98,7 @@ public class MySqlBillDao implements IBillDao {
         Connection connection = ConnectionManager.getConnection();
         Bill bill = queryBuilder.select()
                 .where()
-                .column(COLUMN_BOOK_REQUEST_FK_NAME).isEqual(id)
+                .column(COLUMN_BOOK_REQUEST_FK_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new BillMapper());
         ConnectionManager.closeConnection(connection);
         return bill;

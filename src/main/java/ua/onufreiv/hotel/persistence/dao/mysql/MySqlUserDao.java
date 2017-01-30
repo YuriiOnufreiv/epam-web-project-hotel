@@ -58,7 +58,7 @@ public class MySqlUserDao implements IUserDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -69,7 +69,7 @@ public class MySqlUserDao implements IUserDao {
         Connection connection = ConnectionManager.getConnection();
         User user = queryBuilder.select()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new UserMapper());
         ConnectionManager.closeConnection(connection);
         return user;
@@ -95,7 +95,7 @@ public class MySqlUserDao implements IUserDao {
                 .set(COLUMN_ROLE_FK_NAME, user.getUserRoleId())
                 .set(COLUMN_PWD_FK_NAME, user.getPwdHashId())
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(user.getId())
+                .column(COLUMN_ID_NAME).isEqualTo(user.getId())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -106,7 +106,7 @@ public class MySqlUserDao implements IUserDao {
         Connection connection = ConnectionManager.getConnection();
         User user = queryBuilder.select()
                 .where()
-                .column(COLUMN_EMAIL_NAME).isEqual(email)
+                .column(COLUMN_EMAIL_NAME).isEqualTo(email)
                 .executeQueryForObject(connection, new UserMapper());
         ConnectionManager.closeConnection(connection);
         return user;

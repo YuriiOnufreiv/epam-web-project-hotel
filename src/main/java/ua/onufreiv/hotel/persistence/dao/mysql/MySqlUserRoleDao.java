@@ -46,7 +46,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -57,7 +57,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
         Connection connection = ConnectionManager.getConnection();
         UserRole userRole = queryBuilder.select()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new UserRoleMapper());
         ConnectionManager.closeConnection(connection);
         return userRole;
@@ -78,7 +78,7 @@ public class MySqlUserRoleDao implements IUserRoleDao {
         boolean update = queryBuilder.update()
                 .set(COLUMN_ROLE_NAME, userRole.getRole())
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(userRole.getId())
+                .column(COLUMN_ID_NAME).isEqualTo(userRole.getId())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return update;

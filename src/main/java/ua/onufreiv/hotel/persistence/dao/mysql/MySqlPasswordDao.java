@@ -46,7 +46,7 @@ public class MySqlPasswordDao implements IPasswordDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -57,7 +57,7 @@ public class MySqlPasswordDao implements IPasswordDao {
         Connection connection = ConnectionManager.getConnection();
         PasswordHash bookRequest = queryBuilder.select()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new PasswordHashMapper());
         ConnectionManager.closeConnection(connection);
         return bookRequest;
@@ -74,7 +74,7 @@ public class MySqlPasswordDao implements IPasswordDao {
         boolean update = queryBuilder.update()
                 .set(COLUMN_PWD_HASH_NAME, passwordHash.getPwdHash())
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(passwordHash.getId())
+                .column(COLUMN_ID_NAME).isEqualTo(passwordHash.getId())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return update;

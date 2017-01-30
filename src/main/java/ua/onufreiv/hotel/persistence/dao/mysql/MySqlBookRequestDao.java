@@ -58,7 +58,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -69,7 +69,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
         Connection connection = ConnectionManager.getConnection();
         BookRequest bookRequest = queryBuilder.select()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new BookRequestMapper());
         ConnectionManager.closeConnection(connection);
         return bookRequest;
@@ -96,7 +96,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
                 .set(COLUMN_CHECK_OUT_NAME, bookRequest.getCheckOut())
                 .set(COLUMN_PROCESSED_NAME, bookRequest.getProcessed())
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(bookRequest.getId())
+                .column(COLUMN_ID_NAME).isEqualTo(bookRequest.getId())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -107,7 +107,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
         Connection connection = ConnectionManager.getConnection();
         List<BookRequest> bookRequests = queryBuilder.select()
                 .where()
-                .column(COLUMN_USER_FK_NAME).isEqual(id)
+                .column(COLUMN_USER_FK_NAME).isEqualTo(id)
                 .executeQuery(connection, new BookRequestMapper());
         ConnectionManager.closeConnection(connection);
         return bookRequests;
@@ -118,7 +118,7 @@ public class MySqlBookRequestDao implements IBookRequestDao {
         Connection connection = ConnectionManager.getConnection();
         List<BookRequest> bookRequests = queryBuilder.select()
                 .where()
-                .column(COLUMN_PROCESSED_NAME).isEqual(false)
+                .column(COLUMN_PROCESSED_NAME).isEqualTo(false)
                 .executeQuery(connection, new BookRequestMapper());
         ConnectionManager.closeConnection(connection);
         return bookRequests;

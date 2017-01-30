@@ -51,7 +51,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -62,7 +62,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
         Connection connection = ConnectionManager.getConnection();
         ReservedRoom reservedRoom = queryBuilder.select()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new ReservedRoomMapper());
         ConnectionManager.closeConnection(connection);
         return reservedRoom;
@@ -85,7 +85,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
                 .set(COLUMN_CHECK_IN_NAME, reservedRoom.getCheckInDate())
                 .set(COLUMN_CHECK_OUT_NAME, reservedRoom.getCheckOutDate())
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(reservedRoom.getId())
+                .column(COLUMN_ID_NAME).isEqualTo(reservedRoom.getId())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -96,9 +96,9 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
         Connection connection = ConnectionManager.getConnection();
         List<ReservedRoom> reservedRooms = queryBuilder.select()
                 .where()
-                .column(COLUMN_CHECK_OUT_NAME).greater(checkInDate)
+                .column(COLUMN_CHECK_OUT_NAME).isGreaterThan(checkInDate)
                 .and()
-                .column(COLUMN_CHECK_IN_NAME).less(checkOutDate)
+                .column(COLUMN_CHECK_IN_NAME).isLessThan(checkOutDate)
                 .executeQuery(connection, new ReservedRoomMapper());
         ConnectionManager.closeConnection(connection);
         return reservedRooms;
@@ -109,11 +109,11 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
         Connection connection = ConnectionManager.getConnection();
         ReservedRoom reservedRoom = queryBuilder.select()
                 .where()
-                .column(COLUMN_ROOM_FK_NAME).isEqual(roomId)
+                .column(COLUMN_ROOM_FK_NAME).isEqualTo(roomId)
                 .and()
-                .column(COLUMN_CHECK_OUT_NAME).greater(checkInDate)
+                .column(COLUMN_CHECK_OUT_NAME).isGreaterThan(checkInDate)
                 .and()
-                .column(COLUMN_CHECK_IN_NAME).less(checkOutDate)
+                .column(COLUMN_CHECK_IN_NAME).isLessThan(checkOutDate)
                 .executeQueryForObject(connection, new ReservedRoomMapper());
         ConnectionManager.closeConnection(connection);
         return reservedRoom != null;
@@ -124,7 +124,7 @@ public class MySqlReservedRoomDao implements IReservedRoomDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_CHECK_OUT_NAME).less(new Date())
+                .column(COLUMN_CHECK_OUT_NAME).isLessThan(new Date())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;

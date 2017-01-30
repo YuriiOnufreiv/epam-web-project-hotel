@@ -4,10 +4,11 @@ import ua.onufreiv.hotel.entity.RoomType;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.IRoomTypeDao;
 import ua.onufreiv.hotel.persistence.query.QueryBuilder;
+import ua.onufreiv.hotel.persistence.query.SqlQuerySelect;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.RoomTypeMapper;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.SimpleStringMapper;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -60,7 +61,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         Connection connection = ConnectionManager.getConnection();
         RoomType RoomType = queryBuilder.select()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new RoomTypeMapper());
         ConnectionManager.closeConnection(connection);
         return RoomType;
@@ -81,7 +82,7 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
         boolean update = queryBuilder.update()
                 .set(COLUMN_TYPE_NAME, roomType.getType())
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(roomType.getId())
+                .column(COLUMN_ID_NAME).isEqualTo(roomType.getId())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return update;
@@ -90,12 +91,9 @@ public class MySqlRoomTypeDao implements IRoomTypeDao {
     @Override
     public List<String> findAllRoomTypesString() {
         Connection connection = ConnectionManager.getConnection();
-        List<RoomType> roomTypes = queryBuilder.select()
-                .selectAll(connection, new RoomTypeMapper());
-        List<String> types = new ArrayList<>();
-        for (RoomType roomType : roomTypes) {
-            types.add(roomType.getType());
-        }
+        List<String> types = new SqlQuerySelect<String>(TABLE_NAME)
+                .columns(COLUMN_TYPE_NAME)
+                .selectAll(connection, new SimpleStringMapper());
         ConnectionManager.closeConnection(connection);
         return types;
     }

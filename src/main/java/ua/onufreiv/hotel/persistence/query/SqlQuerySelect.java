@@ -19,8 +19,15 @@ public class SqlQuerySelect<T> implements SqlQueryWhereWrappable {
     private String tableName;
     private String[] columns;
 
+    public SqlQuerySelect() {
+    }
+
     public SqlQuerySelect(String tableName) {
         this.tableName = tableName;
+    }
+
+    public String[] getColumns() {
+        return columns;
     }
 
     public SqlQuerySelect from(String tableName) {
@@ -28,7 +35,7 @@ public class SqlQuerySelect<T> implements SqlQueryWhereWrappable {
         return this;
     }
 
-    public SqlQuerySelect columns(String... columns) {
+    public SqlQuerySelect<T> columns(String... columns) {
         this.columns = columns;
         return this;
     }
@@ -97,7 +104,7 @@ public class SqlQuerySelect<T> implements SqlQueryWhereWrappable {
     @Override
     public String getSqlStatement() {
         String columnsToSelect = columns == null || columns.length == 0 ?
-                "*" : String.join(",", columns);
+                "*" : String.join(", ", columns);
 
         StringBuilder builder = new StringBuilder("SELECT ");
         builder.append(columnsToSelect)

@@ -18,9 +18,17 @@ public class SqlQueryUpdate<T> implements SqlQueryWhereWrappable {
     private String tableName;
     private Map<String, Object> values;
 
-    public SqlQueryUpdate(String tableName) {
-        this.tableName = tableName;
+    public SqlQueryUpdate() {
         values = new HashMap<>();
+    }
+
+    public SqlQueryUpdate(String tableName) {
+        this();
+        this.tableName = tableName;
+    }
+
+    public Map<String, Object> getValues() {
+        return values;
     }
 
     public SqlQueryUpdate table(String tableName) {
@@ -35,11 +43,6 @@ public class SqlQueryUpdate<T> implements SqlQueryWhereWrappable {
 
     public int executeUpdate(Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement())) {
-            int i = 1;
-            for (Object value : values.values()) {
-                preparedStatement.setObject(i++, value);
-            }
-
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Failed to execute update statement: ", e);
@@ -67,7 +70,7 @@ public class SqlQueryUpdate<T> implements SqlQueryWhereWrappable {
                 .append(" SET ")
                 .append(String.join(", ", values.keySet()
                         .stream()
-                        .map(s -> s + "=" + "?")
+                        .map(s -> s + " = " + "?")
                         .toArray(String[]::new)))
                 .append(";");
 

@@ -14,6 +14,9 @@ public class SqlQueryDelete<T> implements SqlQueryWhereWrappable {
 
     private String tableName;
 
+    public SqlQueryDelete() {
+    }
+
     public SqlQueryDelete(String tableName) {
         this.tableName = tableName;
     }

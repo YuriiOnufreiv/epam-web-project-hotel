@@ -54,7 +54,7 @@ public class MySqlRoomDao implements IRoomDao {
         Connection connection = ConnectionManager.getConnection();
         boolean result = queryBuilder.delete()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return result;
@@ -65,7 +65,7 @@ public class MySqlRoomDao implements IRoomDao {
         Connection connection = ConnectionManager.getConnection();
         Room room = queryBuilder.select()
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(id)
+                .column(COLUMN_ID_NAME).isEqualTo(id)
                 .executeQueryForObject(connection, new RoomMapper());
         ConnectionManager.closeConnection(connection);
         return room;
@@ -90,7 +90,7 @@ public class MySqlRoomDao implements IRoomDao {
                 .set(COLUMN_PRICE_NAME, room.getPrice())
                 .set(COLUMN_MAX_PERSON_NAME, room.getMaxPerson())
                 .where()
-                .column(COLUMN_ID_NAME).isEqual(room.getId())
+                .column(COLUMN_ID_NAME).isEqualTo(room.getId())
                 .executeUpdate(connection) > 0;
         ConnectionManager.closeConnection(connection);
         return update;
@@ -112,7 +112,7 @@ public class MySqlRoomDao implements IRoomDao {
         Connection connection = ConnectionManager.getConnection();
         Room room = queryBuilder.select()
                 .where()
-                .column(COLUMN_NUMBER_NAME).isEqual(number)
+                .column(COLUMN_NUMBER_NAME).isEqualTo(number)
                 .executeQueryForObject(connection, new RoomMapper());
         ConnectionManager.closeConnection(connection);
         return room;

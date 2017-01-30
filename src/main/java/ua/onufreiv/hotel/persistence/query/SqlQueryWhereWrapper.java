@@ -30,9 +30,21 @@ public class SqlQueryWhereWrapper<T, K extends SqlQueryWhereWrappable> implement
         column = new Column();
     }
 
+    public StringBuilder getWhereClause() {
+        return whereClause;
+    }
+
+    public List<Object> getValues() {
+        return values;
+    }
+
     public Column column(String columnName) {
         whereClause.append(columnName);
         return SqlQueryWhereWrapper.this.column;
+    }
+
+    public K getBaseQuery() {
+        return baseQuery;
     }
 
     public SqlQueryWhereWrapper<T, K> and() {
@@ -125,69 +137,50 @@ public class SqlQueryWhereWrapper<T, K extends SqlQueryWhereWrappable> implement
         private Column() {
         }
 
-        public SqlQueryWhereWrapper<T, K> isEqual(Boolean bool) {
+        public SqlQueryWhereWrapper<T, K> isEqualTo(Boolean bool) {
             values.add(bool.toString());
-            whereClause.append("=").append("?");
+            whereClause.append(" = ").append("?");
             return SqlQueryWhereWrapper.this;
         }
 
-        public SqlQueryWhereWrapper<T, K> isEqual(String str) {
+        public SqlQueryWhereWrapper<T, K> isEqualTo(String str) {
             values.add(str);
-            whereClause.append("=").append("?");
+            whereClause.append(" = ").append("?");
             return SqlQueryWhereWrapper.this;
         }
 
-        public SqlQueryWhereWrapper<T, K> isEqual(Integer value) {
+        public SqlQueryWhereWrapper<T, K> isEqualTo(Integer value) {
             values.add(value);
-            whereClause.append("=").append("?");
+            whereClause.append(" = ").append("?");
             return SqlQueryWhereWrapper.this;
         }
 
-        public SqlQueryWhereWrapper<T, K> isEqual(Number value) {
-            values.add(value.doubleValue());
-            whereClause.append("=").append("?");
-            return SqlQueryWhereWrapper.this;
-        }
-
-        public SqlQueryWhereWrapper<T, K> less(Number value) {
-            values.add(value.doubleValue());
-            whereClause.append("<").append("?");
-            return SqlQueryWhereWrapper.this;
-        }
-
-        public SqlQueryWhereWrapper<T, K> less(Integer value) {
-            values.add(value);
-            whereClause.append("<").append("?");
-            return SqlQueryWhereWrapper.this;
-        }
-
-        public SqlQueryWhereWrapper<T, K> less(Date date) {
+        public SqlQueryWhereWrapper<T, K> isLessThan(Date date) {
             values.add(date);
-            whereClause.append("<").append("DATE(?)");
+            whereClause.append(" < ").append("DATE(?)");
             return SqlQueryWhereWrapper.this;
         }
 
-        public SqlQueryWhereWrapper<T, K> greater(Number value) {
-            values.add(value.doubleValue());
-            whereClause.append(">").append("?");
-            return SqlQueryWhereWrapper.this;
-        }
-
-        public SqlQueryWhereWrapper<T, K> greater(Date date) {
+        public SqlQueryWhereWrapper<T, K> isGreaterThan(Date date) {
             values.add(date);
-            whereClause.append(">").append("DATE(?)");
+            whereClause.append(" > ").append("DATE(?)");
             return SqlQueryWhereWrapper.this;
         }
 
-        public SqlQueryWhereWrapper<T, K> notIn(List<Integer> exceptRoomIds) {
-            values.add(exceptRoomIds);
+        public SqlQueryWhereWrapper<T, K> in(List<Integer> integers) {
+            values.add(integers);
             String[] questionMarks = new String[values.size()];
             Arrays.fill(questionMarks, "?");
-            whereClause.append(" NOT IN ")
-                    .append(" (")
-                    .append(String.join(",", questionMarks))
+            whereClause.append(" IN ")
+                    .append("(")
+                    .append(String.join(", ", questionMarks))
                     .append(")");
             return SqlQueryWhereWrapper.this;
+        }
+
+        public SqlQueryWhereWrapper<T, K> notIn(List<Integer> integers) {
+            whereClause.append(" NOT");
+            return in(integers);
         }
     }
 }
