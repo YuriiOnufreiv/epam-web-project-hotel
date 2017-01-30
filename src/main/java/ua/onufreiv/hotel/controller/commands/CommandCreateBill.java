@@ -3,8 +3,8 @@ package ua.onufreiv.hotel.controller.commands;
 import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.Bill;
-import ua.onufreiv.hotel.service.IBillService;
-import ua.onufreiv.hotel.service.impl.BillService;
+import ua.onufreiv.hotel.service.BillService;
+import ua.onufreiv.hotel.service.impl.BillServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,11 +15,11 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
  * Created by yurii on 1/10/17.
  */
 public class CommandCreateBill implements Command {
-    private final IBillService billService;
+    private final BillService billService;
     private final JspConfig jspConfig;
 
     public CommandCreateBill() {
-        billService = BillService.getInstance();
+        billService = BillServiceImpl.getInstance();
         jspConfig = JspConfig.getInstance();
     }
 

@@ -2,8 +2,8 @@ package ua.onufreiv.hotel.controller.commands;
 
 import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
-import ua.onufreiv.hotel.service.IRoomTypeService;
-import ua.onufreiv.hotel.service.impl.RoomTypeService;
+import ua.onufreiv.hotel.service.RoomTypeService;
+import ua.onufreiv.hotel.service.impl.RoomTypeServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,11 +15,11 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.ID_ROOM_TYPE_MAP_NA
  * Created by yurii on 1/26/17.
  */
 public class CommandForwardToPage implements Command {
-    private final IRoomTypeService roomTypeService;
+    private final RoomTypeService roomTypeService;
     private final JspConfig jspConfig;
 
     public CommandForwardToPage() {
-        roomTypeService = RoomTypeService.getInstance();
+        roomTypeService = RoomTypeServiceImpl.getInstance();
         jspConfig = JspConfig.getInstance();
     }
 

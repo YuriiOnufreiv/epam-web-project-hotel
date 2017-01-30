@@ -4,8 +4,8 @@ import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.User;
-import ua.onufreiv.hotel.service.IBookRequestService;
-import ua.onufreiv.hotel.service.impl.BookRequestService;
+import ua.onufreiv.hotel.service.BookRequestService;
+import ua.onufreiv.hotel.service.impl.BookRequestServiceImpl;
 import ua.onufreiv.hotel.util.DateParser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,12 +18,12 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
  * Created by yurii on 1/1/17.
  */
 public class CommandMakeNewBooking implements Command {
-    private final IBookRequestService reservationService;
+    private final BookRequestService reservationService;
     private final JspConfig jspConfig;
 
     public CommandMakeNewBooking() {
         jspConfig = JspConfig.getInstance();
-        reservationService = BookRequestService.getInstance();
+        reservationService = BookRequestServiceImpl.getInstance();
     }
 
     @Override

@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 
 import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
-import ua.onufreiv.hotel.persistence.dao.IReservedRoomDao;
+import ua.onufreiv.hotel.persistence.dao.ReservedRoomDao;
 import ua.onufreiv.hotel.persistence.query.QueryBuilder;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.ReservedRoomMapper;
 
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by yurii on 1/5/17.
  */
-public class MySqlReservedRoomDao implements IReservedRoomDao {
+public class MySqlReservedRoomDao implements ReservedRoomDao {
     private static final String TABLE_NAME = "reserved_room";
     private static final String COLUMN_ID_NAME = "idReservedRoom";
     private static final String COLUMN_ROOM_FK_NAME = "roomFK";

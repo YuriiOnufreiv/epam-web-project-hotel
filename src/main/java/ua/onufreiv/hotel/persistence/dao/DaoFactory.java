@@ -21,19 +21,19 @@ public abstract class DaoFactory {
     // There will be a method for each DAO that can be
     // created. The concrete factories will have to
     // implement these methods.
-    public abstract IUserDao getUserDao();
+    public abstract UserDao getUserDao();
 
-    public abstract IPasswordDao getPasswordDao();
+    public abstract PasswordDao getPasswordDao();
 
-    public abstract IBookRequestDao getBookRequestDao();
+    public abstract BookRequestDao getBookRequestDao();
 
-    public abstract IRoomTypeDao getRoomTypeDao();
+    public abstract RoomTypeDao getRoomTypeDao();
 
-    public abstract IRoomDao getRoomDao();
+    public abstract RoomDao getRoomDao();
 
-    public abstract IReservedRoomDao getReservedRoomDao();
+    public abstract ReservedRoomDao getReservedRoomDao();
 
-    public abstract IUserRoleDao getUserRoleDao();
+    public abstract UserRoleDao getUserRoleDao();
 
-    public abstract IBillDao getBillDao();
+    public abstract BillDao getBillDao();
 }

@@ -7,7 +7,7 @@ import ua.onufreiv.hotel.util.roomfinder.IRoomChooser;
 /**
  * Created by yurii on 1/5/17.
  */
-public interface IRoomService {
+public interface RoomService {
     boolean insertRoom(Room room);
 
     Room findById(int id);

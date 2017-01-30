@@ -6,7 +6,7 @@ import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.*;
-import ua.onufreiv.hotel.service.IRoomService;
+import ua.onufreiv.hotel.service.RoomService;
 import ua.onufreiv.hotel.util.roomfinder.IRoomChooser;
 
 import java.util.ArrayList;
@@ -16,15 +16,15 @@ import java.util.Map;
 /**
  * Created by yurii on 1/5/17.
  */
-public class RoomService implements IRoomService {
-    private static RoomService instance;
+public class RoomServiceImpl implements RoomService {
+    private static RoomServiceImpl instance;
 
-    private final IRoomTypeDao roomTypeDao;
-    private final IRoomDao roomDao;
-    private final IReservedRoomDao reservedRoomDao;
-    private final IUserDao userDao;
+    private final RoomTypeDao roomTypeDao;
+    private final RoomDao roomDao;
+    private final ReservedRoomDao reservedRoomDao;
+    private final UserDao userDao;
 
-    private RoomService() {
+    private RoomServiceImpl() {
         DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         roomTypeDao = daoFactory.getRoomTypeDao();
         roomDao = daoFactory.getRoomDao();
@@ -32,9 +32,9 @@ public class RoomService implements IRoomService {
         userDao = daoFactory.getUserDao();
     }
 
-    public synchronized static RoomService getInstance() {
+    public synchronized static RoomServiceImpl getInstance() {
         if (instance == null) {
-            instance = new RoomService();
+            instance = new RoomServiceImpl();
         }
         return instance;
     }

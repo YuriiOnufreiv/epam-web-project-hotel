@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by yurii on 12/23/16.
  */
-public interface IDao<T extends AbstractEntity> {
+public interface Dao<T extends AbstractEntity> {
     int insert(T entity);
 
     boolean delete(int id);

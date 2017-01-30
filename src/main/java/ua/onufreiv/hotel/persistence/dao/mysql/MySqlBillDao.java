@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 
 import ua.onufreiv.hotel.entity.Bill;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
-import ua.onufreiv.hotel.persistence.dao.IBillDao;
+import ua.onufreiv.hotel.persistence.dao.BillDao;
 import ua.onufreiv.hotel.persistence.query.QueryBuilder;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.BillMapper;
 
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by yurii on 1/10/17.
  */
-public class MySqlBillDao implements IBillDao {
+public class MySqlBillDao implements BillDao {
     private static final String TABLE_NAME = "bill";
     private static final String COLUMN_ID_NAME = "idBill";
     private static final String COLUMN_CREATION_DATE_TIME_NAME = "creationDateTime";

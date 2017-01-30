@@ -4,8 +4,8 @@ import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.entity.User;
-import ua.onufreiv.hotel.service.IRegisterService;
-import ua.onufreiv.hotel.service.impl.RegisterService;
+import ua.onufreiv.hotel.service.RegisterService;
+import ua.onufreiv.hotel.service.impl.RegisterServiceImpl;
 import ua.onufreiv.hotel.util.PasswordEncoder;
 import ua.onufreiv.hotel.util.RegisterFormValidator;
 
@@ -18,11 +18,11 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
  * Created by yurii on 12/29/16.
  */
 public class CommandRegister implements Command {
-    private final IRegisterService registerService;
+    private final RegisterService registerService;
     private final JspConfig jspConfig;
 
     public CommandRegister() {
-        registerService = RegisterService.getInstance();
+        registerService = RegisterServiceImpl.getInstance();
         jspConfig = JspConfig.getInstance();
     }
 

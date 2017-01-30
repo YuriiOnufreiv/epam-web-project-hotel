@@ -3,29 +3,29 @@ package ua.onufreiv.hotel.service.impl;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.DaoFactory;
-import ua.onufreiv.hotel.persistence.dao.IPasswordDao;
-import ua.onufreiv.hotel.persistence.dao.IUserDao;
-import ua.onufreiv.hotel.service.IAuthService;
+import ua.onufreiv.hotel.persistence.dao.PasswordDao;
+import ua.onufreiv.hotel.persistence.dao.UserDao;
+import ua.onufreiv.hotel.service.AuthService;
 import ua.onufreiv.hotel.util.PasswordEncoder;
 
 /**
  * Created by yurii on 12/27/16.
  */
-public class AuthService implements IAuthService {
-    private static AuthService instance;
+public class AuthServiceImpl implements AuthService {
+    private static AuthServiceImpl instance;
 
-    private final IUserDao userDao;
-    private final IPasswordDao passwordDao;
+    private final UserDao userDao;
+    private final PasswordDao passwordDao;
 
-    private AuthService() {
+    private AuthServiceImpl() {
         DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         userDao = daoFactory.getUserDao();
         passwordDao = daoFactory.getPasswordDao();
     }
 
-    public synchronized static AuthService getInstance() {
+    public synchronized static AuthServiceImpl getInstance() {
         if (instance == null) {
-            instance = new AuthService();
+            instance = new AuthServiceImpl();
         }
         return instance;
     }

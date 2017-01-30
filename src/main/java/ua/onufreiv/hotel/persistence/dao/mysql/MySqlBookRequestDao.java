@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
-import ua.onufreiv.hotel.persistence.dao.IBookRequestDao;
+import ua.onufreiv.hotel.persistence.dao.BookRequestDao;
 import ua.onufreiv.hotel.persistence.query.QueryBuilder;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.BookRequestMapper;
 
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by yurii on 1/1/17.
  */
-public class MySqlBookRequestDao implements IBookRequestDao {
+public class MySqlBookRequestDao implements BookRequestDao {
     private static final String TABLE_NAME = "book_request";
     private static final String COLUMN_ID_NAME = "idRequest";
     private static final String COLUMN_CREATION_DATE_TIME_NAME = "creationDateTime";

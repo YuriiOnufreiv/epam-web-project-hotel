@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 
 import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
-import ua.onufreiv.hotel.persistence.dao.IPasswordDao;
+import ua.onufreiv.hotel.persistence.dao.PasswordDao;
 import ua.onufreiv.hotel.persistence.query.QueryBuilder;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.PasswordHashMapper;
 
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by yurii on 12/23/16.
  */
-public class MySqlPasswordDao implements IPasswordDao {
+public class MySqlPasswordDao implements PasswordDao {
     private static final String TABLE_NAME = "password";
     private static final String COLUMN_ID_NAME = "idPassword";
     private static final String COLUMN_PWD_HASH_NAME = "pwdHash";

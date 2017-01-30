@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 
 import ua.onufreiv.hotel.entity.UserRole;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
-import ua.onufreiv.hotel.persistence.dao.IUserRoleDao;
+import ua.onufreiv.hotel.persistence.dao.UserRoleDao;
 import ua.onufreiv.hotel.persistence.query.QueryBuilder;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.UserRoleMapper;
 
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by yurii on 1/8/17.
  */
-public class MySqlUserRoleDao implements IUserRoleDao {
+public class MySqlUserRoleDao implements UserRoleDao {
     private static final String TABLE_NAME = "user_role";
     private static final String COLUMN_ID_NAME = "idUserRole";
     private static final String COLUMN_ROLE_NAME = "role";

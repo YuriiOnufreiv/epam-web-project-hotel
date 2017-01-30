@@ -3,25 +3,25 @@ package ua.onufreiv.hotel.service.impl;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.DaoFactory;
-import ua.onufreiv.hotel.persistence.dao.IUserRoleDao;
-import ua.onufreiv.hotel.service.IUserRoleService;
+import ua.onufreiv.hotel.persistence.dao.UserRoleDao;
+import ua.onufreiv.hotel.service.UserRoleService;
 
 /**
  * Created by yurii on 1/8/17.
  */
-public class UserRoleService implements IUserRoleService {
-    private static UserRoleService instance;
+public class UserRoleServiceImpl implements UserRoleService {
+    private static UserRoleServiceImpl instance;
 
-    private final IUserRoleDao userRoleDao;
+    private final UserRoleDao userRoleDao;
 
-    private UserRoleService() {
+    private UserRoleServiceImpl() {
         DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         userRoleDao = daoFactory.getUserRoleDao();
     }
 
-    public synchronized static UserRoleService getInstance() {
+    public synchronized static UserRoleServiceImpl getInstance() {
         if (instance == null) {
-            instance = new UserRoleService();
+            instance = new UserRoleServiceImpl();
         }
         return instance;
     }

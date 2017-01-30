@@ -6,7 +6,7 @@ import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.*;
-import ua.onufreiv.hotel.service.IBillService;
+import ua.onufreiv.hotel.service.BillService;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -14,15 +14,15 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by yurii on 1/10/17.
  */
-public class BillService implements IBillService {
-    private static BillService instance;
+public class BillServiceImpl implements BillService {
+    private static BillServiceImpl instance;
 
-    private final IBookRequestDao bookRequestDao;
-    private final IRoomDao roomDao;
-    private final IReservedRoomDao reservedRoomDao;
-    private final IBillDao billDao;
+    private final BookRequestDao bookRequestDao;
+    private final RoomDao roomDao;
+    private final ReservedRoomDao reservedRoomDao;
+    private final BillDao billDao;
 
-    private BillService() {
+    private BillServiceImpl() {
         DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         bookRequestDao = daoFactory.getBookRequestDao();
         roomDao = daoFactory.getRoomDao();
@@ -30,9 +30,9 @@ public class BillService implements IBillService {
         billDao = daoFactory.getBillDao();
     }
 
-    public synchronized static BillService getInstance() {
+    public synchronized static BillServiceImpl getInstance() {
         if (instance == null) {
-            instance = new BillService();
+            instance = new BillServiceImpl();
         }
         return instance;
     }

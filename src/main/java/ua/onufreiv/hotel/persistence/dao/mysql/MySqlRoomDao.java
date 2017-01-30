@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
-import ua.onufreiv.hotel.persistence.dao.IRoomDao;
+import ua.onufreiv.hotel.persistence.dao.RoomDao;
 import ua.onufreiv.hotel.persistence.query.QueryBuilder;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.RoomMapper;
 
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by yurii on 1/5/17.
  */
-public class MySqlRoomDao implements IRoomDao {
+public class MySqlRoomDao implements RoomDao {
     private static final String TABLE_NAME = "room";
     private static final String COLUMN_ID_NAME = "idRoom";
     private static final String COLUMN_ROOM_TYPE_FK_NAME = "typeFK";

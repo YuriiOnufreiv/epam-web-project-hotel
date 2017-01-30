@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by yurii on 1/4/17.
  */
-public interface IRoomTypeDao extends IDao<RoomType> {
+public interface RoomTypeDao extends Dao<RoomType> {
     List<String> findAllRoomTypesString();
 
     Map<Integer, String> findAllAsMap();

@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
-import ua.onufreiv.hotel.persistence.dao.IUserDao;
+import ua.onufreiv.hotel.persistence.dao.UserDao;
 import ua.onufreiv.hotel.persistence.query.QueryBuilder;
 import ua.onufreiv.hotel.persistence.query.resultsetmapper.UserMapper;
 
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by yurii on 12/23/16.
  */
-public class MySqlUserDao implements IUserDao {
+public class MySqlUserDao implements UserDao {
     private static final String TABLE_NAME = "user";
     private static final String COLUMN_ID_NAME = "idUser";
     private static final String COLUMN_NAME_NAME = "name";

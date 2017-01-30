@@ -2,28 +2,28 @@ package ua.onufreiv.hotel.service.impl;
 
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
+import ua.onufreiv.hotel.persistence.dao.BookRequestDao;
 import ua.onufreiv.hotel.persistence.dao.DaoFactory;
-import ua.onufreiv.hotel.persistence.dao.IBookRequestDao;
-import ua.onufreiv.hotel.service.IBookRequestService;
+import ua.onufreiv.hotel.service.BookRequestService;
 
 import java.util.List;
 
 /**
  * Created by yurii on 1/8/17.
  */
-public class BookRequestService implements IBookRequestService {
-    private static BookRequestService instance;
+public class BookRequestServiceImpl implements BookRequestService {
+    private static BookRequestServiceImpl instance;
 
-    private final IBookRequestDao bookRequestDao;
+    private final BookRequestDao bookRequestDao;
 
-    private BookRequestService() {
+    private BookRequestServiceImpl() {
         DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         bookRequestDao = daoFactory.getBookRequestDao();
     }
 
-    public synchronized static BookRequestService getInstance() {
+    public synchronized static BookRequestServiceImpl getInstance() {
         if (instance == null) {
-            instance = new BookRequestService();
+            instance = new BookRequestServiceImpl();
         }
         return instance;
     }

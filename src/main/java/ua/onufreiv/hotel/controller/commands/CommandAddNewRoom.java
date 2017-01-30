@@ -3,7 +3,7 @@ package ua.onufreiv.hotel.controller.commands;
 import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.Room;
-import ua.onufreiv.hotel.service.impl.RoomService;
+import ua.onufreiv.hotel.service.impl.RoomServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +14,11 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
  * Created by yurii on 1/14/17.
  */
 public class CommandAddNewRoom implements Command {
-    private final RoomService roomService;
+    private final RoomServiceImpl roomServiceImpl;
     private final JspConfig names;
 
     public CommandAddNewRoom() {
-        roomService = RoomService.getInstance();
+        roomServiceImpl = RoomServiceImpl.getInstance();
         names = JspConfig.getInstance();
     }
 
@@ -31,14 +31,14 @@ public class CommandAddNewRoom implements Command {
         String description = request.getParameter(names.get(ROOM_DESCRIPTION_NAME));
 
         Room room = new Room(null, roomTypeId, number, description, price, persons);
-        if (roomService.findByRoomNumber(number) != null) {
+        if (roomServiceImpl.findByRoomNumber(number) != null) {
             request.setAttribute(names.get(INVALID_ROOM_NUMBER_ERROR_NAME), true);
             request.setAttribute(names.get(ROOM_NUMBER_NAME), number);
             request.setAttribute(names.get(ROOM_PRICE_NAME), price);
             request.setAttribute(names.get(ROOM_PERSONS_TOTAL_NAME), persons);
             request.setAttribute(names.get(ROOM_TYPE_NAME), roomTypeId);
             request.setAttribute(names.get(ROOM_DESCRIPTION_NAME), description);
-        } else if (roomService.insertRoom(room)) {
+        } else if (roomServiceImpl.insertRoom(room)) {
             request.setAttribute(names.get(ADD_ROOM_SUCCESS_NAME), true);
         } else {
             request.setAttribute(names.get(ADD_ROOM_ERROR_NAME), true);

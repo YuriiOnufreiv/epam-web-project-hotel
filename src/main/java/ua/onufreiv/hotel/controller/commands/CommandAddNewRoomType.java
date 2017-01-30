@@ -3,7 +3,8 @@ package ua.onufreiv.hotel.controller.commands;
 import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.RoomType;
-import ua.onufreiv.hotel.service.impl.RoomTypeService;
+import ua.onufreiv.hotel.service.RoomTypeService;
+import ua.onufreiv.hotel.service.impl.RoomTypeServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +15,11 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
  * Created by yurii on 1/14/17.
  */
 public class CommandAddNewRoomType implements Command {
-    private final RoomTypeService roomTypeService;
+    private final RoomTypeService roomTypeServiceImpl;
     private final JspConfig names;
 
     public CommandAddNewRoomType() {
-        roomTypeService = RoomTypeService.getInstance();
+        roomTypeServiceImpl = RoomTypeServiceImpl.getInstance();
         names = JspConfig.getInstance();
     }
 
@@ -27,12 +28,12 @@ public class CommandAddNewRoomType implements Command {
         String type = request.getParameter(names.get(ROOM_TYPE_NAME));
 
         RoomType roomType = new RoomType(null, type);
-        if (roomTypeService.typeExists(type)) {
+        if (roomTypeServiceImpl.typeExists(type)) {
             request.setAttribute(names.get(INVALID_ROOM_TYPE_ERROR_NAME), true);
             request.setAttribute(names.get(ROOM_TYPE_NAME), type);
-        } else if (!roomTypeService.insertRoomType(roomType)) {
+        } else if (!roomTypeServiceImpl.insertRoomType(roomType)) {
             request.setAttribute(names.get(ADD_ROOM_TYPE_SUCCESS_NAME), true);
-            request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), roomTypeService.findAllAsMap());
+            request.getSession(false).setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), roomTypeServiceImpl.findAllAsMap());
         } else {
             request.setAttribute(names.get(ADD_ROOM_TYPE_ERROR_NAME), true);
         }

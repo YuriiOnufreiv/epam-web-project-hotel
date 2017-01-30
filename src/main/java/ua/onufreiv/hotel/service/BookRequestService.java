@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by yurii on 1/8/17.
  */
-public interface IBookRequestService {
+public interface BookRequestService {
     boolean insertBookRequest(BookRequest bookRequest);
 
     BookRequest findById(int id);

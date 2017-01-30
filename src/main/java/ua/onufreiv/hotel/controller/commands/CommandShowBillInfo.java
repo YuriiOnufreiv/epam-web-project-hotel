@@ -3,9 +3,7 @@ package ua.onufreiv.hotel.controller.commands;
 import ua.onufreiv.hotel.controller.manager.JspConfig;
 import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.*;
-import ua.onufreiv.hotel.service.IBookRequestService;
-import ua.onufreiv.hotel.service.IRoomTypeService;
-import ua.onufreiv.hotel.service.IUserRoleService;
+import ua.onufreiv.hotel.service.*;
 import ua.onufreiv.hotel.service.impl.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,19 +15,19 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
  * Created by yurii on 1/14/17.
  */
 public class CommandShowBillInfo implements Command {
-    private final IBookRequestService bookRequestService;
-    private final BillService billService;
-    private final RoomService roomService;
-    private final IRoomTypeService roomTypeService;
-    private final IUserRoleService userRoleService;
+    private final BookRequestService bookRequestService;
+    private final BillService billServiceImpl;
+    private final RoomService roomServiceImpl;
+    private final RoomTypeService roomTypeService;
+    private final UserRoleService userRoleService;
     private final JspConfig jspConfig;
 
     public CommandShowBillInfo() {
-        bookRequestService = BookRequestService.getInstance();
-        billService = BillService.getInstance();
-        roomService = RoomService.getInstance();
-        roomTypeService = RoomTypeService.getInstance();
-        userRoleService = UserRoleService.getInstance();
+        bookRequestService = BookRequestServiceImpl.getInstance();
+        billServiceImpl = BillServiceImpl.getInstance();
+        roomServiceImpl = RoomServiceImpl.getInstance();
+        roomTypeService = RoomTypeServiceImpl.getInstance();
+        userRoleService = UserRoleServiceImpl.getInstance();
         jspConfig = JspConfig.getInstance();
     }
 
@@ -39,9 +37,9 @@ public class CommandShowBillInfo implements Command {
         String page;
 
         User user = (User) (request.getSession()).getAttribute(jspConfig.get(USER_NAME));
-        Bill bill = billService.findByBookRequestId(bookRequestId);
+        Bill bill = billServiceImpl.findByBookRequestId(bookRequestId);
         BookRequest bookRequest = bookRequestService.findById(bookRequestId);
-        Room room = roomService.findById(bill.getRoomId());
+        Room room = roomServiceImpl.findById(bill.getRoomId());
         RoomType roomType = roomTypeService.findById(room.getRoomTypeId());
         StringBuilder roomStringBuilder = new StringBuilder();
         roomStringBuilder.append("#")

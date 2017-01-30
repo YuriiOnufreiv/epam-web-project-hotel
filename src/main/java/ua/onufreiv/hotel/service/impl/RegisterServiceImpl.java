@@ -4,28 +4,28 @@ import ua.onufreiv.hotel.entity.PasswordHash;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.DaoFactory;
-import ua.onufreiv.hotel.persistence.dao.IPasswordDao;
-import ua.onufreiv.hotel.persistence.dao.IUserDao;
-import ua.onufreiv.hotel.service.IRegisterService;
+import ua.onufreiv.hotel.persistence.dao.PasswordDao;
+import ua.onufreiv.hotel.persistence.dao.UserDao;
+import ua.onufreiv.hotel.service.RegisterService;
 
 /**
  * Created by yurii on 1/1/17.
  */
-public class RegisterService implements IRegisterService {
-    private static RegisterService instance;
+public class RegisterServiceImpl implements RegisterService {
+    private static RegisterServiceImpl instance;
 
-    private final IUserDao userDao;
-    private final IPasswordDao passwordDao;
+    private final UserDao userDao;
+    private final PasswordDao passwordDao;
 
-    private RegisterService() {
+    private RegisterServiceImpl() {
         DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         userDao = daoFactory.getUserDao();
         passwordDao = daoFactory.getPasswordDao();
     }
 
-    public synchronized static RegisterService getInstance() {
+    public synchronized static RegisterServiceImpl getInstance() {
         if (instance == null) {
-            instance = new RegisterService();
+            instance = new RegisterServiceImpl();
         }
         return instance;
     }
