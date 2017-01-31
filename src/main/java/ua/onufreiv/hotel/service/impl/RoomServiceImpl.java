@@ -5,6 +5,9 @@ import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.*;
+import ua.onufreiv.hotel.roomchooser.AnyTypeRoomChooser;
+import ua.onufreiv.hotel.roomchooser.ExactTypeRoomChooser;
+import ua.onufreiv.hotel.roomchooser.FavouriteTypeRoomChooser;
 import ua.onufreiv.hotel.roomchooser.RoomChooser;
 import ua.onufreiv.hotel.service.RoomService;
 
@@ -68,5 +71,20 @@ public class RoomServiceImpl implements RoomService {
         List<BookRequest> allUserRequests = bookRequestDaoDao.findByUserId(bookRequest.getUserId());
 
         return roomChooser.chooseRoom(bookRequest, allUserRequests, possibleRooms, idTypeMap);
+    }
+
+    @Override
+    public Room searchExactRoom(BookRequest bookRequest) {
+        return searchRoomForRequest(bookRequest, new ExactTypeRoomChooser());
+    }
+
+    @Override
+    public Room searchFavouriteTypeRoom(BookRequest bookRequest) {
+        return searchRoomForRequest(bookRequest, new FavouriteTypeRoomChooser());
+    }
+
+    @Override
+    public Room searchAnyTypeRoom(BookRequest bookRequest) {
+        return searchRoomForRequest(bookRequest, new AnyTypeRoomChooser());
     }
 }

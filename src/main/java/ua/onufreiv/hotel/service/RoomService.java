@@ -15,4 +15,10 @@ public interface RoomService {
     Room findByRoomNumber(int number);
 
     Room searchRoomForRequest(BookRequest bookRequest, RoomChooser roomFinder);
+
+    Room searchExactRoom(BookRequest bookRequest);
+
+    Room searchFavouriteTypeRoom(BookRequest bookRequest);
+
+    Room searchAnyTypeRoom(BookRequest bookRequest);
 }

@@ -5,9 +5,6 @@ import ua.onufreiv.hotel.controller.manager.PathConfig;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.entity.User;
-import ua.onufreiv.hotel.roomchooser.AnyTypeRoomChooser;
-import ua.onufreiv.hotel.roomchooser.ExactTypeRoomChooser;
-import ua.onufreiv.hotel.roomchooser.FavouriteTypeRoomChooser;
 import ua.onufreiv.hotel.service.BookRequestService;
 import ua.onufreiv.hotel.service.RoomService;
 import ua.onufreiv.hotel.service.RoomTypeService;
@@ -46,9 +43,9 @@ public class CommandProcessBookRequest implements Command {
 
         BookRequest bookRequest = bookRequestService.findById(bookRequestId);
         User user = userService.findById(bookRequest.getUserId());
-        Room exactTypeRoom = roomServiceImpl.searchRoomForRequest(bookRequest, new ExactTypeRoomChooser());
-        Room favouriteTypeRoom = roomServiceImpl.searchRoomForRequest(bookRequest, new FavouriteTypeRoomChooser());
-        Room anyTypeRoom = roomServiceImpl.searchRoomForRequest(bookRequest, new AnyTypeRoomChooser());
+        Room exactTypeRoom = roomServiceImpl.searchExactRoom(bookRequest);
+        Room favouriteTypeRoom = roomServiceImpl.searchFavouriteTypeRoom(bookRequest);
+        Room anyTypeRoom = roomServiceImpl.searchAnyTypeRoom(bookRequest);
 
         request.setAttribute(jspConfig.get(USER_NAME), user);
         request.setAttribute(jspConfig.get(BOOK_REQUEST_NAME), bookRequest);
