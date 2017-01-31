@@ -5,7 +5,7 @@ import ua.onufreiv.hotel.entity.ReservedRoom;
 import ua.onufreiv.hotel.entity.Room;
 import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.*;
-import ua.onufreiv.hotel.roomfinder.RoomChooser;
+import ua.onufreiv.hotel.roomchooser.RoomChooser;
 import ua.onufreiv.hotel.service.RoomService;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room searchRoomForRequest(BookRequest bookRequest, RoomChooser roomFinder) {
+    public Room searchRoomForRequest(BookRequest bookRequest, RoomChooser roomChooser) {
         List<ReservedRoom> reservedInDateRange = reservedRoomDao.findInDateRange(bookRequest.getCheckIn(), bookRequest.getCheckOut());
         List<Integer> roomIds = new ArrayList<>(reservedInDateRange.size());
         for (ReservedRoom reservedRoom : reservedInDateRange) {
@@ -67,6 +67,6 @@ public class RoomServiceImpl implements RoomService {
         Map<Integer, String> idTypeMap = roomTypeDao.findAllAsMap();
         List<BookRequest> allUserRequests = bookRequestDaoDao.findByUserId(bookRequest.getUserId());
 
-        return roomFinder.chooseRoom(bookRequest, allUserRequests, possibleRooms, idTypeMap);
+        return roomChooser.chooseRoom(bookRequest, allUserRequests, possibleRooms, idTypeMap);
     }
 }

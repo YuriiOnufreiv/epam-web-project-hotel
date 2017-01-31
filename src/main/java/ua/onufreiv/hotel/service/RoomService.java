@@ -2,7 +2,7 @@ package ua.onufreiv.hotel.service;
 
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.Room;
-import ua.onufreiv.hotel.roomfinder.RoomChooser;
+import ua.onufreiv.hotel.roomchooser.RoomChooser;
 
 /**
  * Created by yurii on 1/5/17.
