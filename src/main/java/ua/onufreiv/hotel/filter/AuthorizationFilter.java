@@ -16,31 +16,37 @@ import java.util.Set;
  */
 public class AuthorizationFilter implements Filter {
     private final static Logger logger = Logger.getLogger(AuthorizationFilter.class);
-    private static final String ALLOWED_PARAM_NAME = "allowed";
+
+    private static final String NO_AUTH_COMMANDS_PARAM_NAME = "noAuthCommands";
+    private static final String REQUEST_COMMAND_PARAM_NAME = "command";
+    private static final String USER_SESSION_ATTR_NAME = "user";
 
     private Set<String> authNoRequiredCommands;
 
-    private boolean authenticationRequired(ServletRequest request) {
-        String command = request.getParameter("command");
+    private boolean authRequired(String command) {
         return !authNoRequiredCommands.contains(command);
+    }
+
+    private boolean sessionUserIsActive(HttpSession session) {
+        return session != null && session.getAttribute(USER_SESSION_ATTR_NAME) != null;
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         authNoRequiredCommands = new HashSet<>();
 
-        String allowedCommandsParam = filterConfig.getInitParameter(ALLOWED_PARAM_NAME);
-        if (allowedCommandsParam == null || allowedCommandsParam.length() == 0) {
-            logger.info("AuthorizationFilter: no allowed commands added");
+        String noAuthCommandsParam = filterConfig.getInitParameter(NO_AUTH_COMMANDS_PARAM_NAME);
+        if (noAuthCommandsParam == null || noAuthCommandsParam.length() == 0) {
+            logger.info("AuthorizationFilter: no commands that doesn't require auth added");
             return;
         }
 
-        String[] allowedCommands = allowedCommandsParam.split(",");
+        String[] allowedCommands = noAuthCommandsParam.split(",");
         for (String command : allowedCommands) {
-            String formattedCommand = command.toLowerCase().trim();
+            String formattedCommand = command.trim().toLowerCase();
             if (formattedCommand.length() > 0) {
                 authNoRequiredCommands.add(formattedCommand);
-                logger.info("AuthorizationFilter: allowed command added - " + formattedCommand);
+                logger.info("AuthorizationFilter: command that doesn't require auth added - " + formattedCommand);
             }
         }
     }
@@ -59,7 +65,8 @@ public class AuthorizationFilter implements Filter {
                     .append(queryString);
         }
 
-        if (authenticationRequired(request) && (session == null || session.getAttribute("user") == null)) {
+        String command = request.getParameter(REQUEST_COMMAND_PARAM_NAME);
+        if (command != null && authRequired(command) && !sessionUserIsActive(session)) {
             logger.info("AuthorizationFilter: UNAUTHORIZED access request to " + urlBuilder.toString());
             ((HttpServletResponse) response).sendRedirect(PathConfig.getInstance()
                     .getProperty(PathConfig.FORWARD_TO_NOT_SIGNED_IN_COMMAND_PATH));

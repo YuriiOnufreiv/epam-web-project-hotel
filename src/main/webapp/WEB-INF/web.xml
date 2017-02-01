@@ -2,10 +2,12 @@
 <web-app id="WebApp_ID" version="2.4">
     <display-name>Project</display-name>
 
+    <!-- Session config -->
     <session-config>
         <session-timeout>5</session-timeout>
     </session-config>
 
+    <!-- Data source for connection pool -->
     <resource-ref>
         <description>DB Connection</description>
         <res-ref-name>jdbc/hotel</res-ref-name>
@@ -13,10 +15,12 @@
         <res-auth>Container</res-auth>
     </resource-ref>
 
+    <!-- Servlet lifecycle listener -->
     <listener>
         <listener-class>ua.onufreiv.hotel.listener.ServletLifecycleListener</listener-class>
     </listener>
 
+    <!-- Filter declarations-->
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>ua.onufreiv.hotel.filter.EncodingFilter</filter-class>
@@ -30,16 +34,21 @@
         <filter-name>authorizationFilter</filter-name>
         <filter-class>ua.onufreiv.hotel.filter.AuthorizationFilter</filter-class>
         <init-param>
-            <param-name>allowed</param-name>
+            <param-name>noAuthCommands</param-name>
             <param-value>forward,login,register</param-value>
         </init-param>
     </filter>
 
-    <!--<filter>-->
-    <!--<filter-name>passwordEncoderFilter</filter-name>-->
-    <!--<filter-class>ua.onufreiv.hotel.filter.PasswordEncoderFilter</filter-class>-->
-    <!--</filter>-->
+    <filter>
+        <filter-name>pageAccessFilter</filter-name>
+        <filter-class>ua.onufreiv.hotel.filter.PageAccessFilter</filter-class>
+        <init-param>
+            <param-name>allowedPages</param-name>
+            <param-value>notSignedIn,login,clientMain,createAccount</param-value>
+        </init-param>
+    </filter>
 
+    <!-- Filter mappings -->
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/hotel</url-pattern>
@@ -50,21 +59,24 @@
         <url-pattern>/hotel</url-pattern>
     </filter-mapping>
 
-    <!--<filter-mapping>-->
-    <!--<filter-name>passwordEncoderFilter</filter-name>-->
-    <!--<url-pattern>/hotel</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter-mapping>
+        <filter-name>pageAccessFilter</filter-name>
+        <url-pattern>/hotel</url-pattern>
+    </filter-mapping>
 
+    <!-- Servlet declaration -->
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>ua.onufreiv.hotel.controller.Controller</servlet-class>
     </servlet>
 
+    <!-- Servlet url mapping -->
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/hotel</url-pattern>
     </servlet-mapping>
 
+    <!-- Welcome file settings -->
     <welcome-file-list>
         <welcome-file>index.jspx</welcome-file>
     </welcome-file-list>
