@@ -5,17 +5,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import ua.onufreiv.hotel.persistence.query.resultsetmapper.ResultSetMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by yurii on 1/30/17.
@@ -30,40 +32,82 @@ public class SqlQueryWhereWrapperTest {
     private ResultSet mockResultSet;
     @Mock
     private SqlQueryWhereWrappable mockSqlWhereQuery;
+    @Mock
+    private ResultSetMapper mockResultSetMapper;
+    @Mock
+    private Object mockObject;
 
     private SqlQueryWhereWrapper queryWhereWrapper;
-    private String tableName;
 
     @Before
     public void setUp() throws Exception {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSetMapper.map(mockResultSet)).thenReturn(mockObject);
 
-        tableName = "test";
         queryWhereWrapper = new SqlQueryWhereWrapper(mockSqlWhereQuery);
     }
 
-    // todo
     @Test
-    public void executeUpdateQueryUpdate() throws Exception {
+    public void executeUpdateQuery() throws Exception {
+        when(mockSqlWhereQuery.getSqlStatement()).thenReturn("SELECT * FROM test;");
+        when(mockPreparedStatement.executeUpdate()).thenReturn(3);
 
+        addColumnsToQuery();
+        int actualId = queryWhereWrapper.executeUpdate(mockConnection);
+
+        verify(mockConnection, times(1)).prepareStatement(queryWhereWrapper.getSqlStatement());
+        verifyNoMoreInteractions(mockConnection);
+
+        verify(mockPreparedStatement, times(1)).executeUpdate();
+
+        assertTrue(actualId == 3);
     }
 
-    // todo
-    @Test
-    public void executeUpdateQueryDelete() throws Exception {
-
-    }
-
-    // todo
     @Test
     public void executeQuery() throws Exception {
+        when(mockResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(mockSqlWhereQuery.getSqlStatement()).thenReturn("SELECT * FROM test;");
+
+        addColumnsToQuery();
+        List<Object> actualObjectList = queryWhereWrapper.executeQuery(mockConnection, mockResultSetMapper);
+
+        verify(mockConnection, times(1)).prepareStatement(queryWhereWrapper.getSqlStatement());
+        verifyNoMoreInteractions(mockConnection);
+
+        verify(mockPreparedStatement, times(1)).executeQuery();
+
+        verify(mockResultSet, times(3)).next();
+        verify(mockResultSet, times(1)).close();
+        verifyNoMoreInteractions(mockResultSet);
+
+        verify(mockResultSetMapper, times(2)).map(mockResultSet);
+        verifyNoMoreInteractions(mockResultSet);
+
+        assertTrue(actualObjectList.size() == 2);
     }
 
-    // todo
     @Test
     public void executeQueryForObject() throws Exception {
+        when(mockResultSet.next()).thenReturn(true);
+        when(mockSqlWhereQuery.getSqlStatement()).thenReturn("SELECT * FROM test;");
 
+        addColumnsToQuery();
+        Object actualObject = queryWhereWrapper.executeQueryForObject(mockConnection, mockResultSetMapper);
+
+        verify(mockConnection, times(1)).prepareStatement(queryWhereWrapper.getSqlStatement());
+        verifyNoMoreInteractions(mockConnection);
+
+        verify(mockPreparedStatement, times(1)).executeQuery();
+
+        verify(mockResultSet, times(1)).next();
+        verify(mockResultSet, times(1)).close();
+        verifyNoMoreInteractions(mockResultSet);
+
+        verify(mockResultSetMapper, times(1)).map(mockResultSet);
+        verifyNoMoreInteractions(mockResultSet);
+
+        assertTrue(actualObject == mockObject);
     }
 
     // and, column,
