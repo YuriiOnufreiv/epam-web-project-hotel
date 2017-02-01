@@ -14,11 +14,12 @@ import java.sql.SQLException;
 public class ConnectionManager {
     private final static Logger logger = Logger.getLogger(ConnectionManager.class);
 
-    public static DatabaseType databaseType;
     private static DataSource dataSource;
     private static Connection transactionConnection;
     private static boolean transactionIsActive;
     private static int isolationLevel;
+
+    public static DatabaseType databaseType;
 
     private static void readDBProperties() {
         switch (DatabaseConfig.getInstance().getProperty(DatabaseConfig.DATABASE_TYPE)) {
@@ -32,13 +33,11 @@ public class ConnectionManager {
                 .getProperty(DatabaseConfig.DATABASE_TRANSACTIONS_LEVEL));
     }
 
-    private static DataSource initialiseAppropriatePool() {
-        DataSource dataSource = null;
+    private static void initialiseAppropriatePool() {
         try {
             switch (databaseType) {
                 case MYSQL_DB:
-                    InitialContext initContext;
-                    initContext = new InitialContext();
+                    InitialContext initContext = new InitialContext();
                     dataSource = (DataSource) initContext.lookup("java:comp/env/jdbc/hotel");
                     logger.info("Connection pool initialised");
                     break;
@@ -50,28 +49,11 @@ public class ConnectionManager {
         } catch (NamingException e) {
             logger.error("Failed to initialise connection pool: ", e);
         }
-
-        return dataSource;
-    }
-
-    private static Connection initializeTransaction(int isolationLevel) {
-        if (transactionConnection == null) {
-            try {
-                transactionConnection = dataSource.getConnection();
-                transactionConnection.setAutoCommit(false);
-                transactionConnection.setTransactionIsolation(isolationLevel);
-                transactionIsActive = true;
-                logger.info("Transaction started: " + transactionConnection.toString());
-            } catch (SQLException e) {
-                logger.error("Failed to start transaction: ", e);
-            }
-        }
-        return transactionConnection;
     }
 
     public static void createPoolFromJndi() {
         readDBProperties();
-        dataSource = initialiseAppropriatePool();
+        initialiseAppropriatePool();
     }
 
     public static Connection getConnection() {
@@ -112,7 +94,18 @@ public class ConnectionManager {
     }
 
     public static Connection startTransaction(int isolationLevel) {
-        return initializeTransaction(isolationLevel);
+        if (transactionConnection == null) {
+            try {
+                transactionConnection = dataSource.getConnection();
+                transactionConnection.setAutoCommit(false);
+                transactionConnection.setTransactionIsolation(isolationLevel);
+                transactionIsActive = true;
+                logger.info("Transaction started: " + transactionConnection.toString());
+            } catch (SQLException e) {
+                logger.error("Failed to start transaction: ", e);
+            }
+        }
+        return transactionConnection;
     }
 
     public static void commit() {
@@ -133,7 +126,7 @@ public class ConnectionManager {
     public static void rollback() {
         try {
             transactionConnection.rollback();
-            logger.info("Transaction rollbacked" + transactionConnection.toString());
+            logger.info("Transaction rollback" + transactionConnection.toString());
         } catch (SQLException e) {
             logger.error("Failed to rollback transaction: ", e);
         }
