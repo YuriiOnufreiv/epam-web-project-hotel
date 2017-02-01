@@ -17,7 +17,6 @@
 <fmt:setBundle basename="lang"/>
 
 <!-------------------- STYLES -------------------->
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/admin/img/favicon.ico">
 <!-- Bootstrap core CSS     -->
 <link href="${pageContext.request.contextPath}/resources/admin/css/bootstrap.min.css" rel="stylesheet"/>
 <!-- Animation library for notifications   -->

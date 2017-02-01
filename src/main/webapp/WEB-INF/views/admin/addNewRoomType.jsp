@@ -24,7 +24,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card">
                             <c:if test="${requestScope.addRoomTypeSuccess}">
                                 <div class="alert alert-success">
@@ -47,7 +47,7 @@
                             <div class="content">
                                 <form action="/hotel?command=addNewRoomType" method="post">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Type</label>
                                                 <input name="roomType" type="text" class="form-control" min="0"
