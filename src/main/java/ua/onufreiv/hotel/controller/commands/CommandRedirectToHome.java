@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.USER_NAME;
 
 /**
- * Created by yurii on 12/29/16.
+ * Command that redirect to the main page based on the active user's role.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 12/29/16.
  */
 public class CommandRedirectToHome implements Command {
     private final UserRoleService userRoleServiceImpl;
@@ -23,6 +27,14 @@ public class CommandRedirectToHome implements Command {
         jspConfig = JspConfig.getInstance();
     }
 
+    /**
+     * Defines tha path to home page based on the user'r role contained in sessions object
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return home page path
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page;

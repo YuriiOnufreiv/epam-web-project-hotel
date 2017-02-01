@@ -33,10 +33,12 @@ public class CommandMakeNewBooking implements Command {
         String checkInDateString = request.getParameter(jspConfig.get(CHECK_IN_DATE_NAME));
         String checkOutDateString = request.getParameter(jspConfig.get(CHECK_OUT_DATE_NAME));
 
+        // parse dates
         String dateFormatString = jspConfig.get(DATE_PICKER_DATE_FORMAT);
         Date checkInDate = DateParser.parse(checkInDateString, dateFormatString);
         Date checkOutDate = DateParser.parse(checkOutDateString, dateFormatString);
 
+        // check selected dates for validness
         if (checkInDate.before(new Date()) || checkInDate.after(checkOutDate)) {
             request.setAttribute(jspConfig.get(INVALID_BOOK_REQUEST_DATES_ERROR_NAME), true);
             request.setAttribute(jspConfig.get(ROOM_TYPE_NAME), roomTypeId.toString());

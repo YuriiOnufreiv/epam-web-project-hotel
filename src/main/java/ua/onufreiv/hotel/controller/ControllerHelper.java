@@ -7,13 +7,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by yurii on 12/27/16.
+ * Finds appropriate command to handle user request.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 12/27/16.
  */
 public class ControllerHelper {
     private static ControllerHelper helperInstance = null;
 
+    /**
+     * Map that contains command name as a key, and command object as a value
+     */
     private Map<String, Command> commands;
 
+    /**
+     * Initializes the {@code commands} map
+     */
     private ControllerHelper() {
         commands = new HashMap<>();
 
@@ -37,13 +47,26 @@ public class ControllerHelper {
         commands.put("addNewRoom", new CommandAddNewRoom());
     }
 
-    public static ControllerHelper getInstance() {
+    /**
+     * Realization of singleton pattern
+     *
+     * @return instance of {@code ControllerHelper}
+     */
+    public static synchronized ControllerHelper getInstance() {
         if (helperInstance == null) {
             helperInstance = new ControllerHelper();
         }
         return helperInstance;
     }
 
+    /**
+     * Finds appropriate command by extracting parameter 'command' from the request
+     *
+     * @param request request that should be processed
+     * @return {@link Command} object that will process the specified action,
+     * {@link CommandRedirectToHome} object if the command wasn't specified but user is signed in,
+     * {@link CommandEmpty} object otherwise
+     */
     public Command getCommand(HttpServletRequest request) {
         String action = request.getParameter("command");
         Command command = commands.get(action);
@@ -55,6 +78,4 @@ public class ControllerHelper {
 
         return command;
     }
-
-
 }

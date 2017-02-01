@@ -15,7 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 12/29/16.
+ * Command for registering new user
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 12/29/16.
  */
 public class CommandRegister implements Command {
     private final UserService userService;
@@ -26,6 +30,15 @@ public class CommandRegister implements Command {
         jspConfig = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to register new user; validates the correctness of
+     * inputted date, particularly - email, phone number and password
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the same page in case of error, path to the sign in page in case of success
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String firstName = request.getParameter(jspConfig.get(USER_FIRST_NAME_NAME));

@@ -11,17 +11,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by yurii on 12/27/16.
+ * Servlet that will respond to client requests.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 12/27/16.
  */
 public class Controller extends HttpServlet {
     private final static Logger logger = Logger.getLogger(Controller.class);
 
+    /**
+     * This object contains list of possible commands
+     */
     private ControllerHelper controllerHelper;
 
     public Controller() {
         controllerHelper = ControllerHelper.getInstance();
     }
 
+    /**
+     * Processes the request by finding appropriate command, executes it and
+     * forwards the user to the resulting page
+     *
+     * @param request  request to process
+     * @param response response to the user according to the information in {@code request}
+     * @throws ServletException if the target resource throws this exception
+     * @throws IOException      if the target resource throws this exception
+     */
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command = controllerHelper.getCommand(request);
         String page = command.execute(request, response);
@@ -29,12 +45,28 @@ public class Controller extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Processes the POST request with hte help of {@code processRequest} method
+     *
+     * @param request  request to process
+     * @param response response to the user according to the information in {@code request}
+     * @throws ServletException if the target resource throws this exception
+     * @throws IOException      if the target resource throws this exception
+     */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("=== Processing POST request ===");
-        processRequest(req, resp);
+        processRequest(request, response);
     }
 
+    /**
+     * Processes the GET request with hte help of {@code processRequest} method
+     *
+     * @param request  request to process
+     * @param response response to the user according to the information in {@code request}
+     * @throws ServletException if the target resource throws this exception
+     * @throws IOException      if the target resource throws this exception
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("=== Processing GET request ===");

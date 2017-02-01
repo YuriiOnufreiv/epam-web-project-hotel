@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 1/10/17.
+ * Command for creating new bill after book request processing
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/10/17.
  */
 public class CommandCreateBill implements Command {
     private final BillService billService;
@@ -23,6 +27,14 @@ public class CommandCreateBill implements Command {
         jspConfig = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to create new bill
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the page, that shows bill info, or to the same page in case of any error
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int bookRequestId = Integer.parseInt(request.getParameter(jspConfig.get(BOOK_REQUEST_ID_NAME)));

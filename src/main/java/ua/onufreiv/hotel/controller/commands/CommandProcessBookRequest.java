@@ -20,7 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 1/10/17.
+ * Command for processing book request.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/10/17.
  */
 public class CommandProcessBookRequest implements Command {
     private final RoomService roomServiceImpl;
@@ -37,6 +41,15 @@ public class CommandProcessBookRequest implements Command {
         jspConfig = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to process book request by finding suitable rooms
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the page to process request
+     * @see PathConfig
+     * @see ua.onufreiv.hotel.roomchooser.RoomChooser
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int bookRequestId = Integer.parseInt(request.getParameter(jspConfig.get(BOOK_REQUEST_ID_NAME)));

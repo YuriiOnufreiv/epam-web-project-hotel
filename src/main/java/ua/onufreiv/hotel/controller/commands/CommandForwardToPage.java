@@ -12,7 +12,11 @@ import java.util.Map;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.ID_ROOM_TYPE_MAP_NAME;
 
 /**
- * Created by yurii on 1/26/17.
+ * Command that returns path of the required page
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/26/17.
  */
 public class CommandForwardToPage implements Command {
     private final RoomTypeService roomTypeService;
@@ -23,6 +27,16 @@ public class CommandForwardToPage implements Command {
         jspConfig = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to forward to required page;
+     * if request has {@code mapRequired} parameter and it's value is {@code true} then
+     * it also set's map having room type id as key and room type string as value
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the requested page
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String pageType = request.getParameter("page");
@@ -36,6 +50,13 @@ public class CommandForwardToPage implements Command {
         return getPagePath(pageType);
     }
 
+    /**
+     * Defines needed page
+     *
+     * @param pageType name of the required page
+     * @return path to the required page; main page's path if the required page wasn't found
+     * @see
+     */
     private String getPagePath(String pageType) {
         String page;
 

@@ -16,7 +16,11 @@ import java.util.List;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 1/2/17.
+ * Command for showing all requests of particular user
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/2/17.
  */
 public class CommandShowClientRequests implements Command {
     private final BookRequestService bookRequestServiceImpl;
@@ -29,6 +33,14 @@ public class CommandShowClientRequests implements Command {
         jspConfig = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to show previous user's book requests
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the page that shows user's requests
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession(false).getAttribute(jspConfig.get(USER_NAME));

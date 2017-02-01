@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 1/14/17.
+ * Command for showing bill info
+
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/14/17.
  */
 public class CommandShowBillInfo implements Command {
     private final BookRequestService bookRequestService;
@@ -31,6 +35,15 @@ public class CommandShowBillInfo implements Command {
         jspConfig = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to show bill info based on the user's role saved in the
+     * session object
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the appropriate bill info page
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int bookRequestId = Integer.parseInt(request.getParameter(jspConfig.get(BOOK_REQUEST_ID_NAME)));

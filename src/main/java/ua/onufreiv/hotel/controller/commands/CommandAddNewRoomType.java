@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 1/14/17.
+ * Command for adding new room type
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/14/17.
  */
 public class CommandAddNewRoomType implements Command {
     private final RoomTypeService roomTypeServiceImpl;
@@ -23,6 +27,14 @@ public class CommandAddNewRoomType implements Command {
         names = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to add new room type
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the same page
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String type = request.getParameter(names.get(ROOM_TYPE_NAME));

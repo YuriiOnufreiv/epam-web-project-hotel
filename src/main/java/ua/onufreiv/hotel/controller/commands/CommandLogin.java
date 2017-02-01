@@ -13,7 +13,11 @@ import javax.servlet.http.HttpSession;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 12/27/16.
+ * Command for performing login with the specified credentials.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 12/27/16.
  */
 public class CommandLogin implements Command {
     private final AuthService authServiceImpl;
@@ -24,6 +28,14 @@ public class CommandLogin implements Command {
         authServiceImpl = AuthServiceImpl.getInstance();
     }
 
+    /**
+     * Handles request to log in by checking specified credentials
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path of home page in login is successful, path to the same page otherwise
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String login = request.getParameter(jspConfig.get(USER_EMAIL_NAME));

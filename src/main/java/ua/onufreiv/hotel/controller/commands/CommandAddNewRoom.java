@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 1/14/17.
+ * Command for adding new room
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/14/17.
  */
 public class CommandAddNewRoom implements Command {
     private final RoomServiceImpl roomServiceImpl;
@@ -22,6 +26,14 @@ public class CommandAddNewRoom implements Command {
         names = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to add new room
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the same page
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int number = Integer.parseInt(request.getParameter(names.get(ROOM_NUMBER_NAME)));

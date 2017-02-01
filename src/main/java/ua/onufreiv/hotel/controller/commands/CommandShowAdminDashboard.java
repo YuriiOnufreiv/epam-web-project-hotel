@@ -18,7 +18,11 @@ import java.util.Map;
 import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
 
 /**
- * Created by yurii on 1/5/17.
+ * Command for showing admin's dashboard with all required date
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/5/17.
  */
 public class CommandShowAdminDashboard implements Command {
     private final RoomTypeService roomTypeService;
@@ -33,6 +37,15 @@ public class CommandShowAdminDashboard implements Command {
         jspConfig = JspConfig.getInstance();
     }
 
+    /**
+     * Handles request to show admin's dashboard by loading required data and
+     * setting it as an attributes
+     *
+     * @param request  request with the required parameters and attributes
+     * @param response response that will be formed as a result
+     * @return path to the admin's dashboard page
+     * @see PathConfig
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         List<BookRequest> notProcessedRequests = bookRequestServiceImpl.findNotProcessed();
