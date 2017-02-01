@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
- * Created by yurii on 1/1/17.
+ *DAO for {@link BookRequest} entity and MySql database
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/1/17.
  */
 public class MySqlBookRequestDao implements BookRequestDao {
     private static final String TABLE_NAME = "book_request";
@@ -37,6 +40,9 @@ public class MySqlBookRequestDao implements BookRequestDao {
         return instance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int insert(BookRequest bookRequest) {
         Connection connection = ConnectionManager.getConnection();
@@ -53,6 +59,9 @@ public class MySqlBookRequestDao implements BookRequestDao {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -64,6 +73,9 @@ public class MySqlBookRequestDao implements BookRequestDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public BookRequest find(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -75,6 +87,9 @@ public class MySqlBookRequestDao implements BookRequestDao {
         return bookRequest;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<BookRequest> findAll() {
         Connection connection = ConnectionManager.getConnection();
@@ -84,6 +99,9 @@ public class MySqlBookRequestDao implements BookRequestDao {
         return bookRequests;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(BookRequest bookRequest) {
         Connection connection = ConnectionManager.getConnection();
@@ -102,6 +120,9 @@ public class MySqlBookRequestDao implements BookRequestDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<BookRequest> findByUserId(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -113,6 +134,9 @@ public class MySqlBookRequestDao implements BookRequestDao {
         return bookRequests;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<BookRequest> findAllNotProcessed() {
         Connection connection = ConnectionManager.getConnection();

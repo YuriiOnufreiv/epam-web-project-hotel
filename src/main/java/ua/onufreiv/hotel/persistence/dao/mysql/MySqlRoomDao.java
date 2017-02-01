@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
- * Created by yurii on 1/5/17.
+ *DAO for {@link Room} entity and MySql database
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/5/17.
  */
 public class MySqlRoomDao implements RoomDao {
     private static final String TABLE_NAME = "room";
@@ -35,6 +38,9 @@ public class MySqlRoomDao implements RoomDao {
         return instance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int insert(Room room) {
         Connection connection = ConnectionManager.getConnection();
@@ -49,6 +55,9 @@ public class MySqlRoomDao implements RoomDao {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -60,6 +69,9 @@ public class MySqlRoomDao implements RoomDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Room find(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -71,6 +83,9 @@ public class MySqlRoomDao implements RoomDao {
         return room;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Room> findAll() {
         Connection connection = ConnectionManager.getConnection();
@@ -80,6 +95,9 @@ public class MySqlRoomDao implements RoomDao {
         return bookRequests;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(Room room) {
         Connection connection = ConnectionManager.getConnection();
@@ -96,6 +114,9 @@ public class MySqlRoomDao implements RoomDao {
         return update;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Room> findAllExcept(List<Integer> exceptRoomIds) {
         Connection connection = ConnectionManager.getConnection();
@@ -107,6 +128,9 @@ public class MySqlRoomDao implements RoomDao {
         return bookRequests;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Room findByRoomNum(int number) {
         Connection connection = ConnectionManager.getConnection();

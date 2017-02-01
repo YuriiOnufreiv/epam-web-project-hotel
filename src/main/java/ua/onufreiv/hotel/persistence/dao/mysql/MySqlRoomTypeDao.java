@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yurii on 1/4/17.
+ *DAO for {@link RoomType} entity and MySql database
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/4/17.
  */
 public class MySqlRoomTypeDao implements RoomTypeDao {
     private static final String TABLE_NAME = "room_type";
@@ -35,6 +38,9 @@ public class MySqlRoomTypeDao implements RoomTypeDao {
         return instance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int insert(RoomType roomType) {
         Connection connection = ConnectionManager.getConnection();
@@ -45,6 +51,9 @@ public class MySqlRoomTypeDao implements RoomTypeDao {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -56,6 +65,9 @@ public class MySqlRoomTypeDao implements RoomTypeDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public RoomType find(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -67,6 +79,9 @@ public class MySqlRoomTypeDao implements RoomTypeDao {
         return RoomType;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<RoomType> findAll() {
         Connection connection = ConnectionManager.getConnection();
@@ -76,6 +91,9 @@ public class MySqlRoomTypeDao implements RoomTypeDao {
         return roomTypes;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(RoomType roomType) {
         Connection connection = ConnectionManager.getConnection();
@@ -88,6 +106,9 @@ public class MySqlRoomTypeDao implements RoomTypeDao {
         return update;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> findAllRoomTypesString() {
         Connection connection = ConnectionManager.getConnection();
@@ -98,6 +119,9 @@ public class MySqlRoomTypeDao implements RoomTypeDao {
         return types;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Integer, String> findAllAsMap() {
         List<RoomType> roomTypes = findAll();

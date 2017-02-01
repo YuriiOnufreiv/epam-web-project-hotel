@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
- * Created by yurii on 12/23/16.
+ *DAO for {@link PasswordHash} entity and MySql database
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 12/23/16.
  */
 public class MySqlPasswordDao implements PasswordDao {
     private static final String TABLE_NAME = "password";
@@ -31,6 +34,9 @@ public class MySqlPasswordDao implements PasswordDao {
         return instance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int insert(PasswordHash passwordHash) {
         Connection connection = ConnectionManager.getConnection();
@@ -41,6 +47,9 @@ public class MySqlPasswordDao implements PasswordDao {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -52,6 +61,9 @@ public class MySqlPasswordDao implements PasswordDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PasswordHash find(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -63,11 +75,17 @@ public class MySqlPasswordDao implements PasswordDao {
         return bookRequest;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<PasswordHash> findAll() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(PasswordHash passwordHash) {
         Connection connection = ConnectionManager.getConnection();

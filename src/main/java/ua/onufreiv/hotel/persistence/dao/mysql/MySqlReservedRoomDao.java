@@ -11,7 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by yurii on 1/5/17.
+ *DAO for {@link ReservedRoom} entity and MySql database
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/5/17.
  */
 public class MySqlReservedRoomDao implements ReservedRoomDao {
     private static final String TABLE_NAME = "reserved_room";
@@ -34,6 +37,9 @@ public class MySqlReservedRoomDao implements ReservedRoomDao {
         return instance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int insert(ReservedRoom reservedRoom) {
         Connection connection = ConnectionManager.getConnection();
@@ -46,6 +52,9 @@ public class MySqlReservedRoomDao implements ReservedRoomDao {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -57,6 +66,9 @@ public class MySqlReservedRoomDao implements ReservedRoomDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ReservedRoom find(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -68,6 +80,9 @@ public class MySqlReservedRoomDao implements ReservedRoomDao {
         return reservedRoom;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ReservedRoom> findAll() {
         Connection connection = ConnectionManager.getConnection();
@@ -77,6 +92,9 @@ public class MySqlReservedRoomDao implements ReservedRoomDao {
         return bookRequests;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(ReservedRoom reservedRoom) {
         Connection connection = ConnectionManager.getConnection();
@@ -91,34 +109,43 @@ public class MySqlReservedRoomDao implements ReservedRoomDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<ReservedRoom> findInDateRange(Date checkInDate, Date checkOutDate) {
+    public List<ReservedRoom> findInDateRange(Date startDate, Date endDate) {
         Connection connection = ConnectionManager.getConnection();
         List<ReservedRoom> reservedRooms = queryBuilder.select()
                 .where()
-                .column(COLUMN_CHECK_OUT_NAME).isGreaterThan(checkInDate)
+                .column(COLUMN_CHECK_OUT_NAME).isGreaterThan(startDate)
                 .and()
-                .column(COLUMN_CHECK_IN_NAME).isLessThan(checkOutDate)
+                .column(COLUMN_CHECK_IN_NAME).isLessThan(endDate)
                 .executeQuery(connection, new ReservedRoomMapper());
         ConnectionManager.closeConnection(connection);
         return reservedRooms;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean roomIsReserved(int roomId, Date checkInDate, Date checkOutDate) {
+    public boolean roomIsReserved(int roomId, Date startDate, Date endDate) {
         Connection connection = ConnectionManager.getConnection();
         ReservedRoom reservedRoom = queryBuilder.select()
                 .where()
                 .column(COLUMN_ROOM_FK_NAME).isEqualTo(roomId)
                 .and()
-                .column(COLUMN_CHECK_OUT_NAME).isGreaterThan(checkInDate)
+                .column(COLUMN_CHECK_OUT_NAME).isGreaterThan(startDate)
                 .and()
-                .column(COLUMN_CHECK_IN_NAME).isLessThan(checkOutDate)
+                .column(COLUMN_CHECK_IN_NAME).isLessThan(endDate)
                 .executeQueryForObject(connection, new ReservedRoomMapper());
         ConnectionManager.closeConnection(connection);
         return reservedRoom != null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteExpired() {
         Connection connection = ConnectionManager.getConnection();

@@ -4,11 +4,17 @@ import ua.onufreiv.hotel.persistence.DatabaseType;
 import ua.onufreiv.hotel.persistence.dao.mysql.MySqlDaoFactory;
 
 /**
- * Created by yurii on 12/23/16.
+ * DAO factory class
  */
 public abstract class DaoFactory {
 
-
+    /**
+     * Returns DAO factory on the basis of specified type
+     *
+     * @param whichFactory type of factory
+     * @return DAO factory
+     * @see DatabaseType
+     */
     public static DaoFactory getDAOFactory(DatabaseType whichFactory) {
         switch (whichFactory) {
             case MYSQL_DB:

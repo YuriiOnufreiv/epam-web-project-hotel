@@ -10,7 +10,11 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
- * Created by yurii on 1/10/17.
+ * DAO for {@link Bill} entity and MySql database
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/10/17.
  */
 public class MySqlBillDao implements BillDao {
     private static final String TABLE_NAME = "bill";
@@ -34,6 +38,9 @@ public class MySqlBillDao implements BillDao {
         return instance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int insert(Bill bill) {
         Connection connection = ConnectionManager.getConnection();
@@ -47,6 +54,9 @@ public class MySqlBillDao implements BillDao {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -58,6 +68,9 @@ public class MySqlBillDao implements BillDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Bill find(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -69,6 +82,9 @@ public class MySqlBillDao implements BillDao {
         return bill;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Bill> findAll() {
         Connection connection = ConnectionManager.getConnection();
@@ -78,6 +94,9 @@ public class MySqlBillDao implements BillDao {
         return bills;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(Bill bill) {
         Connection connection = ConnectionManager.getConnection();
@@ -93,6 +112,9 @@ public class MySqlBillDao implements BillDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Bill findByBookRequestId(int id) {
         Connection connection = ConnectionManager.getConnection();

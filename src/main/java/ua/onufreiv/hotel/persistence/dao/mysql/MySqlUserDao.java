@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
- * Created by yurii on 12/23/16.
+ *DAO for {@link User} entity and MySql database
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 12/23/16.
  */
 public class MySqlUserDao implements UserDao {
     private static final String TABLE_NAME = "user";
@@ -36,6 +39,9 @@ public class MySqlUserDao implements UserDao {
         return instance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int insert(User user) {
         Connection connection = ConnectionManager.getConnection();
@@ -53,6 +59,9 @@ public class MySqlUserDao implements UserDao {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -64,6 +73,9 @@ public class MySqlUserDao implements UserDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User find(int id) {
         Connection connection = ConnectionManager.getConnection();
@@ -75,6 +87,9 @@ public class MySqlUserDao implements UserDao {
         return user;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<User> findAll() {
         Connection connection = ConnectionManager.getConnection();
@@ -84,6 +99,9 @@ public class MySqlUserDao implements UserDao {
         return users;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(User user) {
         Connection connection = ConnectionManager.getConnection();
@@ -101,6 +119,9 @@ public class MySqlUserDao implements UserDao {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User findByEmail(String email) {
         Connection connection = ConnectionManager.getConnection();
