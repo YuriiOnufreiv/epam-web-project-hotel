@@ -23,15 +23,13 @@ USE `hotel`;
 DROP TABLE IF EXISTS `hotel`.`ROOM_TYPE`;
 
 CREATE TABLE IF NOT EXISTS `hotel`.`ROOM_TYPE` (
-  `idRoomType` INT          NOT NULL AUTO_INCREMENT,
-  `type`       VARCHAR(50)  NOT NULL,
-  `descr`      VARCHAR(100) NULL,
-  `price`      INT          NOT NULL,
-  `maxPerson`  INT          NOT NULL,
+  `idRoomType` INT         NOT NULL AUTO_INCREMENT,
+  `type`       VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idRoomType`),
   UNIQUE INDEX `type_UNIQUE` (`type` ASC)
 )
   ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `hotel`.`ROOM`
@@ -39,9 +37,12 @@ CREATE TABLE IF NOT EXISTS `hotel`.`ROOM_TYPE` (
 DROP TABLE IF EXISTS `hotel`.`ROOM`;
 
 CREATE TABLE IF NOT EXISTS `hotel`.`ROOM` (
-  `idRoom` INT NOT NULL AUTO_INCREMENT,
-  `typeFK` INT NOT NULL,
-  `number` INT NOT NULL,
+  `idRoom`    INT          NOT NULL AUTO_INCREMENT,
+  `typeFK`    INT          NOT NULL,
+  `number`    INT          NOT NULL,
+  `descr`     VARCHAR(100) NULL,
+  `price`     INT          NOT NULL,
+  `maxPerson` INT          NOT NULL,
   PRIMARY KEY (`idRoom`),
   INDEX `fk_ROOM_1_idx` (`typeFK` ASC),
   CONSTRAINT `fk_ROOM_1`
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`ROOM` (
     ON UPDATE NO ACTION
 )
   ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `hotel`.`USER_ROLE`
@@ -65,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`USER_ROLE` (
 )
   ENGINE = InnoDB;
 
+
 -- -----------------------------------------------------
 -- Table `hotel`.`PASSWORD`
 -- -----------------------------------------------------
@@ -76,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`PASSWORD` (
   PRIMARY KEY (`idPassword`)
 )
   ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `hotel`.`USER`
@@ -105,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`USER` (
     ON UPDATE NO ACTION
 )
   ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `hotel`.`BOOK_REQUEST`
@@ -136,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`BOOK_REQUEST` (
 )
   ENGINE = InnoDB;
 
+
 -- -----------------------------------------------------
 -- Table `hotel`.`BILL`
 -- -----------------------------------------------------
@@ -163,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`BILL` (
 )
   ENGINE = InnoDB;
 
+
 -- -----------------------------------------------------
 -- Table `hotel`.`RESERVED_ROOM`
 -- -----------------------------------------------------
@@ -188,10 +195,8 @@ CREATE TABLE IF NOT EXISTS `hotel`.`RESERVED_ROOM` (
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `hotel`;
-INSERT INTO `hotel`.`ROOM_TYPE` (`idRoomType`, `type`, `descr`, `price`, `maxPerson`)
-VALUES (1, 'Standard', 'Simple standard with 2 windows', 20, 1);
-INSERT INTO `hotel`.`ROOM_TYPE` (`idRoomType`, `type`, `descr`, `price`, `maxPerson`)
-VALUES (2, 'Lux', 'President Lux', 1000, 5);
+INSERT INTO `hotel`.`ROOM_TYPE` (`idRoomType`, `type`) VALUES (1, 'Standard');
+INSERT INTO `hotel`.`ROOM_TYPE` (`idRoomType`, `type`) VALUES (2, 'Lux');
 
 COMMIT;
 
@@ -200,9 +205,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `hotel`;
-INSERT INTO `hotel`.`ROOM` (`idRoom`, `typeFK`, `number`) VALUES (1, 1, 666);
-INSERT INTO `hotel`.`ROOM` (`idRoom`, `typeFK`, `number`) VALUES (2, 2, 404);
-INSERT INTO `hotel`.`ROOM` (`idRoom`, `typeFK`, `number`) VALUES (3, 2, 220);
+INSERT INTO `hotel`.`ROOM` (`idRoom`, `typeFK`, `number`, `descr`, `price`, `maxPerson`)
+VALUES (1, 1, 666, 'Contains a shower', 20, 3);
+INSERT INTO `hotel`.`ROOM` (`idRoom`, `typeFK`, `number`, `descr`, `price`, `maxPerson`)
+VALUES (2, 2, 404, 'Contains free Wi-Fi', 90, 2);
+INSERT INTO `hotel`.`ROOM` (`idRoom`, `typeFK`, `number`, `descr`, `price`, `maxPerson`)
+VALUES (3, 2, 220, 'Contains flat screen TV', 100, 5);
 
 COMMIT;
 
