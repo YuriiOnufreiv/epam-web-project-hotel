@@ -18,7 +18,7 @@ public class ReservedRoomServiceImpl implements ReservedRoomService {
         reservedRoomDao = daoFactory.getReservedRoomDao();
     }
 
-    public synchronized static ReservedRoomServiceImpl getInstance() {
+    public static synchronized ReservedRoomServiceImpl getInstance() {
         if (instance == null) {
             instance = new ReservedRoomServiceImpl();
         }

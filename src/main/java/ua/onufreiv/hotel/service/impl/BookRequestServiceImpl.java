@@ -21,7 +21,7 @@ public class BookRequestServiceImpl implements BookRequestService {
         bookRequestDao = daoFactory.getBookRequestDao();
     }
 
-    public synchronized static BookRequestServiceImpl getInstance() {
+    public static synchronized BookRequestServiceImpl getInstance() {
         if (instance == null) {
             instance = new BookRequestServiceImpl();
         }

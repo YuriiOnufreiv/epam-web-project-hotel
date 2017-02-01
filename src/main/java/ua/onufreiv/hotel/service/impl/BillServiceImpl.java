@@ -30,7 +30,7 @@ public class BillServiceImpl implements BillService {
         billDao = daoFactory.getBillDao();
     }
 
-    public synchronized static BillServiceImpl getInstance() {
+    public static synchronized BillServiceImpl getInstance() {
         if (instance == null) {
             instance = new BillServiceImpl();
         }

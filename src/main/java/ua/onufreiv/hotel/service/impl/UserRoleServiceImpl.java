@@ -19,7 +19,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         userRoleDao = daoFactory.getUserRoleDao();
     }
 
-    public synchronized static UserRoleServiceImpl getInstance() {
+    public static synchronized UserRoleServiceImpl getInstance() {
         if (instance == null) {
             instance = new UserRoleServiceImpl();
         }

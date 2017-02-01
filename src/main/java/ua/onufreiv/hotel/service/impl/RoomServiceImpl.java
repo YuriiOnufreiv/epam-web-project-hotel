@@ -36,7 +36,7 @@ public class RoomServiceImpl implements RoomService {
         bookRequestDaoDao = daoFactory.getBookRequestDao();
     }
 
-    public synchronized static RoomServiceImpl getInstance() {
+    public static synchronized RoomServiceImpl getInstance() {
         if (instance == null) {
             instance = new RoomServiceImpl();
         }

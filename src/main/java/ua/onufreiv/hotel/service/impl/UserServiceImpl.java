@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         passwordDao = daoFactory.getPasswordDao();
     }
 
-    public synchronized static UserServiceImpl getInstance() {
+    public static synchronized UserServiceImpl getInstance() {
         if (instance == null) {
             instance = new UserServiceImpl();
         }

@@ -22,7 +22,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
         roomTypeDao = daoFactory.getRoomTypeDao();
     }
 
-    public synchronized static RoomTypeServiceImpl getInstance() {
+    public static synchronized RoomTypeServiceImpl getInstance() {
         if (instance == null) {
             instance = new RoomTypeServiceImpl();
         }

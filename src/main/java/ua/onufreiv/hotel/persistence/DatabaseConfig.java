@@ -15,7 +15,7 @@ public class DatabaseConfig {
 
     private ResourceBundle resourceBundle;
 
-    public static DatabaseConfig getInstance() {
+    public static synchronized DatabaseConfig getInstance() {
         if (instance == null) {
             instance = new DatabaseConfig();
             instance.resourceBundle =

@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
         passwordDao = daoFactory.getPasswordDao();
     }
 
-    public synchronized static AuthServiceImpl getInstance() {
+    public static synchronized AuthServiceImpl getInstance() {
         if (instance == null) {
             instance = new AuthServiceImpl();
         }
