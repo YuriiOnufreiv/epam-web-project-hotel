@@ -10,6 +10,7 @@ import java.io.IOException;
  * Created by yurii on 1/15/17.
  */
 public class AutoPageRefreshTag extends SimpleTagSupport {
+    private final String REFRESH_HEADER_NAME = "Refresh";
     private int interval;
 
     public void setInterval(int interval) {
@@ -20,6 +21,6 @@ public class AutoPageRefreshTag extends SimpleTagSupport {
     public void doTag() throws JspException, IOException {
         PageContext context = (PageContext) getJspContext();
         HttpServletResponse response = (HttpServletResponse) context.getResponse();
-        response.setIntHeader("Refresh", interval);
+        response.setIntHeader(REFRESH_HEADER_NAME, interval);
     }
 }
