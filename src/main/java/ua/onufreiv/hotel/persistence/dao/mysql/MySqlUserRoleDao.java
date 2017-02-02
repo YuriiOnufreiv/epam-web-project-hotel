@@ -119,4 +119,19 @@ public class MySqlUserRoleDao implements UserRoleDao {
         UserRole userRole = find(id);
         return userRole != null && userRole.getRole().equalsIgnoreCase("CLIENT");
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int findClientId() {
+        Connection connection = ConnectionManager.getConnection();
+        UserRole client = queryBuilder.select()
+                .where()
+                .column(COLUMN_ROLE_NAME).isEqualTo("Client")
+                .executeQueryForObject(connection, new UserRoleMapper());
+        int clientId = client.getId();
+        ConnectionManager.closeConnection(connection);
+        return clientId;
+    }
 }

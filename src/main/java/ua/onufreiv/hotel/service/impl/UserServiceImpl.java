@@ -6,6 +6,7 @@ import ua.onufreiv.hotel.persistence.ConnectionManager;
 import ua.onufreiv.hotel.persistence.dao.DaoFactory;
 import ua.onufreiv.hotel.persistence.dao.PasswordDao;
 import ua.onufreiv.hotel.persistence.dao.UserDao;
+import ua.onufreiv.hotel.persistence.dao.UserRoleDao;
 import ua.onufreiv.hotel.service.UserService;
 
 /**
@@ -15,11 +16,13 @@ public class UserServiceImpl implements UserService {
     private static UserServiceImpl instance;
 
     private final UserDao userDao;
+    private final UserRoleDao userRoleDao;
     private final PasswordDao passwordDao;
 
     private UserServiceImpl() {
         DaoFactory daoFactory = DaoFactory.getDAOFactory(ConnectionManager.databaseType);
         userDao = daoFactory.getUserDao();
+        userRoleDao = daoFactory.getUserRoleDao();
         passwordDao = daoFactory.getPasswordDao();
     }
 
@@ -39,7 +42,7 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPwdHashId(id);
-        user.setUserRoleId(2);
+        user.setUserRoleId(userRoleDao.findClientId());
 
         return userDao.insert(user) > 0;
     }

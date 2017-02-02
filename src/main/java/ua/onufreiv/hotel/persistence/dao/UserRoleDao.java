@@ -25,4 +25,11 @@ public interface UserRoleDao extends Dao<UserRole> {
      * @return true if user role is client
      */
     boolean idBelongsToClient(int id);
+
+    /**
+     * Finds the id of 'client' user role
+     *
+     * @return if of 'client' role
+     */
+    int findClientId();
 }
