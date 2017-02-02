@@ -190,6 +190,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`RESERVED_ROOM` (
 )
   ENGINE = InnoDB;
 
+
 -- -----------------------------------------------------
 -- Data for table `hotel`.`ROOM_TYPE`
 -- -----------------------------------------------------
@@ -199,6 +200,7 @@ INSERT INTO `hotel`.`ROOM_TYPE` (`idRoomType`, `type`) VALUES (1, 'Standard');
 INSERT INTO `hotel`.`ROOM_TYPE` (`idRoomType`, `type`) VALUES (2, 'Lux');
 
 COMMIT;
+
 
 -- -----------------------------------------------------
 -- Data for table `hotel`.`ROOM`
@@ -214,6 +216,7 @@ VALUES (3, 2, 220, 'Contains flat screen TV', 100, 5);
 
 COMMIT;
 
+
 -- -----------------------------------------------------
 -- Data for table `hotel`.`USER_ROLE`
 -- -----------------------------------------------------
@@ -223,6 +226,7 @@ INSERT INTO `hotel`.`USER_ROLE` (`idUserRole`, `role`) VALUES (1, 'Admin');
 INSERT INTO `hotel`.`USER_ROLE` (`idUserRole`, `role`) VALUES (2, 'Client');
 
 COMMIT;
+
 
 -- -----------------------------------------------------
 -- Data for table `hotel`.`PASSWORD`
@@ -252,11 +256,11 @@ COMMIT;
 START TRANSACTION;
 USE `hotel`;
 INSERT INTO `hotel`.`BOOK_REQUEST` (`idRequest`, `creationDateTime`, `userFK`, `persons`, `roomTypeFK`, `checkIn`, `checkOut`, `processed`)
-VALUES (1, '2017-01-15 12:51:07', 2, 2, 1, '2017-01-15', '2017-01-21', 1);
+VALUES (1, '2017-01-15 12:51:07', 2, 2, 1, '2017-02-15', '2017-02-21', 1);
 INSERT INTO `hotel`.`BOOK_REQUEST` (`idRequest`, `creationDateTime`, `userFK`, `persons`, `roomTypeFK`, `checkIn`, `checkOut`, `processed`)
-VALUES (2, '2017-01-16 19:34:08', 2, 3, 1, '2017-01-16', '2017-01-21', 0);
+VALUES (2, '2017-01-16 19:34:08', 2, 3, 1, '2017-02-16', '2017-02-21', 0);
 INSERT INTO `hotel`.`BOOK_REQUEST` (`idRequest`, `creationDateTime`, `userFK`, `persons`, `roomTypeFK`, `checkIn`, `checkOut`, `processed`)
-VALUES (3, '2017-01-17 19:15:57', 2, 5, 1, '2017-01-13', '2017-01-21', 0);
+VALUES (3, '2017-01-17 19:15:57', 2, 5, 1, '2017-02-13', '2017-02-21', 0);
 
 COMMIT;
 
@@ -267,6 +271,16 @@ START TRANSACTION;
 USE `hotel`;
 INSERT INTO `hotel`.`BILL` (`idBill`, `creationDateTime`, `bookRequestFK`, `roomFK`, `price`)
 VALUES (1, '2017-01-16 19:34:08', 1, 1, 120);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `hotel`.`RESERVED_ROOM`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `hotel`;
+INSERT INTO `hotel`.`RESERVED_ROOM` (`idReservedRoom`, `roomFK`, `checkIn`, `checkOut`)
+VALUES (1, 1, '2017-01-28', '2017-01-30');
 
 COMMIT;
 
