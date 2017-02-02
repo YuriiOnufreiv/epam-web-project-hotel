@@ -1,14 +1,16 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.JspConfig;
-import ua.onufreiv.hotel.controller.manager.PathConfig;
+import ua.onufreiv.hotel.controller.config.JspConfig;
+import ua.onufreiv.hotel.controller.config.PathConfig;
 import ua.onufreiv.hotel.entity.Room;
+import ua.onufreiv.hotel.service.RoomTypeService;
 import ua.onufreiv.hotel.service.impl.RoomServiceImpl;
+import ua.onufreiv.hotel.service.impl.RoomTypeServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
+import static ua.onufreiv.hotel.controller.config.JspConfig.*;
 
 /**
  * Command for adding new room
@@ -19,10 +21,12 @@ import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
  */
 public class CommandAddNewRoom implements Command {
     private final RoomServiceImpl roomServiceImpl;
+    private final RoomTypeService roomTypeServiceImpl;
     private final JspConfig names;
 
     public CommandAddNewRoom() {
         roomServiceImpl = RoomServiceImpl.getInstance();
+        roomTypeServiceImpl = RoomTypeServiceImpl.getInstance();
         names = JspConfig.getInstance();
     }
 
@@ -55,6 +59,7 @@ public class CommandAddNewRoom implements Command {
         } else {
             request.setAttribute(names.get(ADD_ROOM_ERROR_NAME), true);
         }
+        request.setAttribute(names.get(ID_ROOM_TYPE_MAP_NAME), roomTypeServiceImpl.findAllAsMap());
 
         return PathConfig.getInstance().getProperty(PathConfig.ADD_NEW_ROOM_PAGE_PATH);
     }

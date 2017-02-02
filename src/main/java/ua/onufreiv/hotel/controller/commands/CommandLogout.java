@@ -1,6 +1,6 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.PathConfig;
+import ua.onufreiv.hotel.controller.config.PathConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

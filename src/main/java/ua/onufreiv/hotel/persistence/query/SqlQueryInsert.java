@@ -8,7 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by yurii on 1/5/17.
+ * This class represents builder for SQL INSERT statements
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/5/17.
  */
 public class SqlQueryInsert implements SqlQuery {
     private final static Logger logger = Logger.getLogger(SqlQueryInsert.class);
@@ -29,16 +33,38 @@ public class SqlQueryInsert implements SqlQuery {
         return values;
     }
 
+    /**
+     * Sets name of table to which the record will be inserted.
+     *
+     * @param tableName name of table to insert into
+     * @return {@code this} object
+     */
     public SqlQueryInsert into(String tableName) {
         this.tableName = tableName;
         return this;
     }
 
+    /**
+     * Adds column name and value which will be inserted to that column
+     *
+     * @param column column name
+     * @param value  value to insert into this column
+     * @return {@code this} object
+     */
     public SqlQueryInsert value(String column, Object value) {
         values.put(column, value);
         return this;
     }
 
+    /**
+     * Executes with the help of passed connection SQL INSERT statement that was built.
+     * Especially, it creates {@link PreparedStatement} on the basis of {@code getSqlStatement()},
+     * sets values to this statement by calling {@code fillPreparedStatement(preparedStatement)},
+     * and executes it with the help of {@code executeUpdate()} method.
+     *
+     * @param connection connection for executing {@link PreparedStatement}
+     * @return id of inserted row; -1 if row wasn't inserted
+     */
     public int execute(Connection connection) {
         ResultSet generatedKeys = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(getSqlStatement(),
@@ -64,11 +90,17 @@ public class SqlQueryInsert implements SqlQuery {
         return -1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTableName() {
         return tableName;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSqlStatement() {
         String[] questionMarks = new String[values.size()];
@@ -83,6 +115,9 @@ public class SqlQueryInsert implements SqlQuery {
         return builder.toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int fillPreparedStatement(PreparedStatement preparedStatement) throws SQLException {
         int i = 1;

@@ -9,7 +9,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by yurii on 1/5/17.
+ * This class is responsible for establishing and management of connections with the database.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/5/17.
  */
 public class ConnectionManager {
     private final static Logger logger = Logger.getLogger(ConnectionManager.class);
@@ -17,10 +21,14 @@ public class ConnectionManager {
     private static DataSource dataSource;
     private static Connection transactionConnection;
     private static boolean transactionIsActive;
-    private static int isolationLevel;
+    private static int isolationLevel = Connection.TRANSACTION_READ_COMMITTED;
 
     public static DatabaseType databaseType;
 
+    /**
+     * Reads properties from the bundle, especially type of database
+     * and isolation level of transactions
+     */
     private static void readDBProperties() {
         switch (DatabaseConfig.getInstance().getProperty(DatabaseConfig.DATABASE_TYPE)) {
             case "mysql":
@@ -33,6 +41,9 @@ public class ConnectionManager {
                 .getProperty(DatabaseConfig.DATABASE_TRANSACTIONS_LEVEL));
     }
 
+    /**
+     * Initializes connection pooling with the required database
+     */
     private static void initialiseAppropriatePool() {
         try {
             switch (databaseType) {
@@ -51,11 +62,20 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * Reads data about DB from properties and initializes connection pool.
+     */
     public static void createPoolFromJndi() {
         readDBProperties();
         initialiseAppropriatePool();
     }
 
+    /**
+     * Returns connections for dealing with the database. If {@code transactionIsActive} value is
+     * {@code true}, then it returns connection contained in {@code transactionConnection} field.
+     *
+     * @return connection to the database
+     */
     public static Connection getConnection() {
         try {
             if (transactionIsActive) {
@@ -71,6 +91,13 @@ public class ConnectionManager {
         return null;
     }
 
+    /**
+     * Closes connection passed as parameter.
+     * Actually, if passed connection equals to {@code transactionConnection}
+     * this connection will be closed only if value of {@code transactionIsActive} is {@code true}.
+     *
+     * @param connection connection to close
+     */
     public static void closeConnection(Connection connection) {
         try {
             if (connection != null && !connection.isClosed()) {
@@ -89,10 +116,21 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * Initializes transaction with the
+     *
+     * @return
+     */
     public static Connection startTransaction() {
-        return startTransaction(Connection.TRANSACTION_READ_COMMITTED);
+        return startTransaction(isolationLevel);
     }
 
+    /**
+     * Initializes transaction with the specified isolation level.
+     *
+     * @param isolationLevel isolation level of transactions.
+     * @return created connection
+     */
     public static Connection startTransaction(int isolationLevel) {
         if (transactionConnection == null) {
             try {
@@ -100,6 +138,7 @@ public class ConnectionManager {
                 transactionConnection.setAutoCommit(false);
                 transactionConnection.setTransactionIsolation(isolationLevel);
                 transactionIsActive = true;
+                setIsolationLevel(isolationLevel);
                 logger.info("Transaction started: " + transactionConnection.toString());
             } catch (SQLException e) {
                 logger.error("Failed to start transaction: ", e);
@@ -108,28 +147,42 @@ public class ConnectionManager {
         return transactionConnection;
     }
 
-    public static void commit() {
+    /**
+     * Commits the transaction
+     *
+     * @return true if commit was successful, false otherwise
+     */
+    public static boolean commit() {
         try {
             transactionConnection.commit();
             logger.info("Transaction committed: " + transactionConnection.toString());
         } catch (SQLException e) {
             logger.error("Failed to commit transaction: ", e);
             rollback();
+            return false;
         } finally {
             transactionIsActive = false;
             closeConnection(transactionConnection);
             transactionConnection = null;
             logger.info("Transaction connection set to null");
         }
+        return true;
     }
 
-    public static void rollback() {
+    /**
+     * Rollback of transaction
+     *
+     * @return true if rollback was successful, false otherwise
+     */
+    public static boolean rollback() {
         try {
             transactionConnection.rollback();
             logger.info("Transaction rollback" + transactionConnection.toString());
         } catch (SQLException e) {
             logger.error("Failed to rollback transaction: ", e);
+            return false;
         }
+        return true;
     }
 
     public static int getIsolationLevel() {

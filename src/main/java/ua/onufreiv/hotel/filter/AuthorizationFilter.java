@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.filter;
 
 import org.apache.log4j.Logger;
-import ua.onufreiv.hotel.controller.manager.PathConfig;
+import ua.onufreiv.hotel.controller.config.PathConfig;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

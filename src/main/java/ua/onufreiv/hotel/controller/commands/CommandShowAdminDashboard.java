@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.JspConfig;
-import ua.onufreiv.hotel.controller.manager.PathConfig;
+import ua.onufreiv.hotel.controller.config.JspConfig;
+import ua.onufreiv.hotel.controller.config.PathConfig;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.service.BookRequestService;
 import ua.onufreiv.hotel.service.ReservedRoomService;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
+import static ua.onufreiv.hotel.controller.config.JspConfig.*;
 
 /**
  * Command for showing admin's dashboard with all required date

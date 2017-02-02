@@ -3,7 +3,11 @@ package ua.onufreiv.hotel.persistence;
 import java.util.ResourceBundle;
 
 /**
- * Created by yurii on 1/17/17.
+ * Helper class for dealing with the 'database.properties' bundle
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/17/17.
  */
 public class DatabaseConfig {
     private static final String BUNDLE_NAME = "database";

@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.JspConfig;
-import ua.onufreiv.hotel.controller.manager.PathConfig;
+import ua.onufreiv.hotel.controller.config.JspConfig;
+import ua.onufreiv.hotel.controller.config.PathConfig;
 import ua.onufreiv.hotel.entity.BookRequest;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.BookRequestService;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
-import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
+import static ua.onufreiv.hotel.controller.config.JspConfig.*;
 
 /**
  * Created by yurii on 1/1/17.

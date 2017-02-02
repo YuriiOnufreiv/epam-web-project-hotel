@@ -1,4 +1,4 @@
-package ua.onufreiv.hotel.controller.manager;
+package ua.onufreiv.hotel.controller.config;
 
 import java.util.ResourceBundle;
 

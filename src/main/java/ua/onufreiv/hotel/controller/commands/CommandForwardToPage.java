@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.JspConfig;
-import ua.onufreiv.hotel.controller.manager.PathConfig;
+import ua.onufreiv.hotel.controller.config.JspConfig;
+import ua.onufreiv.hotel.controller.config.PathConfig;
 import ua.onufreiv.hotel.service.RoomTypeService;
 import ua.onufreiv.hotel.service.impl.RoomTypeServiceImpl;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-import static ua.onufreiv.hotel.controller.manager.JspConfig.ID_ROOM_TYPE_MAP_NAME;
+import static ua.onufreiv.hotel.controller.config.JspConfig.ID_ROOM_TYPE_MAP_NAME;
 
 /**
  * Command that returns path of the required page

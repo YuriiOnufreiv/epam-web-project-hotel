@@ -4,7 +4,7 @@ import ua.onufreiv.hotel.persistence.DatabaseType;
 import ua.onufreiv.hotel.persistence.dao.mysql.MySqlDaoFactory;
 
 /**
- * DAO factory class
+ * DAO factory abstract class
  */
 public abstract class DaoFactory {
 

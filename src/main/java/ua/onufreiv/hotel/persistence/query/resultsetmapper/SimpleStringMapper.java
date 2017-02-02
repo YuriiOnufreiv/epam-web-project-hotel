@@ -4,9 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by yurii on 1/28/17.
+ * Class for mapping row of a ResultSet to instance of {@link String} class.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/28/17.
  */
 public class SimpleStringMapper implements ResultSetMapper<String> {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String map(ResultSet rs) throws SQLException {
         return rs.getString(1);

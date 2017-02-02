@@ -6,9 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by yurii on 1/23/17.
+ * Class for mapping rows of a ResultSet to instance of {@link ReservedRoom} class.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/23/17.
  */
 public class ReservedRoomMapper implements ResultSetMapper<ReservedRoom> {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ReservedRoom map(ResultSet rs) throws SQLException {
         ReservedRoom reservedRoom = new ReservedRoom();

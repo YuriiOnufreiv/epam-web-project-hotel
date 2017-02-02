@@ -57,8 +57,7 @@ public class BillServiceImpl implements BillService {
             bookRequest.setProcessed(false);
             return false;
         }
-        ConnectionManager.commit();
-        return true;
+        return ConnectionManager.commit();
     }
 
     @Override

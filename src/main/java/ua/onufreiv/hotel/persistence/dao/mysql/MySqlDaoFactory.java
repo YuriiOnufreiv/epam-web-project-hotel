@@ -3,7 +3,11 @@ package ua.onufreiv.hotel.persistence.dao.mysql;
 import ua.onufreiv.hotel.persistence.dao.*;
 
 /**
- * Created by yurii on 12/23/16.
+ * DAO factory class for dealing with MySql database
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 12/23/16.
  */
 public class MySqlDaoFactory extends DaoFactory {
     private static MySqlDaoFactory instance;

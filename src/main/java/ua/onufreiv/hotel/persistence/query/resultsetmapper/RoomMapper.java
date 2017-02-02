@@ -6,9 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by yurii on 1/23/17.
+ * Class for mapping rows of a ResultSet to instance of {@link Room} class.
+ *
+ * @author Yurii Onufreiv
+ * @version 1.0
+ * @since 1/23/17.
  */
 public class RoomMapper implements ResultSetMapper<Room> {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Room map(ResultSet rs) throws SQLException {
         Room room = new Room();

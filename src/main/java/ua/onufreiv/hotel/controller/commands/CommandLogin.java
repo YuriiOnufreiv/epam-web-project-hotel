@@ -1,7 +1,7 @@
 package ua.onufreiv.hotel.controller.commands;
 
-import ua.onufreiv.hotel.controller.manager.JspConfig;
-import ua.onufreiv.hotel.controller.manager.PathConfig;
+import ua.onufreiv.hotel.controller.config.JspConfig;
+import ua.onufreiv.hotel.controller.config.PathConfig;
 import ua.onufreiv.hotel.entity.User;
 import ua.onufreiv.hotel.service.AuthService;
 import ua.onufreiv.hotel.service.impl.AuthServiceImpl;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static ua.onufreiv.hotel.controller.manager.JspConfig.*;
+import static ua.onufreiv.hotel.controller.config.JspConfig.*;
 
 /**
  * Command for performing login with the specified credentials.
